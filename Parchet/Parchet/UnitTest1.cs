@@ -18,5 +18,19 @@ namespace Parchet
         {
             return lungime*latime;
         }
+
+        [TestMethod]
+        public void DimParchet()
+        {
+            Parchet obj = new Parchet();
+            double Supraf = obj.CalcSuprP(1.00, 0.25);
+            Assert.AreEqual(1.00 * 0.25, Supraf);
+        }
+
+        public double CalcSuprP(double lungime, double latime)
+        {
+            return 0;
+        }
+
     }
 }
