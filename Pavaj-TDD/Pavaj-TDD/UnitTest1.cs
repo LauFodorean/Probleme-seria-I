@@ -18,9 +18,9 @@ namespace Pavaj_TDD
         {
             int numar;
             if ((dim1 % dim2) > 0)
-                return 0;
+                return numar = (dim1 / dim2) + 1;
             else
-                return 0;
+                return numar = dim1 / dim2;
         }
 
 
