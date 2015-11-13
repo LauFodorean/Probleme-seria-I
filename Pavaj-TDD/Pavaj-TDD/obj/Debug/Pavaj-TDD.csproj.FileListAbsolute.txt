@@ -1,0 +1,5 @@
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Pavaj-TDD\Pavaj-TDD\bin\Debug\Pavaj-TDD.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Pavaj-TDD\Pavaj-TDD\bin\Debug\Pavaj-TDD.pdb
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Pavaj-TDD\Pavaj-TDD\obj\Debug\Pavaj-TDD.csprojResolveAssemblyReference.cache
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Pavaj-TDD\Pavaj-TDD\obj\Debug\Pavaj-TDD.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Pavaj-TDD\Pavaj-TDD\obj\Debug\Pavaj-TDD.pdb
