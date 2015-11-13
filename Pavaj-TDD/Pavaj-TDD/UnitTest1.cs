@@ -23,6 +23,21 @@ namespace Pavaj_TDD
                 return numar = dim1 / dim2;
         }
 
+        [TestMethod]
+        public void TotalPavele()
+        {
+            Calcule obj = new Calcule();
+            int rezultat = obj.NrPavele(30, 20);
+            Assert.AreEqual(600, rezultat);
+        }
+
+        public int NrPavele(int nr1, int nr2)
+        {
+            return 0;
+        }
+
+
+
 
     }
 }
