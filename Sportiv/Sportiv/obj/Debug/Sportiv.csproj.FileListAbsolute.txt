@@ -1,0 +1,5 @@
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Sportiv\Sportiv\bin\Debug\Sportiv.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Sportiv\Sportiv\bin\Debug\Sportiv.pdb
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Sportiv\Sportiv\obj\Debug\Sportiv.csprojResolveAssemblyReference.cache
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Sportiv\Sportiv\obj\Debug\Sportiv.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Sportiv\Sportiv\obj\Debug\Sportiv.pdb
