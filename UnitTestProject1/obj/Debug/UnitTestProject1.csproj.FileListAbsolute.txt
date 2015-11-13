@@ -1,0 +1,5 @@
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\UnitTestProject1\bin\Debug\UnitTestProject1.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\UnitTestProject1\bin\Debug\UnitTestProject1.pdb
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\UnitTestProject1\obj\Debug\UnitTestProject1.csprojResolveAssemblyReference.cache
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\UnitTestProject1\obj\Debug\UnitTestProject1.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\UnitTestProject1\obj\Debug\UnitTestProject1.pdb
