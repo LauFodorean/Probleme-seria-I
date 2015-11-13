@@ -42,7 +42,38 @@ namespace Parchet
 
         public int BucParchet(double SuprCam, double SuprBucP)
         {
-            return 0;
+            double BucatiD = SuprCam / SuprBucP;
+            int BucatiI = 0;
+            double BucatiD2;
+            int BucatiI2 = 0;
+            int nr;
+            BucatiI = Convert.ToInt32(BucatiD);
+            double dif,dif2;
+            dif = BucatiD-BucatiI;
+            if (dif > 0)
+            {
+                nr = (BucatiI + 1);
+                BucatiD2 = nr*1.15;
+                BucatiI2 = Convert.ToInt32(BucatiD2);
+                dif2 = BucatiD2 - BucatiI2;
+                if (dif > 0)
+                    nr = BucatiI2 + 1;
+                else
+                    nr = BucatiI2;
+            }
+            else
+            {
+                nr = BucatiI;
+                BucatiD2 = nr * 1.15;
+                BucatiI2 = Convert.ToInt32(BucatiD2);
+                dif2 = BucatiD2 - BucatiI2;
+                if (dif > 0)
+                    nr = BucatiI2 + 1;
+                else
+                    nr = BucatiI2;
+            }
+            
+            return nr;
         }
 
      }
