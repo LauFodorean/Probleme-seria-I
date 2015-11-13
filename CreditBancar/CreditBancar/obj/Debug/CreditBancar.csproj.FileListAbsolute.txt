@@ -1,0 +1,5 @@
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\CreditBancar\CreditBancar\bin\Debug\CreditBancar.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\CreditBancar\CreditBancar\bin\Debug\CreditBancar.pdb
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\CreditBancar\CreditBancar\obj\Debug\CreditBancar.csprojResolveAssemblyReference.cache
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\CreditBancar\CreditBancar\obj\Debug\CreditBancar.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\CreditBancar\CreditBancar\obj\Debug\CreditBancar.pdb
