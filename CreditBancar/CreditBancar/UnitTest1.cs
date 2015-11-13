@@ -10,14 +10,17 @@ namespace CreditBancar
         public void Rata()
         {
             Credit obj = new Credit();
-            double rata = obj.CalculRata(40000.00, 7.57);
+            decimal rata = obj.CalculRata(40000.00m,20.00m,7.57m);
             Assert.AreEqual(179.28,rata);
 
         }
 
-        public double CalculRata(double suma, double procent)
+        public decimal CalculRata(decimal suma,decimal pd, decimal procent)
         {
-            return 0.00;
+            decimal rata;    
+            rata = suma / (pd * 12) * (1 + (procent / 100));
+            return rata;
+            
         }
     }
 }
