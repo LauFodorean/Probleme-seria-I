@@ -33,7 +33,7 @@ namespace Pavaj_TDD
 
         public int NrPavele(int nr1, int nr2)
         {
-            return 0;
+            return nr1 * nr2;
         }
 
 
