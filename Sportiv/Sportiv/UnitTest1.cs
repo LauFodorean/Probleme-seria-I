@@ -16,7 +16,7 @@ namespace Sportiv
 
         public int CalculRepetitii(int rep)
         {
-            return 0;
+            return rep*rep;
         }
     }
 }
