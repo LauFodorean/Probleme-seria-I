@@ -4,19 +4,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Sportiv
 {
     [TestClass]
-    public class Sportiv
+    public class Athlete
     {
         [TestMethod]
-        public void CalculTest()
+        public void CalcutionTest()
         {
-            Sportiv sp = new Sportiv();
-            int repetitii = sp.CalculRepetitii(4);
-            Assert.AreEqual(16,repetitii);
+            int repetitions = RepetitionCount(4);
+            Assert.AreEqual(16,repetitions);
         }
 
-        public int CalculRepetitii(int rep)
+        public int RepetitionCount(int repetition)
         {
-            return rep*rep;
+            return repetition * repetition;
         }
     }
 }
