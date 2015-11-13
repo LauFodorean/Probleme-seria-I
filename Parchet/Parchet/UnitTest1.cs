@@ -29,8 +29,8 @@ namespace Parchet
 
         public double CalcSuprP(double lungime, double latime)
         {
-            return 0;
+            return lungime*latime;
         }
 
-    }
+     }
 }
