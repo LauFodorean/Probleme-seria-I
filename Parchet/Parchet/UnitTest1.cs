@@ -9,8 +9,8 @@ namespace Parchet
         [TestMethod]
         public void SuprafataCamera()
         {
-            Parchet obj = new Parchet();
-            double SuprafCamera = obj.CalcSuprCam(5.45, 7.55);
+            
+            double SuprafCamera = CalcSuprCam(5.45, 7.55);
             Assert.AreEqual(5.45 * 7.55, SuprafCamera);
         }
 
@@ -22,8 +22,8 @@ namespace Parchet
         [TestMethod]
         public void DimParchet()
         {
-            Parchet obj = new Parchet();
-            double Supraf = obj.CalcSuprP(1.00, 0.25);
+            
+            double Supraf = CalcSuprP(1.00, 0.25);
             Assert.AreEqual(1.00 * 0.25, Supraf);
         }
 
@@ -35,45 +35,24 @@ namespace Parchet
         [TestMethod]
         public void NumarBucati()
         {
-            Parchet obj = new Parchet();
-            double BucatiParchet = obj.BucParchet(5.45*7.55, 0.25);
+            
+            double BucatiParchet = BucParchet(5.45, 7.55, 1.00, 0.25);
             Assert.AreEqual(190, BucatiParchet);
         }
 
-        public int BucParchet(double SuprCam, double SuprBucP)
+        public int BucParchet(double lungime, double latime, double lungimeP, double latimeP) //lungimeP si latimeP sunt dimensiunile bucatii de parchet
         {
-            double BucatiD = SuprCam / SuprBucP;
-            int BucatiI = 0;
-            double BucatiD2;
-            int BucatiI2 = 0;
-            int nr;
-            BucatiI = Convert.ToInt32(BucatiD);
-            double dif,dif2;
-            dif = BucatiD-BucatiI;
-            if (dif > 0)
-            {
-                nr = (BucatiI + 1);
-                BucatiD2 = nr*1.15;
-                BucatiI2 = Convert.ToInt32(BucatiD2);
-                dif2 = BucatiD2 - BucatiI2;
-                if (dif > 0)
-                    nr = BucatiI2 + 1;
-                else
-                    nr = BucatiI2;
-            }
+            double SuprafataNec = lungime * latime * 1.15;
+            double dimensiune = lungimeP * latimeP;
+            double nr1 = SuprafataNec / dimensiune;
+            int bucatiparchet;
+            int nr2 = Convert.ToInt32(nr1);
+            double diferenta = nr1%nr2;
+            if (diferenta>0)
+                bucatiparchet=nr2+1;
             else
-            {
-                nr = BucatiI;
-                BucatiD2 = nr * 1.15;
-                BucatiI2 = Convert.ToInt32(BucatiD2);
-                dif2 = BucatiD2 - BucatiI2;
-                if (dif > 0)
-                    nr = BucatiI2 + 1;
-                else
-                    nr = BucatiI2;
-            }
-            
-            return nr;
+                bucatiparchet=nr2;
+            return bucatiparchet;
         }
 
      }
