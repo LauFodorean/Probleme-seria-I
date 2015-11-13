@@ -32,5 +32,18 @@ namespace Parchet
             return lungime*latime;
         }
 
+        [TestMethod]
+        public void NumarBucati()
+        {
+            Parchet obj = new Parchet();
+            double BucatiParchet = obj.BucParchet(5.45*7.55, 0.25);
+            Assert.AreEqual(190, BucatiParchet);
+        }
+
+        public int BucParchet(double SuprCam, double SuprBucP)
+        {
+            return 0;
+        }
+
      }
 }
