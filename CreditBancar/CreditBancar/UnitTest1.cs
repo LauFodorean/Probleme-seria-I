@@ -7,20 +7,58 @@ namespace CreditBancar
     public class Credit
     {
         [TestMethod]
-        public void Rata()
+        public void Rate()
         {
-            decimal rata = CalculRata(40000.00m,20.00m,7.57m);
-            Assert.AreEqual(40000.00m / (20.00m *12)*(1+(7.57m/100)), rata);
+            decimal BankRate = FirstBankRate(40000.00m,20.00m,7.57m);
+            Assert.AreEqual(40000.00m / (20.00m *12)*(1+(7.57m/100)), BankRate);
 
         }
 
-        public decimal CalculRata(decimal suma,decimal pd, decimal procent)
+        public decimal FirstBankRate(decimal amount, decimal period, decimal percent)
         {
-            //decimal rata;    
-            //rata = suma / (pd * 12) * (1 + (procent / 100));
-            //return rata;
-            return 0;
+            decimal FirstRate;
+            FirstRate = amount / (period * 12) * (1 + (percent / 100));
+            return FirstRate;
+                        
+        }
+
+        [TestMethod]
+        public void RandomRate()
+        {
+            decimal BankRate = RandomBankRate(40000.00m, 20,1,3, 7.57m);
+            Assert.AreEqual(177.67m, BankRate);
+        
+        }
+
+        public decimal RandomBankRate(decimal amount, int period, int year, int month, decimal percent)
+        {
+            decimal RandomRate=0.00m;
+            if (year == 1)
+                for (int i = 1; i <= month; i++)
+                {
+                    decimal rate = amount / (period * 12) * (1 + (percent / 100));
+                    amount =amount - rate;
+                                        
+                    if (i == month)
+                        RandomRate = rate;
+                    
+                }
+            else
+            {
+                int RequestedMonth = (year*12)+month;
+                for (int i = 1; i <= RequestedMonth; i++)
+                {
+                    decimal rate = amount / (period * 12) * (1 + (percent / 100));
+                    amount = amount - rate;
+                                        
+                    if (i == RequestedMonth)
+                        RandomRate = rate;
+                }
+            }
+            return RandomRate;
             
         }
+
+
     }
 }
