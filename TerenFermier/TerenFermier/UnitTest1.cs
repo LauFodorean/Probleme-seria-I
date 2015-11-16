@@ -9,13 +9,20 @@ namespace FarmerField
         [TestMethod]
         public void Side()
         {
-            double OriginalSide = CalculusOfSide(2, 1);
+            double OriginalSide = CalculusOfSide(6, 5);
             Assert.AreEqual(1, OriginalSide);
         }
 
         public int CalculusOfSide(int TotalArea, int KnownLenght)
         {
-            return 0;
+            int a = 0, Result = 0;
+            do
+            {
+                a = a + 1;
+                Result = TotalArea / a - a;
+            }
+            while (Result != 5);
+            return a;
         }
     }
 }
