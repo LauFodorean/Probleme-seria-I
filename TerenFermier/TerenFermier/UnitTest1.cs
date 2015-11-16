@@ -9,6 +9,13 @@ namespace FarmerField
         [TestMethod]
         public void Side()
         {
+            double OriginalSide = CalculusOfSide(6, 5);
+            Assert.AreEqual(1, OriginalSide);
+        }
+
+        [TestMethod]
+        public void WantedSide()
+        {
             double OriginalSide = CalculusOfSide(770000, 230);
             Assert.AreEqual(770, OriginalSide);
         }
