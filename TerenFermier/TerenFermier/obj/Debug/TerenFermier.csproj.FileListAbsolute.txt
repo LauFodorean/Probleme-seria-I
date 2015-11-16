@@ -1,0 +1,5 @@
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\TerenFermier\TerenFermier\bin\Debug\TerenFermier.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\TerenFermier\TerenFermier\bin\Debug\TerenFermier.pdb
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\TerenFermier\TerenFermier\obj\Debug\TerenFermier.csprojResolveAssemblyReference.cache
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\TerenFermier\TerenFermier\obj\Debug\TerenFermier.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\TerenFermier\TerenFermier\obj\Debug\TerenFermier.pdb
