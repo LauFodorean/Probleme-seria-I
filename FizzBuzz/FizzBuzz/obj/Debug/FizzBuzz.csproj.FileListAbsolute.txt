@@ -1,0 +1,5 @@
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\FizzBuzz\FizzBuzz\bin\Debug\FizzBuzz.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\FizzBuzz\FizzBuzz\bin\Debug\FizzBuzz.pdb
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\FizzBuzz\FizzBuzz\obj\Debug\FizzBuzz.csprojResolveAssemblyReference.cache
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\FizzBuzz\FizzBuzz\obj\Debug\FizzBuzz.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\FizzBuzz\FizzBuzz\obj\Debug\FizzBuzz.pdb
