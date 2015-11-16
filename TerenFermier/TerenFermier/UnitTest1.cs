@@ -9,8 +9,8 @@ namespace FarmerField
         [TestMethod]
         public void Side()
         {
-            double OriginalSide = CalculusOfSide(6, 5);
-            Assert.AreEqual(1, OriginalSide);
+            double OriginalSide = CalculusOfSide(770000, 230);
+            Assert.AreEqual(770, OriginalSide);
         }
 
         public int CalculusOfSide(int TotalArea, int KnownLenght)
@@ -19,9 +19,9 @@ namespace FarmerField
             do
             {
                 a = a + 1;
-                Result = TotalArea / a - a;
+                Result = (TotalArea / a) - a;
             }
-            while (Result != 5);
+            while (Result != KnownLenght);
             return a;
         }
     }
