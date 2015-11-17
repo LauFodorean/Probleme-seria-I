@@ -27,21 +27,20 @@ namespace FizzBuzz
             Assert.AreEqual("FizzBuzz", result);
         }
 
-        public string FizzBuzzMethod(int GivenNumber, int FirstDivisor, int SecondDivisor)
+        public string FizzBuzzMethod(int givenNumber, int firstDivisor, int secondDivisor)
         {
-            String ActualResult=" ";
-            double FirstReminder = GivenNumber % FirstDivisor;
-            double SecondReminder = GivenNumber % SecondDivisor;
-            if (FirstReminder == 0 && SecondReminder == 0)
-                ActualResult = "FizzBuzz";
+            String actualResult=" ";
+            double firstReminder = givenNumber % firstDivisor;
+            double secondReminder = givenNumber % secondDivisor;
+            if (firstReminder == 0 && secondReminder == 0)
+                actualResult = "FizzBuzz";
             else
-                if (FirstReminder == 0 && SecondReminder != 0)
-                    ActualResult = "Fizz";
+                if (firstReminder == 0 && secondReminder != 0)
+                    actualResult = "Fizz";
                 else
-                    if (FirstReminder != 0 && SecondReminder == 0)
-                    ActualResult = "Buzz";
+                    actualResult = "Buzz";
 
-            return ActualResult;
+            return actualResult;
         }
     }
 }
