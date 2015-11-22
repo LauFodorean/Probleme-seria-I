@@ -20,13 +20,25 @@ namespace Rent
             Assert.AreEqual(125, rent);
         }
 
+        [TestMethod]
+        public void RentDelayThirtyoneToFourtyDays()
+        {
+            decimal rent = RentCalculation(100, 31);
+            Assert.AreEqual(125, rent);
+        }
+
         public decimal RentCalculation(decimal usualRent, int delayInPayments)
         {
             decimal rent = 0;
-            if (delayInPayments<11)
+            if (delayInPayments < 11)
                 rent = (usualRent / 100) * 2 * delayInPayments + usualRent;
             else
-                rent = ((usualRent / 100) * 2 * 10 + usualRent) + ((usualRent / 100) * 5 * (delayInPayments - 10));
+                if (delayInPayments < 31)
+                    rent = ((usualRent / 100) * 2 * 10 + usualRent) + ((usualRent / 100) * 5 * (delayInPayments - 10));
+                else
+                    return 0;
+                
+                    
             return rent;
         }
     }
