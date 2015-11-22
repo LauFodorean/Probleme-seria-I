@@ -24,22 +24,31 @@ namespace Rent
         public void RentDelayThirtyoneToFourtyDays()
         {
             decimal rent = RentCalculation(100, 31);
-            Assert.AreEqual(125, rent);
+            Assert.AreEqual(230, rent);
         }
 
         public decimal RentCalculation(decimal usualRent, int delayInPayments)
         {
             decimal rent = 0;
             if (delayInPayments < 11)
-                rent = (usualRent / 100) * 2 * delayInPayments + usualRent;
+                rent = TwoPercentCalculus(usualRent) * delayInPayments + usualRent;
             else
                 if (delayInPayments < 31)
-                    rent = ((usualRent / 100) * 2 * 10 + usualRent) + ((usualRent / 100) * 5 * (delayInPayments - 10));
+                    rent = (TwoPercentCalculus(usualRent) * 10 + usualRent) + FivePercentCalculus(usualRent) * (delayInPayments - 10);
                 else
-                    return 0;
-                
-                    
+                    if (delayInPayments < 40)
+                        rent = (TwoPercentCalculus(usualRent)* 10 + usualRent) + ((FivePercentCalculus(usualRent) * 20) + ((usualRent / 100) * 10 * (delayInPayments - 30)));
             return rent;
+        }
+
+        private static decimal FivePercentCalculus(decimal usualRent)
+        {
+            return (usualRent / 100) * 5;
+        }
+
+        private static decimal TwoPercentCalculus(decimal usualRent)
+        {
+            return (usualRent / 100) * 2;
         }
     }
 }
