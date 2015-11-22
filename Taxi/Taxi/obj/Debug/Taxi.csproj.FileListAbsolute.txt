@@ -1,0 +1,5 @@
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Taxi\Taxi\bin\Debug\Taxi.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Taxi\Taxi\bin\Debug\Taxi.pdb
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Taxi\Taxi\obj\Debug\Taxi.csprojResolveAssemblyReference.cache
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Taxi\Taxi\obj\Debug\Taxi.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\Taxi\Taxi\obj\Debug\Taxi.pdb
