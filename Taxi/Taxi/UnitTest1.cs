@@ -27,21 +27,37 @@ namespace Taxi
             Assert.AreEqual(70, fee);
         }
 
+        [TestMethod]
+        public void NightFeeCalculationLongDistance()
+        {
+            double fee = TaxiFeeCalculation(100, 7);
+            Assert.AreEqual(800, fee);
+        }
+
         public double TaxiFeeCalculation(double distance, int hour)
         {
             double fee = 0;
             if (hour >= 8 & hour < 21)
+            {
                 if (distance <= 21)
-                fee = distance * 5;
+                    fee = distance * 5;
                 else
-                    if (distance <=60)
+                    if (distance <= 60)
                         fee = distance * 4 * 2;
                     else
                         fee = distance * 3 * 2;
-            if (hour < 8 & hour <= 21)
+            }
+            else
+            {
                 if (distance <= 21)
                     fee = distance * 7;
-            return 0;
+                else
+                    if (distance <= 60)
+                        fee = distance * 5 * 2;
+                    else
+                        fee = distance * 4 * 2;
+            }
+            return fee;
         }
     }
 }
