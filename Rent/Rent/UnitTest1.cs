@@ -15,7 +15,9 @@ namespace Rent
 
         public decimal RentCalculation(decimal usualRent, int delayInPayments)
         {
-            return 0;
+            usualRent = 100;
+            decimal rent = (usualRent / 100) * 2 + usualRent;
+            return rent;
         }
     }
 }
