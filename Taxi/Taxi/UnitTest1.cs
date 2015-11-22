@@ -20,10 +20,17 @@ namespace Taxi
             Assert.AreEqual(600, fee);
         }
 
+        [TestMethod]
+        public void NightFeeCalculationShortDistance()
+        {
+            double fee = TaxiFeeCalculation(10, 7);
+            Assert.AreEqual(70, fee);
+        }
+
         public double TaxiFeeCalculation(double distance, int hour)
         {
             double fee = 0;
-            if (hour > 8 & hour <= 21)
+            if (hour >= 8 & hour < 21)
                 if (distance <= 21)
                 fee = distance * 5;
                 else
@@ -31,7 +38,10 @@ namespace Taxi
                         fee = distance * 4 * 2;
                     else
                         fee = distance * 3 * 2;
-            return fee;
+            if (hour < 8 & hour <= 21)
+                if (distance <= 21)
+                    fee = distance * 7;
+            return 0;
         }
     }
 }
