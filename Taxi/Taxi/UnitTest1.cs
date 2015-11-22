@@ -15,7 +15,10 @@ namespace Taxi
 
         public double TaxiFeeCalculation(double distance, int hour)
         {
-            return 0;
+            double fee = 0;
+            if (hour > 8 & hour <= 21)
+                fee = distance * 5;
+            return fee;
         }
     }
 }
