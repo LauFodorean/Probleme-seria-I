@@ -15,7 +15,13 @@ namespace LunchMeal
 
         public int NumberOfDaysCalculation(int friendsVisit, int myVisit)
         {
-            return 0;
+            int numberOfDays = 0;
+            
+            do
+                numberOfDays = numberOfDays + 4;
+            while (numberOfDays % 6 != 0);
+            
+            return numberOfDays;
         }
     }
 }
