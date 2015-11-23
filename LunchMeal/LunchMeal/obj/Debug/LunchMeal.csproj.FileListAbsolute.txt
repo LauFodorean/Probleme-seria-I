@@ -1,0 +1,5 @@
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\LunchMeal\LunchMeal\bin\Debug\LunchMeal.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\LunchMeal\LunchMeal\bin\Debug\LunchMeal.pdb
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\LunchMeal\LunchMeal\obj\Debug\LunchMeal.csprojResolveAssemblyReference.cache
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\LunchMeal\LunchMeal\obj\Debug\LunchMeal.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\LunchMeal\LunchMeal\obj\Debug\LunchMeal.pdb
