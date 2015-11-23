@@ -1,0 +1,5 @@
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\NumberOoSquares\NumberOoSquares\bin\Debug\NumberOoSquares.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\NumberOoSquares\NumberOoSquares\bin\Debug\NumberOoSquares.pdb
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\NumberOoSquares\NumberOoSquares\obj\Debug\NumberOfSquares.csprojResolveAssemblyReference.cache
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\NumberOoSquares\NumberOoSquares\obj\Debug\NumberOoSquares.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\NumberOoSquares\NumberOoSquares\obj\Debug\NumberOoSquares.pdb
