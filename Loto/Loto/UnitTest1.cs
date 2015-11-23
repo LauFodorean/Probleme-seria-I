@@ -15,7 +15,10 @@ namespace Loto
 
         public int VariantsCalculation(int totalNumbers, int combinationNumber)
         {
-            return 0;
+            int numberOfVariants = 0;
+            for (int i = 1; i <= (totalNumbers - combinationNumber + 1); i++)
+                numberOfVariants = numberOfVariants + i;
+            return numberOfVariants;
         }
     }
 }
