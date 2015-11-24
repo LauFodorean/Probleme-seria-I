@@ -16,7 +16,7 @@ namespace NumberOfSquares
         public int SquareNumberCalculation(int dimension)
         {
             int numberOfSquares = 0;
-            for (int i = 1; i<9; i++)
+            for (int i = 1; i<(dimension+1); i++)
             {
                 numberOfSquares = numberOfSquares + i * i ;
 
