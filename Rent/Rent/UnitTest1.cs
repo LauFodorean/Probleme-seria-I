@@ -34,11 +34,25 @@ namespace Rent
                 rent = TwoPercentCalculus(usualRent) * delayInPayments + usualRent;
             else
                 if (delayInPayments < 31)
-                    rent = (TwoPercentCalculus(usualRent) * 10 + usualRent) + FivePercentCalculus(usualRent) * (delayInPayments - 10);
+                    rent = (TwoPercentInterest(usualRent) + usualRent) + FivePercentCalculus(usualRent) * (delayInPayments - 10);
                 else
-                    if (delayInPayments < 40)
-                        rent = (TwoPercentCalculus(usualRent)* 10 + usualRent) + ((FivePercentCalculus(usualRent) * 20) + ((usualRent / 100) * 10 * (delayInPayments - 30)));
+                    rent = (TwoPercentInterest(usualRent) + usualRent) + (FivePercentInterest(usualRent) + (TenPercentInterest(usualRent) * (delayInPayments - 30)));
             return rent;
+        }
+
+        private static decimal TenPercentInterest(decimal usualRent)
+        {
+            return (usualRent / 100) * 10;
+        }
+
+        private static decimal FivePercentInterest(decimal usualRent)
+        {
+            return FivePercentCalculus(usualRent) * 20;
+        }
+
+        private static decimal TwoPercentInterest(decimal usualRent)
+        {
+            return TwoPercentCalculus(usualRent) * 10;
         }
 
         private static decimal FivePercentCalculus(decimal usualRent)
