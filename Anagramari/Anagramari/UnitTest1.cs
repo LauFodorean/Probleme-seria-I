@@ -7,9 +7,15 @@ namespace Anagramari
     public class AnagramUnitTest
     {
         [TestMethod]
-        public void AnagramTestMethod()
+        public void AnagramTestMethod1()
         {
             Assert.AreEqual(2,AnagramCalculation("da"));
+        }
+
+        [TestMethod]
+        public void AnagramTestMethod2()
+        {
+            Assert.AreEqual(14, AnagramCalculation("masi"));
         }
 
         int AnagramCalculation(string givenWord)
