@@ -83,6 +83,13 @@ namespace RomanNumbers
             Assert.AreEqual("LIX", number);
         }
 
+        [TestMethod]
+        public void NumberSixtyTestMethod()
+        {
+            string number = CalculateRomanNumbers(60);
+            Assert.AreEqual("LX", number);
+        }
+
         public string CalculateRomanNumbers(int number)
         {
             string romanNumber = "";
@@ -128,6 +135,10 @@ namespace RomanNumbers
                         romanNumber = digitsAndNumbers[10];
                     else
                         romanNumber = digitsAndNumbers[10] + digitsAndNumbers[remainder - 1];
+                    break;
+
+                case 6:
+                    romanNumber = digitsAndNumbers[10] + digitsAndNumbers[9];
                     break;
 
             }
