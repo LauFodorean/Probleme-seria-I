@@ -14,10 +14,38 @@ namespace RomanNumbers
         }
 
         [TestMethod]
+        public void NumberTenTestMethod()
+        {
+            string number = CalculateRomanNumbers(10);
+            Assert.AreEqual("X", number);
+        }
+
+        [TestMethod]
         public void NumbersElevenToNineteenTestMethod()
         {
             string number = CalculateRomanNumbers(11);
             Assert.AreEqual("XI", number);
+        }
+
+        [TestMethod]
+        public void NumberTwentyTestMethod()
+        {
+            string number = CalculateRomanNumbers(20);
+            Assert.AreEqual("XX", number);
+        }
+
+        [TestMethod]
+        public void NumberTwentyonetoTwentynineTestMethod()
+        {
+            string number = CalculateRomanNumbers(29);
+            Assert.AreEqual("XXIX", number);
+        }
+
+        [TestMethod]
+        public void NumberThrityTestMethod()
+        {
+            string number = CalculateRomanNumbers(30);
+            Assert.AreEqual("XXX", number);
         }
 
         public string CalculateRomanNumbers(int number)
@@ -33,7 +61,21 @@ namespace RomanNumbers
                     break;
 
                 case 1:
-                    romanNumber = digitsAndNumbers[9] + digitsAndNumbers[remainder-1];
+                    if (remainder == 0)
+                        romanNumber = digitsAndNumbers[9];
+                    else
+                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[remainder-1];
+                    break;
+
+                case 2:
+                    if (remainder == 0)
+                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9];
+                    else
+                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[remainder - 1];
+                    break;
+
+                case 3:
+                    romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[9];
                     break;
 
             }
