@@ -7,14 +7,14 @@ namespace RomanNumbers
     public class RomanNumbersTest
     {
         [TestMethod]
-        public void FirstTenNumbersTestMethod()
+        public void FirstNineNumbersTestMethod()
         {
             string number = CalculateRomanNumbers(1);
             Assert.AreEqual("I", number);
         }
 
         [TestMethod]
-        public void NumbersElevenToTwentyTestMethod()
+        public void NumbersElevenToNineteenTestMethod()
         {
             string number = CalculateRomanNumbers(11);
             Assert.AreEqual("XI", number);
@@ -24,18 +24,17 @@ namespace RomanNumbers
         {
             string romanNumber = "";
             string[] digitsAndNumbers =  {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "L", "C"};
-            switch (number)
+            int caseswitch = number / 10;
+            int remainder = number % 10;
+            switch (caseswitch)
             {
-                case 1:
-                    romanNumber = romanNumber + digitsAndNumbers[0];
+                case 0:
+                    romanNumber = romanNumber + digitsAndNumbers[number-1];
                     break;
-                
-                //case 2:
-                //    int divisionByTen = number / 10;
-                //    int remainder = number % 10;
-                //    romanNumber[0] = digitsAndNumbers[9];
-                //    romanNumber[1] = digitsAndNumbers[remainder];
-                    //break;
+
+                case 1:
+                    romanNumber = digitsAndNumbers[9] + digitsAndNumbers[remainder-1];
+                    break;
 
             }
 
