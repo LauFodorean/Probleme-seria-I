@@ -48,6 +48,13 @@ namespace RomanNumbers
             Assert.AreEqual("XXX", number);
         }
 
+        [TestMethod]
+        public void NumberThrityoneToThritynineTestMethod()
+        {
+            string number = CalculateRomanNumbers(39);
+            Assert.AreEqual("XXXIX", number);
+        }
+
         public string CalculateRomanNumbers(int number)
         {
             string romanNumber = "";
@@ -75,7 +82,10 @@ namespace RomanNumbers
                     break;
 
                 case 3:
-                    romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[9];
+                    if (remainder == 0)
+                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[9];
+                    else
+                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[remainder - 1];
                     break;
 
             }
