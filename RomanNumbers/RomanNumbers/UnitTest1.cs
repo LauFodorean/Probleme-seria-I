@@ -125,6 +125,13 @@ namespace RomanNumbers
             Assert.AreEqual("LXXXIX", number);
         }
 
+        [TestMethod]
+        public void NumberNinetyTestMethod()
+        {
+            string number = CalculateRomanNumbers(90);
+            Assert.AreEqual("XC", number);
+        }
+
         public string CalculateRomanNumbers(int number)
         {
             string romanNumber = "";
@@ -192,6 +199,11 @@ namespace RomanNumbers
                     else
                         romanNumber = digitsAndNumbers[10] + digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[remainder - 1];
                     break;
+
+                case 9:
+                    romanNumber = digitsAndNumbers[9] + digitsAndNumbers[11];
+                    break;
+
 
             }
 
