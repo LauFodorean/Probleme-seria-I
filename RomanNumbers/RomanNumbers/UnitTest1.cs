@@ -55,6 +55,13 @@ namespace RomanNumbers
             Assert.AreEqual("XXXIX", number);
         }
 
+        [TestMethod]
+        public void NumberFoutyTestMethod()
+        {
+            string number = CalculateRomanNumbers(40);
+            Assert.AreEqual("XL", number);
+        }
+
         public string CalculateRomanNumbers(int number)
         {
             string romanNumber = "";
@@ -86,6 +93,10 @@ namespace RomanNumbers
                         romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[9];
                     else
                         romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[remainder - 1];
+                    break;
+
+                case 4:
+                    romanNumber = digitsAndNumbers[9] + digitsAndNumbers[10];
                     break;
 
             }
