@@ -1,0 +1,5 @@
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\RomanNumbers\RomanNumbers\obj\Debug\RomanNumbers.csprojResolveAssemblyReference.cache
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\RomanNumbers\RomanNumbers\bin\Debug\RomanNumbers.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\RomanNumbers\RomanNumbers\bin\Debug\RomanNumbers.pdb
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\RomanNumbers\RomanNumbers\obj\Debug\RomanNumbers.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\RomanNumbers\RomanNumbers\obj\Debug\RomanNumbers.pdb
