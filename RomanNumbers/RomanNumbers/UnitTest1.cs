@@ -149,85 +149,15 @@ namespace RomanNumbers
         public string CalculateRomanNumbers(int number)
         {
             string romanNumber = "";
-            string[] digitsAndNumbers =  {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "L", "C"};
-            int caseswitch = number / 10;
-            int remainder = number % 10;
-            switch (caseswitch)
-            {
-                case 0:
-                    romanNumber = romanNumber + digitsAndNumbers[number-1];
-                    break;
+            string[] romanDigits =  {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+            string[] romanMultipleOfTens = { "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC", "C" };
 
-                case 1:
-                    if (remainder == 0)
-                        romanNumber = digitsAndNumbers[9];
-                    else
-                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[remainder-1];
-                    break;
+            int digits = number % 10;
+            int tensAndHundred = number / 10;
 
-                case 2:
-                    if (remainder == 0)
-                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9];
-                    else
-                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[remainder - 1];
-                    break;
-
-                case 3:
-                    if (remainder == 0)
-                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[9];
-                    else
-                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[remainder - 1];
-                    break;
-
-                case 4:
-                    if (remainder == 0)
-                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[10];
-                    else
-                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[10] + digitsAndNumbers[remainder - 1];
-                    break;
-
-                case 5:
-                    if (remainder == 0)
-                        romanNumber = digitsAndNumbers[10];
-                    else
-                        romanNumber = digitsAndNumbers[10] + digitsAndNumbers[remainder - 1];
-                    break;
-
-                case 6:
-                    if (remainder == 0)
-                        romanNumber = digitsAndNumbers[10] + digitsAndNumbers[9];
-                    else
-                        romanNumber = digitsAndNumbers[10] + digitsAndNumbers[9] + digitsAndNumbers[remainder - 1];
-                    break;
-
-                case 7:
-                    if (remainder == 0)
-                        romanNumber = digitsAndNumbers[10] + digitsAndNumbers[9] + digitsAndNumbers[9];
-                    else
-                        romanNumber = digitsAndNumbers[10] + digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[remainder - 1];
-                    break;
-
-                case 8:
-                    if (remainder == 0) 
-                        romanNumber = digitsAndNumbers[10] + digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[9];
-                    else
-                        romanNumber = digitsAndNumbers[10] + digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[9] + digitsAndNumbers[remainder - 1];
-                    break;
-
-                case 9:
-                    if (remainder == 0)
-                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[11];
-                    else
-                        romanNumber = digitsAndNumbers[9] + digitsAndNumbers[11] + digitsAndNumbers[remainder - 1];
-                    break;
-
-                case 10:
-                    romanNumber = digitsAndNumbers[11];
-                    break;
-                    
-            }
-
-            
+            romanNumber = romanNumber + romanMultipleOfTens[tensAndHundred];
+            romanNumber = romanNumber + romanDigits[digits];
+                        
             return romanNumber;
         }
     }
