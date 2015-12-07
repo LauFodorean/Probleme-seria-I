@@ -1,0 +1,5 @@
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\LotoChancesOfWin\LotoChancesOfWin\obj\Debug\LotoChancesOfWin.csprojResolveAssemblyReference.cache
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\LotoChancesOfWin\LotoChancesOfWin\bin\Debug\LotoChancesOfWin.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\LotoChancesOfWin\LotoChancesOfWin\bin\Debug\LotoChancesOfWin.pdb
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\LotoChancesOfWin\LotoChancesOfWin\obj\Debug\LotoChancesOfWin.dll
+D:\C#\Aplicatii de acasa\Juniormind\Probleme-seria 1\Probleme-seria-I\LotoChancesOfWin\LotoChancesOfWin\obj\Debug\LotoChancesOfWin.pdb
