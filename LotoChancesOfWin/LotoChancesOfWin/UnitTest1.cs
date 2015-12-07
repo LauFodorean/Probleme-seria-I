@@ -12,15 +12,23 @@ namespace LotoChancesOfWin
             Assert.AreEqual(15, ChansesCalculation(2, 6));
         }
 
-        public int ChansesCalculation(int numbersInCombination, int numbersToChoseFrom)
+        [TestMethod]
+        public void FiveOfFourtyTest()
         {
-            int chansesOfWin = Factorial(numbersToChoseFrom) / (Factorial(numbersInCombination) * Factorial(numbersToChoseFrom - numbersInCombination));
+            Assert.AreEqual(13983816, ChansesCalculation(5, 40));
+        }
+
+        public long ChansesCalculation(int numbersInCombination, int numbersToChoseFrom)
+        {
+
+            int a = numbersToChoseFrom - numbersInCombination;
+            long chansesOfWin = Factorial(numbersToChoseFrom) / (Factorial(numbersInCombination) * Factorial(a));
             return chansesOfWin;
         }
 
-        private int Factorial(int number)
+        public long Factorial(int number)
         {
-            int factorial = 1;
+            long factorial = 1;
             for (int i = 1; i <= number; i++)
                 factorial = factorial * i;
             return factorial;
