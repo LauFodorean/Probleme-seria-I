@@ -9,14 +9,23 @@ namespace PavajPiata
         [TestMethod]
         public void NumberOfPavemetsOnSquareLenghtTestMethod()
         {
-            Assert.AreEqual(3, OneDirectionPavemetCalculation(25, 15, 10));
+            Assert.AreEqual(3, OneDirectionPavemetCalculation(25, 10, 10));
         }
 
-        public int OneDirectionPavemetCalculation(double lenghtSquareDimension, double WidthSquareDimension, int pavementDimension)
+        [TestMethod]
+        public void NumberOfPavemetsOnSquareTestMethod()
         {
-            double numberOfPavements = lenghtSquareDimension / pavementDimension;
-            numberOfPavements = Math.Ceiling(numberOfPavements);
-            return (int)numberOfPavements; 
+            Assert.AreEqual(6, OneDirectionPavemetCalculation(25, 15, 10));
+        } 
+
+        public int OneDirectionPavemetCalculation(double lenghtSquareDimension, double widthSquareDimension, int pavementDimension)
+        {
+            double numberOfPavementsOnLenght = lenghtSquareDimension / pavementDimension;
+            numberOfPavementsOnLenght = Math.Ceiling(numberOfPavementsOnLenght);
+            double numberOfPavementsOnWidth = widthSquareDimension / pavementDimension;
+            numberOfPavementsOnWidth = Math.Ceiling(numberOfPavementsOnWidth);
+            int numberOfPavements = (int)numberOfPavementsOnLenght * (int)numberOfPavementsOnWidth;
+            return numberOfPavements; 
         }
     }
 }
