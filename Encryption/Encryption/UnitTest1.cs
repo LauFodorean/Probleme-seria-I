@@ -25,6 +25,16 @@ namespace Encryption
 
         }
 
+        [TestMethod]
+        public void EcryptedTextTestMethod2()
+        {
+
+            string message = EncryptMessage("nicaieri nu e ca acas");
+            Assert.AreEqual("nraiiacncauaiesecs", message);
+
+        }
+
+
 
         public string EncryptMessage(string pmessage)
         {
@@ -35,11 +45,30 @@ namespace Encryption
             int numberOfRows;
             int restOfDivision = encryptedText.Length % numberOfColumns;
             if (restOfDivision != 0)
-                numberOfRows = (encryptedText.Length / numberOfColumns) + 1;
+                numberOfRows = NumberOfRowsCalculus(encryptedText, numberOfColumns) + 1;
             else
-                numberOfRows = encryptedText.Length / numberOfColumns;
+                numberOfRows = NumberOfRowsCalculus(encryptedText, numberOfColumns);
             char[,] lettersInMatrix = new char[numberOfColumns, numberOfRows];
             int k = 0;
+            k = MatrixPopulation(encryptedText, alphabet, numberOfColumns, numberOfRows, lettersInMatrix, k);
+            encryptedText = "";
+            encryptedText = AddingToStringFromMatrix(encryptedText, numberOfColumns, numberOfRows, lettersInMatrix);
+
+            return encryptedText;
+        }
+
+        private static string AddingToStringFromMatrix(string encryptedText, int numberOfColumns, int numberOfRows, char[,] lettersInMatrix)
+        {
+            for (int j = 0; j < numberOfRows; j++)
+                for (int i = 0; i < numberOfColumns; i++)
+                {
+                    encryptedText = encryptedText + lettersInMatrix[i, j];
+                }
+            return encryptedText;
+        }
+
+        private static int MatrixPopulation(string encryptedText, char[] alphabet, int numberOfColumns, int numberOfRows, char[,] lettersInMatrix, int k)
+        {
             for (int i = 0; i < numberOfColumns; i++)
                 for (int j = 0; j < numberOfRows; j++)
                 {
@@ -51,14 +80,12 @@ namespace Encryption
 
                     k = k + 1;
                 }
-            encryptedText = "";
-            for (int j = 0; j < numberOfRows; j++)
-                for (int i = 0; i < numberOfColumns; i++)
-                {
-                    encryptedText = encryptedText + lettersInMatrix[i, j];
-                }
+            return k;
+        }
 
-            return encryptedText;
+        private static int NumberOfRowsCalculus(string encryptedText, int numberOfColumns)
+        {
+            return (encryptedText.Length / numberOfColumns);
         }
 
     }
