@@ -12,7 +12,7 @@ namespace Encryption
         {
 
             string message = EncryptMessage(" 123 45.67");
-            Assert.AreEqual("1234567", message);
+            Assert.AreEqual("14725h36i", message);
 
         }
 
