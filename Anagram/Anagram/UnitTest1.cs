@@ -7,40 +7,18 @@ namespace Anagram
     public class AnagramationUnitTest
     {
         [TestMethod]
-        public void FirstTestMethod()
+        public void ThreeLettersWordTestMethod()
         {
-            string variant = wordAnagramation("mare");
-            Assert.AreEqual("amre", variant);
+            Assert.AreEqual(6, wordAnagramation("abc"));
         }
-
-        [TestMethod]
-        public void PivotTestMethod()
+        
+       public int wordAnagramation(string word)
         {
-            string variant = wordAnagramation("mare");
-            Assert.AreEqual("amre", variant);
-        }
-
-        public string wordAnagramation(string word)
-        {
-            string[] anagramation;
-            char letter = word[1];
-            string anagram;
-            string pivot;
-            //anagram = char.ToString(word[1]);
-            //anagram = anagram + char.ToString(word[0]);
-            //anagram = anagram + char.ToString(word[2]);
-            //anagram = anagram + char.ToString(word[3]);
-            //return anagram;
-            //for (int i = 0; i < word.Length; i++)
-                int i = 0;
-                anagram = char.ToString(word[i]);
-            for (int j = 1; j < word.Length; j++)
-                pivot = char.ToString(word[j]);
-                char.ToString(word[j]) = char.ToString(word[j + 1];
-                word[j + 1] = pivot;
-                anagram = anagram + char.ToString(word[j]) + char.ToString(word[j+1]);
-            return pivot;
-
+           int numberOfAnagrams = 1;
+           int lettersInWord = word.Length;
+           for (int i = 1; i <= lettersInWord; i++)
+               numberOfAnagrams = numberOfAnagrams * i;
+           return numberOfAnagrams;
         }
     }
 }
