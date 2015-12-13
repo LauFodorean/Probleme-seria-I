@@ -22,9 +22,15 @@ namespace Anagram
         {
            int numberOfAnagrams = 1;
            int lettersInWord = word.Length;
+           numberOfAnagrams = Factorial(numberOfAnagrams, lettersInWord);
+           return numberOfAnagrams;
+        }
+
+       private static int Factorial(int numberOfAnagrams, int lettersInWord)
+       {
            for (int i = 1; i <= lettersInWord; i++)
                numberOfAnagrams = numberOfAnagrams * i;
            return numberOfAnagrams;
-        }
+       }
     }
 }
