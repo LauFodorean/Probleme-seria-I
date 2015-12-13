@@ -11,7 +11,13 @@ namespace Anagram
         {
             Assert.AreEqual(6, wordAnagramation("abc"));
         }
-        
+
+        [TestMethod]
+        public void SixLettersWordTestMethod()
+        {
+            Assert.AreEqual(720, wordAnagramation("delfin"));
+        } 
+
        public int wordAnagramation(string word)
         {
            int numberOfAnagrams = 1;
