@@ -9,33 +9,26 @@ namespace Excel
         [TestMethod]
         public void NumberUnderTwentysixTestMethod()
         {
-            char number = ColumnNumber(6);
-            Assert.AreEqual('F',number);
+            Assert.AreEqual("F",ColumnNumber(5));
         }
 
-        [TestMethod]
-        public void NumberMultipleOfTwentysixTestMethod()
-        {
-            char number = ColumnNumber(27);
-            Assert.AreEqual('A','A', number);
-        }
+        
 
-        public char ColumnNumber(int number)
+       
+
+        public string ColumnNumber(int number)
         {
-            char[] alphabet = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-            char[] columnNumber = new char[1000];
-            int cateDivision = 0;
-            int restOfDivision = 0;
-            if (number <= 26)
-                columnNumber[number - 1] = alphabet[number - 1];
-            else
-            {
-                cateDivision = number / 26;
-                restOfDivision = number % 26;
-                for (int i = 0; i < cateDivision; i++)
-                    columnNumber[i] = alphabet[i];
-            }
-            return columnNumber[number - 1];
+           string[] alphabet = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+           string[,] matrix1;
+           string[,] matrix2;
+
+           string wantedColumndNumber = "";
+           int cateDivision = 0;
+           int restOfDivision = 0;
+           if (number < 26)
+               wantedColumndNumber = wantedColumndNumber + alphabet[number];
+           
+           return wantedColumndNumber;
 
         }
     }
