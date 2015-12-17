@@ -36,12 +36,8 @@ namespace Excel
                int cateDivision = 0;
                int restOfDivision = 0;
                cateDivision = number / 26;
-               if (cateDivision > 26)
-               {
-                   restOfDivision = number % 26;
-                   number = cateDivision;
-
-               }
+               restOfDivision = number % 26;
+               number = cateDivision;
                wantedColumndNumber = alphabet[restOfDivision - 1] + wantedColumndNumber;
            }
           
