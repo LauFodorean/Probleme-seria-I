@@ -18,6 +18,11 @@ namespace Excel
             Assert.AreEqual("AF", ColumnNumber(32));
         }
 
+        [TestMethod]
+        public void MultipleOfTwentySixTestMethod()
+        {
+            Assert.AreEqual("AZ", ColumnNumber(52));
+        }
 
         public string ColumnNumber(int number)
         {
@@ -28,7 +33,10 @@ namespace Excel
            if (number <= 26)
                wantedColumndNumber = alphabet[number - 1];
            else
-               wantedColumndNumber = alphabet[cateDivision - 1] + alphabet[restOfDivision - 1];
+               if (restOfDivision != 0)
+                   wantedColumndNumber = alphabet[cateDivision - 1] + alphabet[restOfDivision - 1];
+               else
+                   wantedColumndNumber = alphabet[cateDivision - 2] + alphabet[25];
            return wantedColumndNumber;
      
 
