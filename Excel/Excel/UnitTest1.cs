@@ -30,6 +30,12 @@ namespace Excel
             Assert.AreEqual("ZZ", ColumnNumber(702));
         }
 
+        [TestMethod]
+        public void SevenHundredandThreeTestMethod()
+        {
+            Assert.AreEqual("AAA", ColumnNumber(703));
+        }
+
 
         public string ColumnNumber(int number)
         {
@@ -39,10 +45,8 @@ namespace Excel
 
            while (number > 26)
            {
-               int cateDivision = 0;
-               int restOfDivision = 0;
-               cateDivision = number / 26;
-               restOfDivision = number % 26;
+               int cateDivision = number / 26;
+               int restOfDivision = number % 26;
                number = cateDivision;
                if (restOfDivision == 0)
                {
