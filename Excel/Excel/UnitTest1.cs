@@ -38,18 +38,18 @@ namespace Excel
                cateDivision = number / 26;
                restOfDivision = number % 26;
                number = cateDivision;
-               wantedColumndNumber = alphabet[restOfDivision - 1] + wantedColumndNumber;
+               if (restOfDivision == 0)
+               {
+                   wantedColumndNumber = alphabet[25] + wantedColumndNumber;
+                   number = cateDivision - 1;
+               }
+               else
+                   wantedColumndNumber = alphabet[restOfDivision - 1] + wantedColumndNumber;
            }
           
 
            wantedColumndNumber = alphabet[number - 1] + wantedColumndNumber;
-           //if (number <= 26)
-           //    wantedColumndNumber = alphabet[number - 1];
-           //else
-           //    if (restOfDivision != 0)
-           //        wantedColumndNumber = alphabet[cateDivision - 1] + alphabet[restOfDivision - 1];
-           //    else
-           //        wantedColumndNumber = alphabet[cateDivision - 2] + alphabet[25];
+           
            return wantedColumndNumber;
      
 
