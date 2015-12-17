@@ -19,9 +19,15 @@ namespace Excel
         }
 
         [TestMethod]
-        public void MultipleOfTwentySixTestMethod()
+        public void FiftyTwoTestMethod()
         {
             Assert.AreEqual("AZ", ColumnNumber(52));
+        }
+
+        [TestMethod]
+        public void SevenHundredandTwoTestMethod()
+        {
+            Assert.AreEqual("ZZ", ColumnNumber(702));
         }
 
 
