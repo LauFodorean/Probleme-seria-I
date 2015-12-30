@@ -12,13 +12,13 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 1, 1, 0 }, Conversion(14, 2));
         }
 
-        //[TestMethod]
-        //public void NotTestMethod()
-        //{
-        //    Assert.AreEqual(false, NotMethod(14,13));
-        //}
+        [TestMethod]
+        public void NotTestMethod()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1, 0, 0, 0, 1 }, NotMethod(14));
+        }
 
-
+        
         public byte[] Conversion(int number, int givenBaseNumber)
         {
             
@@ -36,6 +36,20 @@ namespace BaseTwoOperations
             }
                 
             return convertedNumber;
+        }
+
+        public byte[] NotMethod(int number)
+        {
+            byte[] notNumber = new byte[8];
+            notNumber = Conversion(number, 2);
+            bool[] boolNotNumber = new bool[8];
+            for (int i = 0; i < 8; i++)
+            {
+                boolNotNumber[i] = Convert.ToBoolean(notNumber[i]);
+                boolNotNumber[i] = !boolNotNumber[i];
+                notNumber[i] = Convert.ToByte(boolNotNumber[i]);
+            }
+            return notNumber;
         }
 
      }
