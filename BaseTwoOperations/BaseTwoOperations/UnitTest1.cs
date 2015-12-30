@@ -7,29 +7,36 @@ namespace BaseTwoOperations
     public class BaseTwoOperationsUnitTest
     {
         [TestMethod]
-        public void NumberConversionInBinary()
+        public void NumberConversionInBinaryTestMethod()
         {
-            Assert.AreEqual(0, Conversion(14));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 1, 1, 0 }, Conversion(14, 2));
         }
 
+        //[TestMethod]
+        //public void NotTestMethod()
+        //{
+        //    Assert.AreEqual(false, NotMethod(14,13));
+        //}
 
-        public byte Conversion(int number)
+
+        public byte[] Conversion(int number, int givenBaseNumber)
         {
             
             byte[] convertedNumber = new byte[8] {0,0,0,0,0,0,0,0};
             int restOfDivision, cateOfDivision;
             for (int i = 7; i >= 0; i--)
             {
-                restOfDivision = number % 2;
-                cateOfDivision = number / 2;
+                restOfDivision = number % givenBaseNumber;
+                cateOfDivision = number / givenBaseNumber;
 
                 if (restOfDivision != 0)
-                    convertedNumber[i] = 1;
+                    convertedNumber[i] = (byte)1;
 
                 number = cateOfDivision;
             }
                 
-                return convertedNumber[3];
+            return convertedNumber;
         }
-    }
+
+     }
 }
