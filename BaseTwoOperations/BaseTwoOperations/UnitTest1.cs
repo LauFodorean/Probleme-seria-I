@@ -13,9 +13,21 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
+        public void Number255ConversionInBinaryTestMethod()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1, 1, 1, 1, 1 }, Conversion(255, 2));
+        }
+
+        [TestMethod]
         public void NotTestMethod()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1, 0, 0, 0, 1 }, NotMethod(14));
+        }
+
+        [TestMethod]
+        public void AndTestMethod()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 1, 1, 0 }, AndMethod(14,15));
         }
 
         
@@ -30,7 +42,7 @@ namespace BaseTwoOperations
                 cateOfDivision = number / givenBaseNumber;
 
                 if (restOfDivision != 0)
-                    convertedNumber[i] = (byte)1;
+                    convertedNumber[i] = (byte)restOfDivision;
 
                 number = cateOfDivision;
             }
@@ -50,6 +62,26 @@ namespace BaseTwoOperations
                 notNumber[i] = Convert.ToByte(boolNotNumber[i]);
             }
             return notNumber;
+        }
+
+        public byte[] AndMethod(int number1, int number2)
+        {
+            byte[] andNumber = new byte[8];
+            byte[] andNumber1 = new byte[8];
+            andNumber1 = Conversion(number1, 2);
+            byte[] andNumber2 = new byte[8];
+            andNumber2 = Conversion(number2, 2);
+            bool[] boolAndNumber = new bool[8];
+            bool[] boolAndNumber1 = new bool[8];
+            bool[] boolAndNumber2 = new bool[8];
+            for (int i = 0; i < 8; i++)
+            {
+                boolAndNumber1[i] = Convert.ToBoolean(andNumber1[i]);
+                boolAndNumber2[i] = Convert.ToBoolean(andNumber2[i]);
+                boolAndNumber[i] = boolAndNumber1[i]&boolAndNumber2[i];
+                andNumber[i] = Convert.ToByte(boolAndNumber[i]);
+            }
+            return andNumber;
         }
 
      }
