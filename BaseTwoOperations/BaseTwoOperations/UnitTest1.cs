@@ -7,15 +7,21 @@ namespace BaseTwoOperations
     public class BaseTwoOperationsUnitTest
     {
         [TestMethod]
-        public void NumberConversionInBinaryTestMethod()
+        public void NumberConversionInBinaryBaseTwoTestMethod()
         {
             CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 1, 1, 0 }, Conversion(14, 2));
         }
 
         [TestMethod]
-        public void Number255ConversionInBinaryTestMethod()
+        public void Number255ConversionInBinaryBaseTwoTestMethod()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1, 1, 1, 1, 1 }, Conversion(255, 2));
+        }
+
+        [TestMethod]
+        public void Number255ConversionInBinaryBaseFourTestMethod()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 3, 3, 3, 3 }, Conversion(255, 4));
         }
 
         [TestMethod]
