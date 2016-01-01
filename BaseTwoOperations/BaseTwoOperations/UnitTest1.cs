@@ -36,6 +36,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 1, 1, 0 }, AndMethod(14,15));
         }
 
+        [TestMethod]
+        public void OrTestMethod()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 1, 1, 1 }, OrMethod(14, 15));
+        }
+
         
         public byte[] Conversion(int number, int givenBaseNumber)
         {
@@ -88,6 +94,26 @@ namespace BaseTwoOperations
                 andNumber[i] = Convert.ToByte(boolAndNumber[i]);
             }
             return andNumber;
+        }
+
+        public byte[] OrMethod(int number1, int number2)
+        {
+            byte[] orNumber = new byte[8];
+            byte[] orNumber1 = new byte[8];
+            orNumber1 = Conversion(number1, 2);
+            byte[] orNumber2 = new byte[8];
+            orNumber2 = Conversion(number2, 2);
+            bool[] boolOrNumber = new bool[8];
+            bool[] boolOrNumber1 = new bool[8];
+            bool[] boolOrNumber2 = new bool[8];
+            for (int i = 0; i < 8; i++)
+            {
+                boolOrNumber1[i] = Convert.ToBoolean(orNumber1[i]);
+                boolOrNumber2[i] = Convert.ToBoolean(orNumber2[i]);
+                boolOrNumber[i] = boolOrNumber1[i] | boolOrNumber2[i];
+                orNumber[i] = Convert.ToByte(boolOrNumber[i]);
+            }
+            return orNumber;
         }
 
      }
