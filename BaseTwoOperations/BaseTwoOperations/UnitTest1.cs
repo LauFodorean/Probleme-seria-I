@@ -48,7 +48,18 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 0, 1 }, XorMethod(14, 15));
         }
 
-        
+        [TestMethod]
+        public void ShiftLeftTestMethod()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0, 0, 0, 0, 0 }, ShiftLeftMethod(15, 2 , 6));
+        }
+
+        [TestMethod]
+        public void ShiftRightTestMethod()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 1, 1 }, ShiftRightMethod(15, 2, 2));
+        }
+
         public byte[] Conversion(int number, int givenBaseNumber)
         {
             
@@ -140,6 +151,33 @@ namespace BaseTwoOperations
                 xorNumber[i] = Convert.ToByte(boolXorNumber[i]);
             }
             return xorNumber;
+        }
+
+        public byte[] ShiftLeftMethod(int number, int givenBaseNumber, int leftShiftPositions)
+        {
+            byte[] givenNumber = new byte[8]; // it is the number to be transformed in the given base
+            byte[] leftShiftedNumber = new byte[8] {0,0,0,0,0,0,0,0}; // the number with the left shifted positions
+            givenNumber = Conversion(number, givenBaseNumber); // the given number converted in the given base
+            
+            for (int i = 0; i < 8 - leftShiftPositions; i++ )
+                leftShiftedNumber[i] = givenNumber[leftShiftPositions + i];
+                           
+            return leftShiftedNumber; // returns the number with the shifted positions left
+        }
+
+        public byte[] ShiftRightMethod(int number, int givenBaseNumber, int rightShiftPositions)
+        {
+            byte[] givenNumber = new byte[8]; // it is the number to be transformed in the given base
+            byte[] rightShiftedNumber = new byte[8] { 0, 0, 0, 0, 0, 0, 0, 0 }; // the number with the right shifted positions
+            givenNumber = Conversion(number, givenBaseNumber); // the given number converted in the given base
+            int j = rightShiftPositions;
+            int counter = rightShiftPositions - j;
+            for (int i = rightShiftPositions; i < 8; i++)
+            {
+                rightShiftedNumber[i] = givenNumber[counter];
+                counter++;
+            }
+            return rightShiftedNumber; // returns the number with the shifted positions right
         }
 
      }
