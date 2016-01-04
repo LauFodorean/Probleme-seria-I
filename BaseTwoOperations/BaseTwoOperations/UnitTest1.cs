@@ -60,6 +60,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 1, 1 }, ShiftRightMethod(15, 2, 2));
         }
 
+        [TestMethod]
+        public void LessThanTestMethod()
+        {
+            Assert.AreEqual(true, LessThanMethod(14, 15));
+        }
+
         public byte[] Conversion(int number, int givenBaseNumber)
         {
             
@@ -178,6 +184,23 @@ namespace BaseTwoOperations
                 counter++;
             }
             return rightShiftedNumber; // returns the number with the shifted positions right
+        }
+
+        public bool LessThanMethod(int number1, int number2)
+        {
+            byte[] convertedNumber1 = new byte[8];
+            convertedNumber1 = Conversion(number1, 2);
+            byte[] convertedNumber2 = new byte[8];
+            convertedNumber2 = Conversion(number2, 2);
+            bool lessthan = false;
+            int i = 0;
+            while (lessthan == false & i < 8 )
+            {
+                if (convertedNumber1[i] < convertedNumber2[i])
+                    lessthan = true;
+                i++;
+            }
+            return lessthan;
         }
 
      }
