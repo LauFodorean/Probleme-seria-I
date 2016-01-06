@@ -9,7 +9,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void NumberConversionInBinaryBaseTwoTestMethod()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 1, 1, 0 }, Conversion(14, 2));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0 }, Conversion(14, 2));
         }
 
         [TestMethod]
@@ -21,7 +21,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void Number255ConversionInBinaryBaseFourTestMethod()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 3, 3, 3, 3 }, Conversion(255, 4));
+            CollectionAssert.AreEqual(new byte[] { 3, 3, 3, 3 }, Conversion(255, 4));
         }
 
         [TestMethod]
@@ -66,12 +66,33 @@ namespace BaseTwoOperations
             Assert.AreEqual(true, LessThanMethod(14, 15));
         }
 
+        [TestMethod]
+        public void SetArrayLengthTestMethod()
+        {
+            Assert.AreEqual(5, SetArrayLength(25, 2));
+        }
+
+        public int SetArrayLength(int number, int givenBaseNumber)
+        {
+            int cateOfDivision;
+            int numberOfDivisions = 0;
+            do
+            {
+                cateOfDivision = number / givenBaseNumber;
+                number = cateOfDivision;
+                numberOfDivisions += 1;
+            }
+            while (cateOfDivision != 0);
+            return numberOfDivisions;
+        }
+
         public byte[] Conversion(int number, int givenBaseNumber)
         {
-            
-            byte[] convertedNumber = new byte[8] {0,0,0,0,0,0,0,0};
             int restOfDivision, cateOfDivision;
-            for (int i = 7; i >= 0; i--)
+            int byteLength = SetArrayLength(number,givenBaseNumber);
+            byte[] convertedNumber = new byte[] {};
+            Array.Resize<byte>(ref convertedNumber, convertedNumber.Length + byteLength);
+            for (int i = convertedNumber.Length - 1; i >= 0; i--)
             {
                 restOfDivision = number % givenBaseNumber;
                 cateOfDivision = number / givenBaseNumber;
@@ -81,7 +102,7 @@ namespace BaseTwoOperations
 
                 number = cateOfDivision;
             }
-                
+            
             return convertedNumber;
         }
 
