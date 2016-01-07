@@ -27,14 +27,14 @@ namespace BaseTwoOperations
         [TestMethod]
         public void NotTestMethod()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1, 0, 0, 0, 1 }, NotMethod(14));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 1 }, NotMethod(14));
         }
 
-        [TestMethod]
-        public void AndTestMethod()
-        {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 1, 1, 0 }, AndMethod(14,15));
-        }
+        //[TestMethod]
+        //public void AndTestMethod()
+        //{
+        //    CollectionAssert.AreEqual(new byte[] {  1, 1, 1, 0 }, AndMethod(14,15));
+        //}
 
         [TestMethod]
         public void OrTestMethod()
@@ -70,6 +70,12 @@ namespace BaseTwoOperations
         public void SetArrayLengthTestMethod()
         {
             Assert.AreEqual(5, SetArrayLength(25, 2));
+        }
+
+        [TestMethod]
+        public void MatchPositionsTestMethod()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 1 }, MatchPositions(new byte[] { 1, 1 }, 4));
         }
 
         public int SetArrayLength(int number, int givenBaseNumber)
@@ -108,28 +114,52 @@ namespace BaseTwoOperations
 
         public byte[] NotMethod(int number)
         {
-            byte[] notNumber = new byte[8];
+            byte[] notNumber = new byte[] {};
             notNumber = Conversion(number, 2);
-            bool[] boolNotNumber = new bool[8];
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < notNumber.Length; i++)
             {
-                boolNotNumber[i] = Convert.ToBoolean(notNumber[i]);
-                boolNotNumber[i] = !boolNotNumber[i];
-                notNumber[i] = Convert.ToByte(boolNotNumber[i]);
+                if (notNumber[i] == 0)
+                    notNumber[i] = 1;
+                else
+                    notNumber[i] = 0;
             }
             return notNumber;
         }
 
+        public byte[] MatchPositions(byte[] number, int positionsToBeMatched)
+        {
+            byte[] temporaryAndNumber = new byte[] {};
+            Array.Resize<byte>(ref temporaryAndNumber, temporaryAndNumber.Length + positionsToBeMatched);
+            int j = 1;
+            for (int i = temporaryAndNumber.Length - 1; i >= temporaryAndNumber.Length - number.Length; i--)
+                {
+                    temporaryAndNumber[i] = number[number.Length - j];
+                    j++;
+                }
+            return temporaryAndNumber;
+
+        }
+        
         public byte[] AndMethod(int number1, int number2)
         {
-            byte[] andNumber = new byte[8];
-            byte[] andNumber1 = new byte[8];
+            byte[] andNumber = new byte[] {};
+            byte[] andNumber1 = new byte[] {};
             andNumber1 = Conversion(number1, 2);
-            byte[] andNumber2 = new byte[8];
+            byte[] andNumber2 = new byte[] {};
             andNumber2 = Conversion(number2, 2);
-            bool[] boolAndNumber = new bool[8];
-            bool[] boolAndNumber1 = new bool[8];
-            bool[] boolAndNumber2 = new bool[8];
+            //int andNumberLength = Math.Max(andNumber1Lenght, andNumber2Lenght);
+            int maxNumber = Math.Max(andNumber1.Length, andNumber2.Length);
+            if (andNumber1.Length < maxNumber)
+
+            int minNumber = 0;
+            if (andNumber1Lenght > andNumber2Lenght)
+                minNumber = andNumber2Lenght;
+            else
+                minNumber = andNumber1Lenght;
+            positionsToBeAdded = maxNumber - minNumber;
+            bool[] boolAndNumber = new bool[] {};
+            bool[] boolAndNumber1 = new bool[] {};
+            bool[] boolAndNumber2 = new bool[] {};
             for (int i = 0; i < 8; i++)
             {
                 boolAndNumber1[i] = Convert.ToBoolean(andNumber1[i]);
