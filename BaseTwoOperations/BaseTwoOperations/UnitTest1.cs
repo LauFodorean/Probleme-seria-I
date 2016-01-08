@@ -37,6 +37,12 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
+        public void AndForDifferentLenghtNumbersTestMethod()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 0 }, AndMethod(new byte[] { 1, 1, 1, 1 }, new byte[] { 1, 0 }));
+        }
+
+        [TestMethod]
         public void OrTestMethod()
         {
             CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 1, 1, 1 }, OrMethod(14, 15));
@@ -79,12 +85,12 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
-        public void GetAtPositionTestMethod()
+        public void GetPositionAtTestMethod()
         {
-            Assert.AreEqual(1, GetAtPosition(new byte[] { 0, 1, 1 }, 1));
+            Assert.AreEqual(0, GetPositionAt(new byte[] { 0, 1, 1 }, 2));
         }
 
-        public byte GetAtPosition (byte[] number, int position)
+        public byte GetPositionAt(byte[] number, int position)
         {
             if (position > number.Length - 1) 
                 return (byte)0;
@@ -156,27 +162,13 @@ namespace BaseTwoOperations
         
         public byte[] AndMethod(byte[] number1, byte[] number2)
         {
-            byte[] andNumber = new byte[] {};
-            
-            int maxLength = Math.Max(number1.Length, number2.Length);
-            number1 = MatchPositions(number1, maxLength);
-            number2 = MatchPositions(number2, maxLength);
-            andNumber = MatchPositions(andNumber, maxLength);
-            //int minNumber = 0;
-            //if (andNumber1Lenght > andNumber2Lenght)
-            //    minNumber = andNumber2Lenght;
-            //else
-            //    minNumber = andNumber1Lenght;
-            //positionsToBeAdded = maxNumber - minNumber;
-            bool[] boolAndNumber = new bool[] {};
-            bool[] boolAndNumber1 = new bool[] {};
-            bool[] boolAndNumber2 = new bool[] {};
-            for (int i = maxLength-1; i >= 0; i--)
+            int maxLength = number1.Length > number2.Length ? number1.Length : number2.Length;
+            byte[] andNumber = new byte[] { };
+            Array.Resize<byte>(ref andNumber, andNumber.Length +maxLength);
+            for (int i = 0; i < maxLength -1; i++)
             {
-                boolAndNumber1[i] = Convert.ToBoolean(number1[i]);
-                boolAndNumber2[i] = Convert.ToBoolean(number2[i]);
-                boolAndNumber[i] = boolAndNumber1[i]&boolAndNumber2[i];
-                andNumber[i] = Convert.ToByte(boolAndNumber[i]);
+                andNumber[i] = (GetPositionAt(number1, maxLength - 1 - i) == 1) && (GetPositionAt(number2, maxLength - 1 - i) == 1) ? (byte)1 : (byte)0;
+                
             }
             return andNumber;
         }
