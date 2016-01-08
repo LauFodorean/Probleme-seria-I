@@ -78,6 +78,20 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 1 }, MatchPositions(new byte[] { 1, 1 }, 4));
         }
 
+        [TestMethod]
+        public void GetAtPositionTestMethod()
+        {
+            Assert.AreEqual(1, GetAtPosition(new byte[] { 0, 1, 1 }, 1));
+        }
+
+        public byte GetAtPosition (byte[] number, int position)
+        {
+            if (position > number.Length - 1) 
+                return (byte)0;
+            else
+                return number[number.Length - 1 - position];
+        }
+
         public int SetArrayLength(int number, int givenBaseNumber)
         {
             int cateOfDivision;
@@ -117,10 +131,11 @@ namespace BaseTwoOperations
             
             for (int i = 0; i < number.Length; i++)
             {
-                if (number[i] == 0)
-                    number[i] = 1;
-                else
-                    number[i] = 0;
+                number[i] = (number[i] == 0) ? (byte)1 : (byte)0;
+                //if (number[i] == 0)
+                //    number[i] = 1;
+                //else
+                //    number[i] = 0;
             }
             return number;
         }
