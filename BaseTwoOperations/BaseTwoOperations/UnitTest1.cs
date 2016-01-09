@@ -75,7 +75,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void LessThanTestMethod()
         {
-            Assert.AreEqual(true, LessThanMethod(new byte[] {1,1,1,0}, new byte[] {1,1,1,1}));
+            Assert.AreEqual(true, LessThanMethod(new byte[] {1,1,1}, new byte[] {1,1,1,0}));
         }
 
         [TestMethod]
@@ -99,7 +99,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void ReversedConversionTestMethod()
         {
-            Assert.AreEqual(15, ReversedConversionMethod(new byte[] { 1, 1, 1, 1 }, 2));
+            Assert.AreEqual(3, ReversedConversionMethod(new byte[] {1, 1 }, 2));
         }
 
         public byte GetPositionAt(byte[] number, int position)
@@ -250,7 +250,7 @@ namespace BaseTwoOperations
 
         public bool LessThanMethod(byte[] number1, byte[] number2)
         {
-            double conversionBaseNumber = 0;
+            double conversionBaseNumber = 2;
             return ReversedConversionMethod(number1, conversionBaseNumber) < ReversedConversionMethod(number2, conversionBaseNumber) ? true : false ;
         }
 
