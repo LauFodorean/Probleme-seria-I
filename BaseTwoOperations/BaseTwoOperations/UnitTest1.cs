@@ -75,7 +75,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void LessThanTestMethod()
         {
-            Assert.AreEqual(true, LessThanMethod(14, 15));
+            Assert.AreEqual(true, LessThanMethod(new byte[] {1,1,1,0}, new byte[] {1,1,1,1}));
         }
 
         [TestMethod]
@@ -248,21 +248,10 @@ namespace BaseTwoOperations
             return convertedNumber;
         }
 
-        public bool LessThanMethod(int number1, int number2)
+        public bool LessThanMethod(byte[] number1, byte[] number2)
         {
-            byte[] convertedNumber1 = new byte[8];
-            convertedNumber1 = Conversion(number1, 2);
-            byte[] convertedNumber2 = new byte[8];
-            convertedNumber2 = Conversion(number2, 2);
-            bool lessthan = false;
-            int i = 0;
-            while (lessthan == false & i < 8 )
-            {
-                if (convertedNumber1[i] < convertedNumber2[i])
-                    lessthan = true;
-                i++;
-            }
-            return lessthan;
+            double conversionBaseNumber = 0;
+            return ReversedConversionMethod(number1, conversionBaseNumber) < ReversedConversionMethod(number2, conversionBaseNumber) ? true : false ;
         }
 
      }
