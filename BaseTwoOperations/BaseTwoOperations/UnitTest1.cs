@@ -63,13 +63,13 @@ namespace BaseTwoOperations
         [TestMethod]
         public void ShiftLeftTestMethod()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0, 0, 0, 0, 0 }, ShiftLeftMethod(15, 2 , 6));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0 }, ShiftLeftMethod(new byte[] { 1, 1, 1, 1 }, 2));
         }
 
         [TestMethod]
         public void ShiftRightTestMethod()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 1, 1 }, ShiftRightMethod(15, 2, 2));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 1 }, ShiftRightMethod(new byte[] {1, 1, 1, 1}, 2));
         }
 
         [TestMethod]
@@ -209,31 +209,25 @@ namespace BaseTwoOperations
             return xorNumber;
         }
 
-        public byte[] ShiftLeftMethod(int number, int givenBaseNumber, int leftShiftPositions)
+        public byte[] ShiftLeftMethod(byte[] number, int leftShiftPositions)
         {
-            byte[] givenNumber = new byte[8]; // it is the number to be transformed in the given base
-            byte[] leftShiftedNumber = new byte[8] {0,0,0,0,0,0,0,0}; // the number with the left shifted positions
-            givenNumber = Conversion(number, givenBaseNumber); // the given number converted in the given base
-            
-            for (int i = 0; i < 8 - leftShiftPositions; i++ )
-                leftShiftedNumber[i] = givenNumber[leftShiftPositions + i];
+            byte[] leftShiftedNumber = new byte[] {};
+            Array.Resize<byte>(ref leftShiftedNumber, leftShiftedNumber.Length + number.Length);
+            for (int i = 0; i < leftShiftPositions; i++)
+                leftShiftedNumber[i] = number[leftShiftPositions + i];
                            
-            return leftShiftedNumber; // returns the number with the shifted positions left
+            return leftShiftedNumber; 
         }
 
-        public byte[] ShiftRightMethod(int number, int givenBaseNumber, int rightShiftPositions)
+        public byte[] ShiftRightMethod(byte[] number, int rightShiftPositions)
         {
-            byte[] givenNumber = new byte[8]; // it is the number to be transformed in the given base
-            byte[] rightShiftedNumber = new byte[8] { 0, 0, 0, 0, 0, 0, 0, 0 }; // the number with the right shifted positions
-            givenNumber = Conversion(number, givenBaseNumber); // the given number converted in the given base
-            int j = rightShiftPositions;
-            int counter = rightShiftPositions - j;
-            for (int i = rightShiftPositions; i < 8; i++)
+            byte[] rightShiftedNumber = new byte[]{};
+            Array.Resize<byte>(ref rightShiftedNumber, rightShiftedNumber.Length + number.Length);
+            for (int i = 0; i < number.Length - rightShiftPositions; i++)
             {
-                rightShiftedNumber[i] = givenNumber[counter];
-                counter++;
+                rightShiftedNumber[ i + rightShiftPositions ] = number[i];
             }
-            return rightShiftedNumber; // returns the number with the shifted positions right
+            return rightShiftedNumber; 
         }
 
         public bool LessThanMethod(int number1, int number2)
