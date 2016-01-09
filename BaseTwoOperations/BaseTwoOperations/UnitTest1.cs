@@ -96,6 +96,12 @@ namespace BaseTwoOperations
             Assert.AreEqual(0, GetPositionAt(new byte[] { 0, 1, 1 }, 2));
         }
 
+        [TestMethod]
+        public void ReversedConversionTestMethod()
+        {
+            Assert.AreEqual(15, ReversedConversionMethod(new byte[] { 1, 1, 1, 1 }, 2));
+        }
+
         public byte GetPositionAt(byte[] number, int position)
         {
             if (position > number.Length - 1) 
@@ -228,6 +234,18 @@ namespace BaseTwoOperations
                 rightShiftedNumber[ i + rightShiftPositions ] = number[i];
             }
             return rightShiftedNumber; 
+        }
+
+        public double ReversedConversionMethod(byte[] number, double conversionBaseNumber)
+        {
+            double convertedNumber = 0;
+            double power = 0;
+            for (int i = number.Length - 1; i >= 0; i--)
+            {
+                convertedNumber = convertedNumber + number[i] * Math.Pow(conversionBaseNumber, power);
+                power++;
+            }
+            return convertedNumber;
         }
 
         public bool LessThanMethod(int number1, int number2)
