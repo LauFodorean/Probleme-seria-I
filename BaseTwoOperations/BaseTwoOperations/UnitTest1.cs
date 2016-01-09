@@ -102,6 +102,30 @@ namespace BaseTwoOperations
             Assert.AreEqual(3, ReversedConversionMethod(new byte[] {1, 1 }, 2));
         }
 
+        [TestMethod]
+        public void SumResultTestMethod1()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1 }, SumResult(new byte[] { 1, 1, 1, 0 }, new byte[] { 1 }));
+        }
+
+        [TestMethod]
+        public void SumResultTestMethod2()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0, 1 }, SumResult(new byte[] { 1, 1, 1, 0 }, new byte[] { 1, 1, 1, 1 }));
+        }
+
+        [TestMethod]
+        public void SumResultTestMethod3()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0, 0 }, SumResult(new byte[] { 1, 0, 0, 0 }, new byte[] { 1, 0, 0, 0 }));
+        }
+
+        //[TestMethod]
+        //public void SumResultTestMethod()
+        //{
+        //    Assert.AreEqual(2, SumResult(new byte[] { 1, 1, 1, 0 }, new byte[] { 1, 1, 1, 1 }));
+        //}
+
         public byte GetPositionAt(byte[] number, int position)
         {
             if (position > number.Length - 1) 
@@ -253,6 +277,41 @@ namespace BaseTwoOperations
             double conversionBaseNumber = 2;
             return ReversedConversionMethod(number1, conversionBaseNumber) < ReversedConversionMethod(number2, conversionBaseNumber) ? true : false ;
         }
+
+        public byte[] SumResult( byte[] number1,  byte[] number2)
+        {
+            int maxLength = (number1.Length >= number2.Length) ? number1.Length : number2.Length;
+            byte[] sumResult = new byte[] {};
+            int givenBaseNumber = 2;
+            int maxLenghtPosition = GetPositionAt(number1, maxLength - 1) + GetPositionAt(number2, maxLength - 1);
+            if (maxLenghtPosition >= givenBaseNumber)
+                Array.Resize<byte> (ref sumResult, sumResult.Length + (maxLength + 1));
+            else
+                Array.Resize<byte>(ref sumResult, sumResult.Length + maxLength);
+            int index = 0;
+            byte cateOfDivision = 0;
+            int position = 1;
+            for (int i = sumResult.Length - 1; i > 0; i--)
+            {
+                if ((GetPositionAt(number1, index) + GetPositionAt(number2, index) + cateOfDivision) >= givenBaseNumber)
+                {
+                    sumResult[i] = (byte)(((GetPositionAt(number1, index) + GetPositionAt(number2, index)) + cateOfDivision) % givenBaseNumber);
+                    cateOfDivision = (byte)((GetPositionAt(number1, index) + GetPositionAt(number2, index)) / givenBaseNumber);
+                }
+                else
+                {
+                    sumResult[i] = (byte)(GetPositionAt(number1, index) + GetPositionAt(number2, index)) ;
+                    cateOfDivision = (byte)0;
+                }
+                index++;
+                position = i - 1;
+            }
+            if (position == 0)
+                sumResult[position] = 1;
+            return sumResult;
+            
+        }
+        
 
      }
 }
