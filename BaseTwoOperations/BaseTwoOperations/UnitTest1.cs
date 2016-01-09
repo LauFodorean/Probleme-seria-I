@@ -45,13 +45,19 @@ namespace BaseTwoOperations
         [TestMethod]
         public void OrTestMethod()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 1, 1, 1, 1 }, OrMethod(14, 15));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1 }, OrMethod(new byte[] { 1, 1, 1, 1 }, new byte[] { 1, 1, 1, 0 }));
         }
 
         [TestMethod]
         public void XorTestMethod()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 0, 0, 0, 0, 1 }, XorMethod(14, 15));
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0 }, XorMethod(new byte[] { 1, 1, 1, 1 }, new byte[] { 1, 0, 1 }));
+        }
+
+        [TestMethod]
+        public void Xor2TestMethod()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 1 }, XorMethod(new byte[] { 1, 1, 1, 0 }, new byte[] { 1, 1, 1 }));
         }
 
         [TestMethod]
@@ -165,51 +171,41 @@ namespace BaseTwoOperations
             int maxLength = number1.Length > number2.Length ? number1.Length : number2.Length;
             byte[] andNumber = new byte[] { };
             Array.Resize<byte>(ref andNumber, andNumber.Length +maxLength);
-            for (int i = 0; i < maxLength -1; i++)
+            for (int i = maxLength - 1; i >= 0; i--)
             {
                 andNumber[i] = (GetPositionAt(number1, maxLength - 1 - i) == 1) && (GetPositionAt(number2, maxLength - 1 - i) == 1) ? (byte)1 : (byte)0;
-                
             }
             return andNumber;
         }
 
-        public byte[] OrMethod(int number1, int number2)
+
+        public byte[] OrMethod(byte[] number1, byte[] number2)
         {
-            byte[] orNumber = new byte[8];
-            byte[] orNumber1 = new byte[8];
-            orNumber1 = Conversion(number1, 2);
-            byte[] orNumber2 = new byte[8];
-            orNumber2 = Conversion(number2, 2);
-            bool[] boolOrNumber = new bool[8];
-            bool[] boolOrNumber1 = new bool[8];
-            bool[] boolOrNumber2 = new bool[8];
-            for (int i = 0; i < 8; i++)
+            int maxLength = number1.Length > number2.Length ? number1.Length : number2.Length;
+            byte[] orNumber = new byte[] { };
+            Array.Resize<byte>(ref orNumber, orNumber.Length + maxLength);
+
+            for (int i = maxLength - 1; i >= 0 ; i--)
             {
-                boolOrNumber1[i] = Convert.ToBoolean(orNumber1[i]);
-                boolOrNumber2[i] = Convert.ToBoolean(orNumber2[i]);
-                boolOrNumber[i] = boolOrNumber1[i] | boolOrNumber2[i];
-                orNumber[i] = Convert.ToByte(boolOrNumber[i]);
+                orNumber[i] = GetPositionAt(number1, i) + GetPositionAt(number2, i) >= 1 ? (byte)1 : (byte)0;
+                              
             }
+
             return orNumber;
         }
+        
 
-        public byte[] XorMethod(int number1, int number2)
+        public byte[] XorMethod(byte[] number1, byte[] number2)
         {
-            byte[] xorNumber = new byte[8];
-            byte[] xorNumber1 = new byte[8];
-            xorNumber1 = Conversion(number1, 2);
-            byte[] xorNumber2 = new byte[8];
-            xorNumber2 = Conversion(number2, 2);
-            bool[] boolXorNumber = new bool[8];
-            bool[] boolXorNumber1 = new bool[8];
-            bool[] boolXorNumber2 = new bool[8];
-            for (int i = 0; i < 8; i++)
+            int maxLength = number1.Length > number2.Length ? number1.Length : number2.Length;
+            byte[] xorNumber = new byte[] { };
+            Array.Resize<byte>(ref xorNumber, xorNumber.Length + maxLength);
+
+            for (int i = maxLength - 1; i >= 0; i--)
             {
-                boolXorNumber1[i] = Convert.ToBoolean(xorNumber1[i]);
-                boolXorNumber2[i] = Convert.ToBoolean(xorNumber2[i]);
-                boolXorNumber[i] = boolXorNumber1[i] ^ boolXorNumber2[i];
-                xorNumber[i] = Convert.ToByte(boolXorNumber[i]);
+                xorNumber[i] = GetPositionAt(number1, maxLength - 1 - i) + GetPositionAt(number2, maxLength - 1 - i) == 1  ? (byte)1 : (byte)0;
             }
+
             return xorNumber;
         }
 
