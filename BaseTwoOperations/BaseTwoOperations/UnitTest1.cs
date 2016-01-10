@@ -123,7 +123,19 @@ namespace BaseTwoOperations
         [TestMethod]
         public void DecreaseResultTestMethod3()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, DecreaseResult(new byte[] { 1, 0, 0, 0 }, new byte[] { 1 }));
+            CollectionAssert.AreEqual(new byte[] {0}, DecreaseResult(new byte[] { 1, 1, 1, 1 }, new byte[] { 1, 1, 1, 1 }));
+        }
+
+        [TestMethod]
+        public void MultiplicationTestMethod3()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1, 0, 0 }, MultiplicationResult(new byte[] { 1, 0, 1, 0 }, new byte[] { 1, 1, 0 }));
+        }
+
+        [TestMethod]
+        public void DivideTestMethod3()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0 }, DivideResult(new byte[] { 1, 1, 1, 1, 0, 0 }, new byte[] { 1, 1, 0 }));
         }
 
         public byte GetPositionAt(byte[] number, int position)
@@ -319,7 +331,22 @@ namespace BaseTwoOperations
             double mathDecrease = number1BackwardsConverted - number2BackwardsConverted;
             return Conversion( (int)mathDecrease, (int)conversionBaseNumber);
         }
+
+        public byte[] MultiplicationResult(byte[] number1, byte[] number2)
+        {
+            double conversionBaseNumber = 2;
+            double number1BackwardsConverted = ReversedConversionMethod(number1, conversionBaseNumber);
+            double number2BackwardsConverted = ReversedConversionMethod(number2, conversionBaseNumber);
+            double multiplication = number1BackwardsConverted * number2BackwardsConverted;
+            return Conversion((int)multiplication, (int)conversionBaseNumber);
+        }
         
+        public byte[] DivideResult(byte[] number1, byte[] number2)
+        {
+            double conversionBaseNumber = 2;
+            double division = ReversedConversionMethod(number1, conversionBaseNumber) / ReversedConversionMethod(number2, conversionBaseNumber);
+            return Conversion((int)division, (int)conversionBaseNumber);
+        }
 
      }
 }
