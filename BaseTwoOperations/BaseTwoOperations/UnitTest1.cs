@@ -120,11 +120,11 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0, 0 }, SumResult(new byte[] { 1, 0, 0, 0 }, new byte[] { 1, 0, 0, 0 }));
         }
 
-        //[TestMethod]
-        //public void SumResultTestMethod()
-        //{
-        //    Assert.AreEqual(2, SumResult(new byte[] { 1, 1, 1, 0 }, new byte[] { 1, 1, 1, 1 }));
-        //}
+        [TestMethod]
+        public void DecreaseResultTestMethod3()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, DecreaseResult(new byte[] { 1, 0, 0, 0 }, new byte[] { 1 }));
+        }
 
         public byte GetPositionAt(byte[] number, int position)
         {
@@ -309,7 +309,15 @@ namespace BaseTwoOperations
             if (position == 0)
                 sumResult[position] = 1;
             return sumResult;
-            
+        }
+
+        public byte[] DecreaseResult(byte[] number1,  byte[] number2)
+        {
+            double conversionBaseNumber = 2;
+            double number1BackwardsConverted = ReversedConversionMethod(number1, conversionBaseNumber);
+            double number2BackwardsConverted = ReversedConversionMethod(number2, conversionBaseNumber);
+            double mathDecrease = number1BackwardsConverted - number2BackwardsConverted;
+            return Conversion( (int)mathDecrease, (int)conversionBaseNumber);
         }
         
 
