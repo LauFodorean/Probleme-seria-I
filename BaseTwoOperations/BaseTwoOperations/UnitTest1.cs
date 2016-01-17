@@ -111,7 +111,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void SumResultTestMethod2()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0, 1 }, SumResult(new byte[] { 1, 1, 1, 0 }, new byte[] { 1, 1, 1, 1 }));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0, 1 }, SumResult(new byte[] { 1, 1, 1, 1 }, new byte[] { 1, 1, 1, 0 }));
         }
 
         [TestMethod]
@@ -123,7 +123,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void DecreaseResultTestMethod3()
         {
-            CollectionAssert.AreEqual(new byte[] {0}, DecreaseResult(new byte[] { 1, 1, 1, 1 }, new byte[] { 1, 1, 1, 1 }));
+            CollectionAssert.AreEqual(new byte[] {0, 1, 1, 1}, DecreaseResult(new byte[] { 1, 0, 0, 0 }, new byte[] { 0, 0, 0, 1 }));
         }
 
         [TestMethod]
@@ -164,8 +164,8 @@ namespace BaseTwoOperations
         {
             int restOfDivision, cateOfDivision;
             int byteLength = SetArrayLength(number,givenBaseNumber);
-            byte[] convertedNumber = new byte[] {};
-            Array.Resize<byte>(ref convertedNumber, convertedNumber.Length + byteLength);
+            byte[] convertedNumber = new byte[byteLength];
+            //Array.Resize<byte>(ref convertedNumber, convertedNumber.Length + byteLength);
             for (int i = convertedNumber.Length - 1; i >= 0; i--)
             {
                 restOfDivision = number % givenBaseNumber;
@@ -196,8 +196,8 @@ namespace BaseTwoOperations
 
         public byte[] MatchPositions(byte[] number, int positionsToBeMatched)
         {
-            byte[] temporaryAndNumber = new byte[] {};
-            Array.Resize<byte>(ref temporaryAndNumber, temporaryAndNumber.Length + positionsToBeMatched);
+            byte[] temporaryAndNumber = new byte[positionsToBeMatched];
+            //Array.Resize<byte>(ref temporaryAndNumber, temporaryAndNumber.Length + positionsToBeMatched);
             int j = 1;
             for (int i = temporaryAndNumber.Length - 1; i >= temporaryAndNumber.Length - number.Length; i--)
                 {
@@ -211,8 +211,8 @@ namespace BaseTwoOperations
         public byte[] AndMethod(byte[] number1, byte[] number2)
         {
             int maxLength = number1.Length > number2.Length ? number1.Length : number2.Length;
-            byte[] andNumber = new byte[] { };
-            Array.Resize<byte>(ref andNumber, andNumber.Length +maxLength);
+            byte[] andNumber = new byte[maxLength];
+            //Array.Resize<byte>(ref andNumber, andNumber.Length +maxLength);
             for (int i = maxLength - 1; i >= 0; i--)
             {
                 andNumber[i] = (GetPositionAt(number1, maxLength - 1 - i) == 1) && (GetPositionAt(number2, maxLength - 1 - i) == 1) ? (byte)1 : (byte)0;
@@ -224,8 +224,8 @@ namespace BaseTwoOperations
         public byte[] OrMethod(byte[] number1, byte[] number2)
         {
             int maxLength = number1.Length > number2.Length ? number1.Length : number2.Length;
-            byte[] orNumber = new byte[] { };
-            Array.Resize<byte>(ref orNumber, orNumber.Length + maxLength);
+            byte[] orNumber = new byte[maxLength];
+            //Array.Resize<byte>(ref orNumber, orNumber.Length + maxLength);
 
             for (int i = maxLength - 1; i >= 0 ; i--)
             {
@@ -240,8 +240,8 @@ namespace BaseTwoOperations
         public byte[] XorMethod(byte[] number1, byte[] number2)
         {
             int maxLength = number1.Length > number2.Length ? number1.Length : number2.Length;
-            byte[] xorNumber = new byte[] { };
-            Array.Resize<byte>(ref xorNumber, xorNumber.Length + maxLength);
+            byte[] xorNumber = new byte[maxLength];
+            //Array.Resize<byte>(ref xorNumber, xorNumber.Length + maxLength);
 
             for (int i = maxLength - 1; i >= 0; i--)
             {
@@ -253,8 +253,8 @@ namespace BaseTwoOperations
 
         public byte[] ShiftLeftMethod(byte[] number, int leftShiftPositions)
         {
-            byte[] leftShiftedNumber = new byte[] {};
-            Array.Resize<byte>(ref leftShiftedNumber, leftShiftedNumber.Length + number.Length);
+            byte[] leftShiftedNumber = new byte[number.Length];
+            //Array.Resize<byte>(ref leftShiftedNumber, leftShiftedNumber.Length + number.Length);
             for (int i = 0; i < leftShiftPositions; i++)
                 leftShiftedNumber[i] = number[leftShiftPositions + i];
                            
@@ -263,8 +263,8 @@ namespace BaseTwoOperations
 
         public byte[] ShiftRightMethod(byte[] number, int rightShiftPositions)
         {
-            byte[] rightShiftedNumber = new byte[]{};
-            Array.Resize<byte>(ref rightShiftedNumber, rightShiftedNumber.Length + number.Length);
+            byte[] rightShiftedNumber = new byte[number.Length];
+            //Array.Resize<byte>(ref rightShiftedNumber, rightShiftedNumber.Length + number.Length);
             for (int i = 0; i < number.Length - rightShiftPositions; i++)
             {
                 rightShiftedNumber[ i + rightShiftPositions ] = number[i];
@@ -293,43 +293,61 @@ namespace BaseTwoOperations
         public byte[] SumResult( byte[] number1,  byte[] number2)
         {
             int maxLength = (number1.Length >= number2.Length) ? number1.Length : number2.Length;
-            byte[] sumResult = new byte[] {};
+            byte[] sumResult = new byte[maxLength];
             int givenBaseNumber = 2;
-            int maxLenghtPosition = GetPositionAt(number1, maxLength - 1) + GetPositionAt(number2, maxLength - 1);
-            if (maxLenghtPosition >= givenBaseNumber)
-                Array.Resize<byte> (ref sumResult, sumResult.Length + (maxLength + 1));
-            else
-                Array.Resize<byte>(ref sumResult, sumResult.Length + maxLength);
             int index = 0;
             byte cateOfDivision = 0;
-            int position = 1;
-            for (int i = sumResult.Length - 1; i > 0; i--)
+            for (int i = sumResult.Length - 1; i >= 0; i--)
             {
-                if ((GetPositionAt(number1, index) + GetPositionAt(number2, index) + cateOfDivision) >= givenBaseNumber)
+                if ((byte)((GetPositionAt(number1, index) + GetPositionAt(number2, index)) + cateOfDivision) < givenBaseNumber)
                 {
-                    sumResult[i] = (byte)(((GetPositionAt(number1, index) + GetPositionAt(number2, index)) + cateOfDivision) % givenBaseNumber);
-                    cateOfDivision = (byte)((GetPositionAt(number1, index) + GetPositionAt(number2, index)) / givenBaseNumber);
+                    sumResult[i] = (byte)((GetPositionAt(number1, index) + GetPositionAt(number2, index)) + cateOfDivision);
+                    cateOfDivision = 0;
                 }
                 else
                 {
-                    sumResult[i] = (byte)(GetPositionAt(number1, index) + GetPositionAt(number2, index)) ;
-                    cateOfDivision = (byte)0;
+                    sumResult[i] = (byte)(((GetPositionAt(number1, index) + GetPositionAt(number2, index)) + cateOfDivision) % givenBaseNumber);
+                    cateOfDivision = (byte)(((GetPositionAt(number1, index) + GetPositionAt(number2, index)) + cateOfDivision) / givenBaseNumber);
+                }
+
+                if (cateOfDivision > 0 && i==0)
+                {
+                    Array.Resize<byte>(ref sumResult, sumResult.Length + 1);
+                    sumResult[0] = cateOfDivision;
                 }
                 index++;
-                position = i - 1;
             }
-            if (position == 0)
-                sumResult[position] = 1;
             return sumResult;
+            
         }
 
-        public byte[] DecreaseResult(byte[] number1,  byte[] number2)
+        public byte[] DecreaseResult(byte[] number1, byte[] number2)
         {
-            double conversionBaseNumber = 2;
-            double number1BackwardsConverted = ReversedConversionMethod(number1, conversionBaseNumber);
-            double number2BackwardsConverted = ReversedConversionMethod(number2, conversionBaseNumber);
-            double mathDecrease = number1BackwardsConverted - number2BackwardsConverted;
-            return Conversion( (int)mathDecrease, (int)conversionBaseNumber);
+            byte[] decResult = new byte[number1.Length];
+            int givenBaseNumber = 2;
+            int counter = 0;
+            for (int i = number1.Length - 1; i >= 0;  i--)
+            {
+                if (number1[i] < number2[i])
+                {
+                    int j = i;
+                    while (number1[j] == 0)
+                    {
+                        j--;
+                        counter++;
+                    }
+                    number1[number1.Length - 1 - counter] = (byte)(number1[number1.Length - 1 - counter] - 1);
+                    for (int k = number1.Length - counter; k < i; k++)
+                        number1[k] = (byte)(givenBaseNumber - 1);
+                    number1[i] = (byte)givenBaseNumber;
+                    decResult[i] = (byte)(number1[i] - number2[i]);
+                }
+                else
+                    decResult[i] = (byte)(number1[i] - number2[i]);
+                
+            }
+            return decResult;
+            
         }
 
         public byte[] MultiplicationResult(byte[] number1, byte[] number2)
