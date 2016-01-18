@@ -127,7 +127,25 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
-        public void MultiplicationTestMethod3()
+        public void DecreaseResultTestMethod2()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 1 }, DecreaseResult(new byte[] { 1, 0, 0, 0 }, new byte[] { 0, 1, 0, 1 }));
+        }
+
+        [TestMethod]
+        public void DecreaseResultTestMethod1()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0 }, DecreaseResult(new byte[] { 1, 1, 1, 1 }, new byte[] { 0, 1, 1, 1 }));
+        }
+
+        [TestMethod]
+        public void DecreaseResultTestMethod4()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 1, 1, 0 }, DecreaseResult(new byte[] { 1, 1, 0, 1 }, new byte[] { 0, 1, 1, 1 }));
+        }
+
+        [TestMethod]
+        public void MultiplicationTestMethod()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1, 0, 0 }, MultiplicationResult(new byte[] { 1, 0, 1, 0 }, new byte[] { 1, 1, 0 }));
         }
@@ -352,11 +370,16 @@ namespace BaseTwoOperations
 
         public byte[] MultiplicationResult(byte[] number1, byte[] number2)
         {
-            double conversionBaseNumber = 2;
-            double number1BackwardsConverted = ReversedConversionMethod(number1, conversionBaseNumber);
-            double number2BackwardsConverted = ReversedConversionMethod(number2, conversionBaseNumber);
-            double multiplication = number1BackwardsConverted * number2BackwardsConverted;
-            return Conversion((int)multiplication, (int)conversionBaseNumber);
+            byte[] multiplicationResult = new byte[number1.Length+number2.Length-1];
+            byte[,] matrix = new byte[number2.Length, multiplicationResult.Length];
+            for ( int i = 0; i < number2.Length; i++)
+                for (int k = number2.Length -1; k >= 0; k--)
+                    for (int j = multiplicationResult.Length - 1; j>=0; j--)
+                        matrix[i,j] = (byte)(GetPositionAt(number1,j) * GetPositionAt(number2,k));
+            for (int j = multiplicationResult.Length - 1; j >= 0; j--)
+                for (int i = 0; i < number2.Length; i++)
+                    multiplicationResult[j] = (byte)(multiplicationResult[j] + matrix[i, j]);
+            return multiplicationResult;
         }
         
         public byte[] DivideResult(byte[] number1, byte[] number2)
