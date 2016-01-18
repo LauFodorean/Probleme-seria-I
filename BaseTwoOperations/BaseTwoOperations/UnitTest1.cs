@@ -313,30 +313,21 @@ namespace BaseTwoOperations
             int maxLength = (number1.Length >= number2.Length) ? number1.Length : number2.Length;
             byte[] sumResult = new byte[maxLength];
             int givenBaseNumber = 2;
-            int index = 0;
             byte cateOfDivision = 0;
-            for (int i = sumResult.Length - 1; i >= 0; i--)
+            for (int i = 0; i < maxLength; i++)
             {
-                if ((byte)((GetPositionAt(number1, index) + GetPositionAt(number2, index)) + cateOfDivision) < givenBaseNumber)
-                {
-                    sumResult[i] = (byte)((GetPositionAt(number1, index) + GetPositionAt(number2, index)) + cateOfDivision);
-                    cateOfDivision = 0;
-                }
-                else
-                {
-                    sumResult[i] = (byte)(((GetPositionAt(number1, index) + GetPositionAt(number2, index)) + cateOfDivision) % givenBaseNumber);
-                    cateOfDivision = (byte)(((GetPositionAt(number1, index) + GetPositionAt(number2, index)) + cateOfDivision) / givenBaseNumber);
-                }
-
-                if (cateOfDivision > 0 && i==0)
-                {
-                    Array.Resize<byte>(ref sumResult, sumResult.Length + 1);
-                    sumResult[0] = cateOfDivision;
-                }
-                index++;
+               sumResult[sumResult.Length - 1 - i] = (byte)(((GetPositionAt(number1, i) + GetPositionAt(number2, i)) + cateOfDivision) % givenBaseNumber);
+               cateOfDivision = (byte)(((GetPositionAt(number1, i) + GetPositionAt(number2, i)) + cateOfDivision) / givenBaseNumber);
+            }
+            
+            if (cateOfDivision > 0)
+            {
+                Array.Resize<byte>(ref sumResult, sumResult.Length + 1);
+                for (int i = 0; i < sumResult.Length - 1; i++)
+                    sumResult[sumResult.Length - 1 - i] = sumResult[sumResult.Length - 1 - i - 1];
+                sumResult[0] = cateOfDivision;
             }
             return sumResult;
-            
         }
 
         public byte[] DecreaseResult(byte[] number1, byte[] number2)
