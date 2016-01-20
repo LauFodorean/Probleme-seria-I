@@ -123,13 +123,13 @@ namespace BaseTwoOperations
         [TestMethod]
         public void DecreaseResultTestMethod3()
         {
-            CollectionAssert.AreEqual(new byte[] {0, 1, 1, 1}, DecreaseResult(new byte[] { 1, 0, 0, 0 }, new byte[] { 0, 0, 0, 1 }));
+            CollectionAssert.AreEqual(new byte[] {0, 1, 1, 1}, DecreaseResult(new byte[] { 1, 0, 0, 0 }, new byte[] { 1 }));
         }
 
         [TestMethod]
         public void DecreaseResultTestMethod2()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 1 }, DecreaseResult(new byte[] { 1, 0, 0, 0 }, new byte[] { 0, 1, 0, 1 }));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 1 }, DecreaseResult(new byte[] { 1, 0, 0, 0 }, new byte[] { 1, 0, 1 }));
         }
 
         [TestMethod]
@@ -334,27 +334,26 @@ namespace BaseTwoOperations
         {
             byte[] decResult = new byte[number1.Length];
             int givenBaseNumber = 2;
-            int counter = 0;
-            for (int i = number1.Length - 1; i >= 0;  i--)
+            byte reminder = 0;
+            
+            for (int i = 0; i < decResult.Length;  i++)
             {
-                if (number1[i] < number2[i])
+                if (GetPositionAt(number1, i) + reminder < GetPositionAt(number2, i))
                 {
-                    int j = i;
-                    while (number1[j] == 0)
-                    {
-                        j--;
-                        counter++;
-                    }
-                    number1[number1.Length - 1 - counter] = (byte)(number1[number1.Length - 1 - counter] - 1);
-                    for (int k = number1.Length - counter; k < i; k++)
-                        number1[k] = (byte)(givenBaseNumber - 1);
-                    number1[i] = (byte)givenBaseNumber;
-                    decResult[i] = (byte)(number1[i] - number2[i]);
+                    decResult[decResult.Length - 1 - i] = (byte)((GetPositionAt(number1, i) + reminder + givenBaseNumber) - GetPositionAt(number2, i));
+                    reminder = 1;
                 }
                 else
-                    decResult[i] = (byte)(number1[i] - number2[i]);
-                
+                {
+                    decResult[decResult.Length - 1 - i] = (byte)((GetPositionAt(number1, i) + reminder) - GetPositionAt(number2, i));
+                }
+
+                if (GetPositionAt(number1, 0) - reminder == 0)
+                    decResult[0] = (byte)0;
+                else
+                    decResult[0] = (byte)((GetPositionAt(number1, i) - reminder) - GetPositionAt(number2, i)); ;
             }
+            
             return decResult;
             
         }
