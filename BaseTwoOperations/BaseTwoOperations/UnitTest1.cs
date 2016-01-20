@@ -151,6 +151,18 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
+        public void MultiplicationTestMethod2()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0 }, MultiplicationResult(new byte[] { 1, 0, 1, 0 }, new byte[] { 1 }));
+        }
+
+        [TestMethod]
+        public void MultiplicationTestMethod3()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 1, 0, 1, 1, 0 }, MultiplicationResult(new byte[] { 1, 0, 1, 0 }, new byte[] { 1, 1, 1, 1 }));
+        }
+
+        [TestMethod]
         public void DivideTestMethod3()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0 }, DivideResult(new byte[] { 1, 1, 1, 1, 0, 0 }, new byte[] { 1, 1, 0 }));
@@ -361,14 +373,19 @@ namespace BaseTwoOperations
         public byte[] MultiplicationResult(byte[] number1, byte[] number2)
         {
             byte[] multiplicationResult = new byte[number1.Length+number2.Length-1];
-            byte[,] matrix = new byte[number2.Length, multiplicationResult.Length];
-            for ( int i = 0; i < number2.Length; i++)
-                for (int k = number2.Length -1; k >= 0; k--)
-                    for (int j = multiplicationResult.Length - 1; j>=0; j--)
-                        matrix[i,j] = (byte)(GetPositionAt(number1,j) * GetPositionAt(number2,k));
-            for (int j = multiplicationResult.Length - 1; j >= 0; j--)
-                for (int i = 0; i < number2.Length; i++)
-                    multiplicationResult[j] = (byte)(multiplicationResult[j] + matrix[i, j]);
+            byte[] multiplicationRow = new byte[number1.Length];
+            int j = 0;
+            int counter = 0;
+            while (j < number2.Length)
+            {
+                for (int i = 0; i < number1.Length; i++)
+                    multiplicationRow[multiplicationRow.Length - 1 - i ] = (byte)(GetPositionAt(number2, j) * GetPositionAt(number1, i));
+                Array.Resize<byte>(ref multiplicationRow, multiplicationRow.Length + counter);
+                multiplicationResult = SumResult(multiplicationRow, multiplicationResult);
+                Array.Resize<byte>(ref multiplicationRow, multiplicationRow.Length - counter);
+                counter = counter + 1;
+                j++;
+            }
             return multiplicationResult;
         }
         
