@@ -350,20 +350,17 @@ namespace BaseTwoOperations
             
             for (int i = 0; i < decResult.Length;  i++)
             {
-                if (GetPositionAt(number1, i) + reminder < GetPositionAt(number2, i))
+                if (GetPositionAt(number1, i) - reminder < GetPositionAt(number2, i))
                 {
-                    decResult[decResult.Length - 1 - i] = (byte)((GetPositionAt(number1, i) + reminder + givenBaseNumber) - GetPositionAt(number2, i));
+                    decResult[decResult.Length - 1 - i] = (byte)((GetPositionAt(number1, i) - reminder + givenBaseNumber) - GetPositionAt(number2, i));
                     reminder = 1;
                 }
                 else
                 {
-                    decResult[decResult.Length - 1 - i] = (byte)((GetPositionAt(number1, i) + reminder) - GetPositionAt(number2, i));
+                    decResult[decResult.Length - 1 - i] = (byte)((GetPositionAt(number1, i) - reminder) - GetPositionAt(number2, i));
+                    reminder = 0;
                 }
 
-                if (GetPositionAt(number1, 0) - reminder == 0)
-                    decResult[0] = (byte)0;
-                else
-                    decResult[0] = (byte)((GetPositionAt(number1, i) - reminder) - GetPositionAt(number2, i)); ;
             }
             
             return decResult;
@@ -391,9 +388,12 @@ namespace BaseTwoOperations
         
         public byte[] DivideResult(byte[] number1, byte[] number2)
         {
-            double conversionBaseNumber = 2;
-            double division = ReversedConversionMethod(number1, conversionBaseNumber) / ReversedConversionMethod(number2, conversionBaseNumber);
-            return Conversion((int)division, (int)conversionBaseNumber);
+            int counter = 0, givenBaseNumber = 2;
+            for (byte[] i = number1; ReversedConversionMethod(i, givenBaseNumber) >= ReversedConversionMethod(number2, givenBaseNumber); i = DecreaseResult(i, number2))
+            {
+                counter = counter + 1;
+            }
+            return Conversion(counter, givenBaseNumber);            
         }
 
      }
