@@ -48,6 +48,12 @@ namespace ProductBasket
             CollectionAssert.AreEqual(new double[] { 3, 1, 100, 100 }, AddNewProductPrice(new double[] { 3, 1, 100 },100));
         }
 
+        [TestMethod]
+        public void CalculateMediumProductPriceInBasket()
+        {
+            Assert.AreEqual(100, CalculateMediumProductPrice(new double[] { 50, 150, 100 }));
+        }
+
         //struct product
         //{
         //    public string name;
@@ -113,6 +119,13 @@ namespace ProductBasket
                 
             }
             return newListOfPrices;
+        }
+
+        public double CalculateMediumProductPrice(double[] listOfPrices)
+        {
+            double mediumPrice = 0;
+            mediumPrice = CalculateBasketTotalPrice(listOfPrices) / listOfPrices.Length;
+            return mediumPrice;
         }
     }
 }
