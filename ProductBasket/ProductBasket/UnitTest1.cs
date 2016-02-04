@@ -6,125 +6,185 @@ namespace ProductBasket
     [TestClass]
     public class UnitTest1
     {
+        public struct product
+        {
+            public string name;
+            public decimal price;
+
+            public product(string name, decimal price)
+            {
+                this.name = name;
+                this.price = price;
+            }
+
+        }
+
         [TestMethod]
         public void TotalPriceOfProductsInBasket()
         {
-            Assert.AreEqual(300, CalculateBasketTotalPrice(new double[] {150, 100, 50}));
+            product[] productList = {
+                new product { name = "shoes", price = 150 },
+                new product { name = "tshirt", price = 100 },
+                new product { name = "shorts", price = 50 }
+            };
+
+            Assert.AreEqual(300, CalculateBasketTotalPrice(productList));
         }
 
         [TestMethod]
         public void CheapestProductInBasket()
         {
-            Assert.AreEqual(1, IndicateCheapestProductInBasket(new double[] { 150, 1, 100, 50 }));
+            product[] productList = { 
+                new product { name = "shoes", price = 150},
+                new product { name = "tshirt", price = 100},
+                new product { name = "shorts", price = 50}
+            };
+            Assert.AreEqual("shorts", IndicateCheapestProductInBasket(productList));
         }
 
         [TestMethod]
         public void MostExpensiveProductInBasket()
         {
-            Assert.AreEqual(150, IndicateMostExpensiveProductInBasket(new double[] { 150, 1, 100, 50 }));
+            product[] productList = 
+            {
+                new product { name = "shoes", price = 150},
+                new product { name = "tshirt", price = 100},
+                new product { name = "shorts", price = 50}
+
+            };
+            Assert.AreEqual(150, IndicateMostExpensiveProductInBasket(productList));
         }
 
         [TestMethod]
         public void EliminateMosteExpensiveProductThatApeearsInTwoPositionsInBasket()
         {
-            CollectionAssert.AreEqual(new double[] { 1, 100, 50 }, EliminateMostExpensiveProduct(new double[] { 1, 150, 150, 100, 50 }));
+            product a = new product { name = "bag", price = 1};
+            product b = new product { name = "shoes", price = 150 };
+            product c = new product { name = "shoes", price = 150 };
+            product d = new product { name = "tshirt", price = 100 };
+            product e = new product { name = "shorts", price = 50 };
+            product[] listProduct1 = new product[] { a, d, e };
+            product[] listProduct2 = new product[] { a, b, c, d, e};
+            CollectionAssert.AreEqual(listProduct1, EliminateMostExpensiveProduct(listProduct2));
         }
 
         [TestMethod]
         public void EliminateMosteExpensiveProductFromFirstPositionInBasket()
         {
-            CollectionAssert.AreEqual(new double[] { 1, 100, 50 }, EliminateMostExpensiveProduct(new double[] { 150, 1, 100, 50 }));
+            product a = new product { name = "shoes", price = 150 };
+            product b = new product { name = "bag", price = 1 };
+            product c = new product { name = "tshirt", price = 100 };
+            product d = new product { name = "shorts", price = 50 };
+            product[] listProduct1 = new product[] { b, c, d };
+            product[] listProduct2 = new product[] { a, b, c, d };
+            CollectionAssert.AreEqual(listProduct1, EliminateMostExpensiveProduct(listProduct2));
         }
 
         [TestMethod]
         public void EliminateMosteExpensiveProductFromLastPositionInBasket()
         {
-            CollectionAssert.AreEqual(new double[] { 3, 1, 100 }, EliminateMostExpensiveProduct(new double[] { 3, 1, 100, 150 }));
+            product a = new product { name = "shorts", price = 50 };
+            product b = new product { name = "tshirt", price = 100 };
+            product c = new product { name = "bag", price = 1 };
+            product d = new product { name = "shoes", price = 150 };
+            product[] listProduct1 = new product[] { a, b, c };
+            product[] listProduct2 = new product[] { a, b, c, d };
+            CollectionAssert.AreEqual(listProduct1, EliminateMostExpensiveProduct(listProduct2));
         }
 
         [TestMethod]
         public void AddNewProductPriceInBasket()
         {
-            CollectionAssert.AreEqual(new double[] { 3, 1, 100, 100 }, AddNewProductPrice(new double[] { 3, 1, 100 },100));
+            product a = new product { name = "shorts", price = 50 };
+            product b = new product { name = "tshirt", price = 100 };
+            product c = new product { name = "shoes", price = 150 };
+            product d = new product { name = "bag", price = 1 };
+            product[] productList1 = new product[] { a, b, c };
+            product[] productList2 = new product[] { a, b, c, d };
+            CollectionAssert.AreEqual(productList2, AddNewProductPrice(productList1, d));
         }
 
         [TestMethod]
         public void CalculateMediumProductPriceInBasket()
         {
-            Assert.AreEqual(100, CalculateMediumProductPrice(new double[] { 50, 150, 100 }));
+            product a = new product { name = "shorts", price = 50 };
+            product b = new product { name = "tshirt", price = 100 };
+            product c = new product { name = "shoes", price = 150 };
+            product[] productList1 = new product[] { a, b, c };
+            Assert.AreEqual(100, CalculateMediumProductPrice(productList1));
         }
 
-        //struct product
-        //{
-        //    public string name;
-        //    public double price;
-        //}
-        
-        public double CalculateBasketTotalPrice(double[] p)
+        public decimal CalculateBasketTotalPrice(product[] basket)
         {
-            double totalPrice = 0;
-            for (int i = 0; i < p.Length; i++)
-                totalPrice = totalPrice + (double)p[i];
+            decimal totalPrice = 0;
+            for (int i = 0; i < basket.Length; i++ )
+                totalPrice = totalPrice + basket[i].price;
             return totalPrice;
         }
 
-        public double IndicateCheapestProductInBasket(double[] p)
+        public string IndicateCheapestProductInBasket(product[] basket)
         {
-            double lowestPrice = p[0];
-            for (int i = 1; i < p.Length; i++)
-                if (p[i] < lowestPrice)
-                    lowestPrice = p[i];
-            return lowestPrice;
+            product lowestPrice;
+            lowestPrice.price = basket[0].price;
+            lowestPrice.name = basket[0].name;
+            for (int i = 1; i < basket.Length; i++)
+                if (basket[i].price < lowestPrice.price)
+                {
+                    lowestPrice.price = basket[i].price;
+                    lowestPrice.name = basket[i].name;
+                }
+
+            return lowestPrice.name;
         }
 
-        public double IndicateMostExpensiveProductInBasket(double[] p)
+        public decimal IndicateMostExpensiveProductInBasket(product[] basket)
         {
-            double mostExpensivePrice = p[0];
-            for (int i = 1; i < p.Length; i++)
-                if (p[i] > mostExpensivePrice)
-                    mostExpensivePrice = p[i];
-            return mostExpensivePrice;
-            
+            product mostExpensiveProduct = basket[0];
+            for (int i = 1; i < basket.Length; i++)
+                if (basket[i].price > mostExpensiveProduct.price)
+                    mostExpensiveProduct = basket[i];
+            return mostExpensiveProduct.price ;
+
         }
 
-        public double[] EliminateMostExpensiveProduct(double[] p)
+        public product[] EliminateMostExpensiveProduct(product[] basket)
         {
-            double highestPrice;
+            decimal highestPrice; 
             int counter = 0, index = 0;
-            double[] newValuesArray = new double[p.Length];
-            highestPrice = IndicateMostExpensiveProductInBasket(p);
-                    
-            for (int i = 0; i < p.Length; i++ )
-                if (p[i] == highestPrice)
+            product[] newBasketProducts = new product[basket.Length];
+            highestPrice = IndicateMostExpensiveProductInBasket(basket);
+
+            for (int i = 0; i < basket.Length; i++)
+                if (basket[i].price == highestPrice)
                     counter = counter + 1;
-            Array.Resize<double>( ref newValuesArray, newValuesArray.Length - counter );
-            
-            for (int i = 0; i < p.Length; i++)
-                if (p[i] != highestPrice)
-                    newValuesArray[i - index] = p[i];
+            Array.Resize<product>(ref newBasketProducts, newBasketProducts.Length - counter);
+
+            for (int i = 0; i < basket.Length; i++)
+                if (basket[i].price != highestPrice)
+                    newBasketProducts[i - index] = basket[i];
                 else
                     index = index + 1;
-            return newValuesArray;
+            return newBasketProducts;
         }
 
-        public double[] AddNewProductPrice(double[] listOfPrices, double p)
+        public product[] AddNewProductPrice(product[] basket, product p)
         {
-            double[] newListOfPrices = new double[listOfPrices.Length+1];
-            for (int i = 0; i < newListOfPrices.Length; i++)
+            product[] newBasketProducts = new product[basket.Length + 1];
+            for (int i = 0; i < newBasketProducts.Length; i++)
             {
-                if (i == newListOfPrices.Length - 1)
-                    newListOfPrices[i] = p;
+                if (i == newBasketProducts.Length - 1)
+                    newBasketProducts[i] = p;
                 else
-                newListOfPrices[i] = listOfPrices[i];
-                
+                    newBasketProducts[i] = basket[i];
+
             }
-            return newListOfPrices;
+            return newBasketProducts;
         }
 
-        public double CalculateMediumProductPrice(double[] listOfPrices)
+        public decimal CalculateMediumProductPrice(product[] basket)
         {
-            double mediumPrice = 0;
-            mediumPrice = CalculateBasketTotalPrice(listOfPrices) / listOfPrices.Length;
+            decimal mediumPrice = 0;
+            mediumPrice = CalculateBasketTotalPrice(basket) / basket.Length;
             return mediumPrice;
         }
     }
