@@ -43,7 +43,19 @@ namespace Intersection
 
         }
 
+        [TestMethod]
+        public void TestMethodWhereFirstIntersectionIsPointOfOrigin()
+        {
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            pointCoordinates upSegment = new pointCoordinates { x = 0, y = 3 };
+            pointCoordinates downSegment = new pointCoordinates { x = 0, y = -3 };
+            pointCoordinates leftSegment = new pointCoordinates { x = -3, y = 0 };
+            pointCoordinates rightSegment = new pointCoordinates { x = 3, y = 0 };
+            pointCoordinates[] segmentConstruction = new pointCoordinates[] { origin, upSegment, rightSegment, downSegment, leftSegment };
+            Assert.AreEqual(new pointCoordinates { x = 0, y = 0 }, GetFirstIntersection(segmentConstruction));
 
+        }
+        
         public pointCoordinates GetFirstIntersection(pointCoordinates[] listOfSegments)
         {
             pointCoordinates[] jointPoints = new pointCoordinates[listOfSegments.Length];
