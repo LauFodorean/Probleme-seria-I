@@ -99,6 +99,22 @@ namespace Intersection
             Assert.AreEqual(new pointCoordinates { x = 0, y = 3 }, GetFirstIntersection(origin, listOfDirections));
         }
 
+        [TestMethod]
+        public void TestMethodWhereWeGoBackwardsOnFourthMove()
+        {
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            Direction[] listOfDirections = new Direction[] { Direction.up, Direction.right, Direction.up, Direction.down };
+            Assert.AreEqual(new pointCoordinates { x = 3, y = 6 }, GetFirstIntersection(origin, listOfDirections));
+        }
+
+        //[TestMethod]
+        //public void TestMethodWhereWeHaveNoIntersection()
+        //{
+        //    pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+        //    Direction[] listOfDirections = new Direction[] { Direction.up, Direction.right, Direction.up};
+        //    Assert.AreEqual("There is no intersection", GetFirstIntersection(origin, listOfDirections));
+        //}
+
         public pointCoordinates GetFirstIntersection(pointCoordinates origin, Direction[] listOfMoves)
         {
             pointCoordinates[] jointPoints = new pointCoordinates[listOfMoves.Length+1];
@@ -122,15 +138,20 @@ namespace Intersection
                     }
                     j--;
                 }
-
-                //if (intersectionPoint.x == jointPoints[i - 2].x && intersectionPoint.y == jointPoints[i - 2].y && i>=2)
-                //{
-                //    intersectionPoint.x = jointPoints[i].x;
-                //    intersectionPoint.y = jointPoints[i].y;
-                //    firstIntersectionPoint = true;
-                //}
                 i++;
             }
+            if (intersectionPoint.x == jointPoints[i - 3].x && intersectionPoint.y == jointPoints[i - 3].y)
+            {
+                intersectionPoint.x = jointPoints[i - 2].x;
+                intersectionPoint.y = jointPoints[i - 2].y;
+                firstIntersectionPoint = true;
+            }
+            else
+                firstIntersectionPoint = false;
+
+            //if (firstIntersectionPoint == false)
+            //    return string "There is no intersection";
+            
             return intersectionPoint;
         }
 
