@@ -17,57 +17,100 @@ namespace Intersection
             }
         }
 
+        public enum Direction { up, down, left, right}
+
+        public pointCoordinates move(pointCoordinates point, Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.up:
+                    point.y = point.y + 3;
+                    break;
+                case Direction.down:
+                    point.y = point.y - 3;
+                    break;
+                case Direction.left:
+                    point.x = point.x - 3;
+                    break;
+                case Direction.right:
+                    point.x = point.x + 3;
+                    break;
+            }
+            return point;
+        }
+
+        [TestMethod]
+        public void TestMethodForMoveFunctionUp()
+        {
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            Assert.AreEqual(new pointCoordinates { x = 0, y = 3 }, move(origin, Direction.up));
+        }
+
+        [TestMethod]
+        public void TestMethodForMoveFunctionDown()
+        {
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            Assert.AreEqual(new pointCoordinates { x = 0, y = -3 }, move(origin, Direction.down));
+        }
+
+        [TestMethod]
+        public void TestMethodForMoveFunctionRight()
+        {
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            Assert.AreEqual(new pointCoordinates { x = 3, y = 0 }, move(origin, Direction.right));
+        }
+
+        [TestMethod]
+        public void TestMethodForMoveFunctionLeft()
+        {
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            Assert.AreEqual(new pointCoordinates { x = -3, y = 0 }, move(origin, Direction.left));
+        }
+
         [TestMethod]
         public void TestMethodWithOneIntersection()
         {
             pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
-            pointCoordinates upSegment = new pointCoordinates { x = 0, y = 3 };
-            pointCoordinates downSegment = new pointCoordinates { x = 0, y = -3 };
-            pointCoordinates leftSegment = new pointCoordinates { x = -3, y = 0 };
-            pointCoordinates rightSegment = new pointCoordinates { x = 3, y = 0 };
-            pointCoordinates[] segmentConstruction = new pointCoordinates[] { origin, upSegment, rightSegment, rightSegment, upSegment, leftSegment, downSegment };
-            Assert.AreEqual(new pointCoordinates { x = 3, y = 3 }, GetFirstIntersection(segmentConstruction));
-
+            Direction[] listOfDirections = new Direction[] { Direction.up, Direction.right, Direction.right, Direction.up, Direction.left, Direction.down };
+            Assert.AreEqual(new pointCoordinates { x = 3, y = 3 }, GetFirstIntersection(origin, listOfDirections));
         }
 
         [TestMethod]
         public void TestMethodWithTwoIntersections()
         {
             pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
-            pointCoordinates upSegment = new pointCoordinates { x = 0, y = 3 };
-            pointCoordinates downSegment = new pointCoordinates { x = 0, y = -3 };
-            pointCoordinates leftSegment = new pointCoordinates { x = -3, y = 0 };
-            pointCoordinates rightSegment = new pointCoordinates { x = 3, y = 0 };
-            pointCoordinates[] segmentConstruction = new pointCoordinates[] { origin, upSegment, rightSegment, rightSegment, upSegment, leftSegment, downSegment, downSegment, rightSegment, upSegment };
-            Assert.AreEqual(new pointCoordinates { x = 3, y = 3 }, GetFirstIntersection(segmentConstruction));
-
+            Direction[] listOfDirections = new Direction[] { Direction.up, Direction.right, Direction.right, Direction.up, Direction.left, Direction.down, Direction.down, Direction.right, Direction.up };
+            Assert.AreEqual(new pointCoordinates { x = 3, y = 3 }, GetFirstIntersection(origin, listOfDirections));
         }
 
         [TestMethod]
         public void TestMethodWhereFirstIntersectionIsPointOfOrigin()
         {
             pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
-            pointCoordinates upSegment = new pointCoordinates { x = 0, y = 3 };
-            pointCoordinates downSegment = new pointCoordinates { x = 0, y = -3 };
-            pointCoordinates leftSegment = new pointCoordinates { x = -3, y = 0 };
-            pointCoordinates rightSegment = new pointCoordinates { x = 3, y = 0 };
-            pointCoordinates[] segmentConstruction = new pointCoordinates[] { origin, upSegment, rightSegment, downSegment, leftSegment };
-            Assert.AreEqual(new pointCoordinates { x = 0, y = 0 }, GetFirstIntersection(segmentConstruction));
-
+            Direction[] listOfDirections = new Direction[] { Direction.up, Direction.right, Direction.down, Direction.left};
+            Assert.AreEqual(new pointCoordinates { x = 0, y = 0 }, GetFirstIntersection(origin, listOfDirections));
         }
-        
-        public pointCoordinates GetFirstIntersection(pointCoordinates[] listOfSegments)
+
+        [TestMethod]
+        public void TestMethodWhereWeGoBackwards()
         {
-            pointCoordinates[] jointPoints = new pointCoordinates[listOfSegments.Length];
-            pointCoordinates intersectionPoint = new pointCoordinates { x = 0, y = 0 };
-            jointPoints[0].x = listOfSegments[0].x;
-            jointPoints[0].y = listOfSegments[0].y;
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            Direction[] listOfDirections = new Direction[] { Direction.up, Direction.down };
+            Assert.AreEqual(new pointCoordinates { x = 0, y = 3 }, GetFirstIntersection(origin, listOfDirections));
+        }
+
+        public pointCoordinates GetFirstIntersection(pointCoordinates origin, Direction[] listOfMoves)
+        {
+            pointCoordinates[] jointPoints = new pointCoordinates[listOfMoves.Length+1];
+            pointCoordinates intersectionPoint = new pointCoordinates { x = origin.x, y = origin.y };
+            jointPoints[0].x = origin.x;
+            jointPoints[0].y = origin.y;
             int i = 1;
             bool firstIntersectionPoint = false;
-            while (i < listOfSegments.Length && firstIntersectionPoint == false)
+            while (i <= listOfMoves.Length && firstIntersectionPoint == false)
             {
-                jointPoints[i].x = jointPoints[i - 1].x + listOfSegments[i].x;
-                jointPoints[i].y = jointPoints[i - 1].y + listOfSegments[i].y;
+                jointPoints[i].x = jointPoints[i - 1].x + move(origin,listOfMoves[i - 1]).x;
+                jointPoints[i].y = jointPoints[i - 1].y + move(origin,listOfMoves[i - 1]).y;
                 int j = i - 1;
                 while (j >= 0)
                 {
@@ -79,11 +122,16 @@ namespace Intersection
                     }
                     j--;
                 }
+
+                //if (intersectionPoint.x == jointPoints[i - 2].x && intersectionPoint.y == jointPoints[i - 2].y && i>=2)
+                //{
+                //    intersectionPoint.x = jointPoints[i].x;
+                //    intersectionPoint.y = jointPoints[i].y;
+                //    firstIntersectionPoint = true;
+                //}
                 i++;
             }
-
             return intersectionPoint;
-
         }
 
 
