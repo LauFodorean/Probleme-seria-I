@@ -10,10 +10,12 @@ namespace Intersection
         {
             public int x;
             public int y;
-            pointCoordinates(int x, int y)
+            public bool intersectionPoint;
+            pointCoordinates(int x, int y, bool intersectionPoint)
             {
                 this.x = x;
                 this.y = y;
+                this.intersectionPoint = intersectionPoint;
             }
         }
 
@@ -37,6 +39,14 @@ namespace Intersection
                     break;
             }
             return point;
+        }
+
+        public string NoIntersectionPoint(pointCoordinates point)
+        {
+            string text = " ";
+            if (point.intersectionPoint == false)
+                text = "There is no intersection!";
+            return text ;
         }
 
         [TestMethod]
@@ -70,60 +80,59 @@ namespace Intersection
         [TestMethod]
         public void TestMethodWithOneIntersection()
         {
-            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0, intersectionPoint = false };
             Direction[] listOfDirections = new Direction[] { Direction.up, Direction.right, Direction.right, Direction.up, Direction.left, Direction.down };
-            Assert.AreEqual(new pointCoordinates { x = 3, y = 3 }, GetFirstIntersection(origin, listOfDirections));
+            Assert.AreEqual(new pointCoordinates { x = 3, y = 3, intersectionPoint = true }, GetFirstIntersection(origin, listOfDirections));
         }
 
         [TestMethod]
         public void TestMethodWithTwoIntersections()
         {
-            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0, intersectionPoint = false };
             Direction[] listOfDirections = new Direction[] { Direction.up, Direction.right, Direction.right, Direction.up, Direction.left, Direction.down, Direction.down, Direction.right, Direction.up };
-            Assert.AreEqual(new pointCoordinates { x = 3, y = 3 }, GetFirstIntersection(origin, listOfDirections));
+            Assert.AreEqual(new pointCoordinates { x = 3, y = 3, intersectionPoint = true }, GetFirstIntersection(origin, listOfDirections));
         }
 
         [TestMethod]
         public void TestMethodWhereFirstIntersectionIsPointOfOrigin()
         {
-            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0, intersectionPoint = false };
             Direction[] listOfDirections = new Direction[] { Direction.up, Direction.right, Direction.down, Direction.left};
-            Assert.AreEqual(new pointCoordinates { x = 0, y = 0 }, GetFirstIntersection(origin, listOfDirections));
+            Assert.AreEqual(new pointCoordinates { x = 0, y = 0, intersectionPoint = true }, GetFirstIntersection(origin, listOfDirections));
         }
 
         [TestMethod]
         public void TestMethodWhereWeGoBackwards()
         {
-            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0, intersectionPoint = false };
             Direction[] listOfDirections = new Direction[] { Direction.up, Direction.down };
-            Assert.AreEqual(new pointCoordinates { x = 0, y = 3 }, GetFirstIntersection(origin, listOfDirections));
+            Assert.AreEqual(new pointCoordinates { x = 0, y = 3, intersectionPoint = true }, GetFirstIntersection(origin, listOfDirections));
         }
 
         [TestMethod]
         public void TestMethodWhereWeGoBackwardsOnFourthMove()
         {
-            pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0, intersectionPoint = false };
             Direction[] listOfDirections = new Direction[] { Direction.up, Direction.right, Direction.up, Direction.down };
-            Assert.AreEqual(new pointCoordinates { x = 3, y = 6 }, GetFirstIntersection(origin, listOfDirections));
+            Assert.AreEqual(new pointCoordinates { x = 3, y = 6, intersectionPoint = true }, GetFirstIntersection(origin, listOfDirections));
         }
 
-        //[TestMethod]
-        //public void TestMethodWhereWeHaveNoIntersection()
-        //{
-        //    pointCoordinates origin = new pointCoordinates { x = 0, y = 0 };
-        //    Direction[] listOfDirections = new Direction[] { Direction.up, Direction.right, Direction.up};
-        //    Assert.AreEqual("There is no intersection", GetFirstIntersection(origin, listOfDirections));
-        //}
+        [TestMethod]
+        public void TestMethodWhereWeHaveNoIntersection()
+        {
+            pointCoordinates origin = new pointCoordinates { x = 0, y = 0, intersectionPoint = false };
+            Direction[] listOfDirections = new Direction[] { Direction.up, Direction.right, Direction.up };
+            Assert.AreEqual("There is no intersection!", NoIntersectionPoint(GetFirstIntersection(origin, listOfDirections)));
+        }
 
         public pointCoordinates GetFirstIntersection(pointCoordinates origin, Direction[] listOfMoves)
         {
             pointCoordinates[] jointPoints = new pointCoordinates[listOfMoves.Length+1];
-            pointCoordinates intersectionPoint = new pointCoordinates { x = origin.x, y = origin.y };
+            pointCoordinates intersectionPoint = new pointCoordinates { x = origin.x, y = origin.y, intersectionPoint=false };
             jointPoints[0].x = origin.x;
             jointPoints[0].y = origin.y;
             int i = 1;
-            bool firstIntersectionPoint = false;
-            while (i <= listOfMoves.Length && firstIntersectionPoint == false)
+            while (i <= listOfMoves.Length && intersectionPoint.intersectionPoint == false)
             {
                 jointPoints[i].x = jointPoints[i - 1].x + move(origin,listOfMoves[i - 1]).x;
                 jointPoints[i].y = jointPoints[i - 1].y + move(origin,listOfMoves[i - 1]).y;
@@ -134,7 +143,7 @@ namespace Intersection
                     {
                         intersectionPoint.x = jointPoints[i].x;
                         intersectionPoint.y = jointPoints[i].y;
-                        firstIntersectionPoint = true;
+                        intersectionPoint.intersectionPoint = true;
                     }
                     j--;
                 }
@@ -144,17 +153,11 @@ namespace Intersection
             {
                 intersectionPoint.x = jointPoints[i - 2].x;
                 intersectionPoint.y = jointPoints[i - 2].y;
-                firstIntersectionPoint = true;
+                intersectionPoint.intersectionPoint = true;
             }
-            else
-                firstIntersectionPoint = false;
 
-            //if (firstIntersectionPoint == false)
-            //    return string "There is no intersection";
-            
             return intersectionPoint;
         }
-
 
     }
 }
