@@ -61,9 +61,15 @@ namespace Password
         }
 
         [TestMethod]
-        public void PasswordWithBigCaps()
+        public void PasswordWithSmallCapsBigCaps()
         {
             Assert.AreEqual(6, GeneratePassword(2,4,0,0));
+        }
+
+        [TestMethod]
+        public void PasswordWithSmallCapsBigCapsFigures()
+        {
+            Assert.AreEqual(9, GeneratePassword(2, 4, 3, 0));
         }
 
         public int GeneratePassword(int numberOfSmallCharacters, int numbersOfBigCharacters, int numberOfFigures, int numberOfSimbols)
@@ -80,8 +86,10 @@ namespace Password
                     , "U+0045", "U+0046", "U+0047", "U+0048", "U+0049", "U+004a", "U+0064", "U+004c"
                     , "U+004d", "U+004e", "U+004f", "U+0050", "U+0051", "U+0052", "U+0053", "U+0054"
                     , "U+0055", "U+0056", "U+0057", "U+0058", "U+0059", "U+005a"};
+            string[] figuresForPassword = new string[10] { "U+0030", "U+0031", "U+0032", "U+0033"
+                    , "U+0034", "U+0035", "U+0036", "U+0037", "U+0038", "U+0039"};
             var randomPasswordCharacter = new Random();
-            for (int i = 0; i < totalNumberOfCharsInPassword - (numbersOfBigCharacters + numberOfFigures + numberOfSimbols); i++)
+            for (int i = 0; i < numberOfSmallCharacters; i++)
             {
                 index = randomPasswordCharacter.Next(0, smallCharactersForPassword.Length);
                 passwordChars[i] = smallCharactersForPassword[index];
@@ -90,7 +98,13 @@ namespace Password
             for (int i = numberOfSmallCharacters; i < numberOfSmallCharacters + numbersOfBigCharacters ; i++)
             {
                 index = randomPasswordCharacter.Next(0, bigCharactersForPassword.Length);
-                passwordChars[i] = smallCharactersForPassword[index];
+                passwordChars[i] = bigCharactersForPassword[index];
+                counter++;
+            }
+            for (int i = numberOfSmallCharacters + numbersOfBigCharacters; i < numberOfSmallCharacters + numbersOfBigCharacters + numberOfFigures; i++)
+            {
+                index = randomPasswordCharacter.Next(0, figuresForPassword.Length);
+                passwordChars[i] = figuresForPassword[index];
                 counter++;
             }
         return counter;
