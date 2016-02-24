@@ -6,16 +6,16 @@ namespace Password
     [TestClass]
     public class UnitTest1
     {
-        public struct password
-        {
-            string passwordCharacters;
-            int numberOfCharacters;
-            public password(string pc, int numbers)
-            {
-                this.passwordCharacters = pc;
-                this.numberOfCharacters = numbers;
-            }
-        }
+        //public struct password
+        //{
+        //    string passwordCharacters;
+        //    int numberOfCharacters;
+        //    public password(string pc, int numbers)
+        //    {
+        //        this.passwordCharacters = pc;
+        //        this.numberOfCharacters = numbers;
+        //    }
+        //}
         
         public enum passwordCharacters
         {
@@ -26,87 +26,51 @@ namespace Password
             ambiguousCharacters
         }
 
-        public string CharactersToBeUsedForPassword(passwordCharacters pChars)
+        public string[] CharactersToBeUsedForPassword(passwordCharacters pChars)
         {
-            string charactersForPassword = " ";
+            string[] charactersForPassword = new string[1];
             switch (pChars)
             {
                 case passwordCharacters.smallCapsAlphabet:
-                    charactersForPassword = "abcdefghijklmnopqrstuvwxyz";
+                    charactersForPassword = new string[26] { "U+0061", "U+0062", "U+0063", "U+0064"
+                    , "U+0065", "U+0066", "U+0067", "U+0068", "U+0069", "U+006a", "U+006b", "U+006c"
+                    , "U+006d", "U+006e", "U+006f", "U+0070", "U+0071", "U+0072", "U+0073", "U+0074"
+                    , "U+0075", "U+0076", "U+0077", "U+0078", "U+0079", "U+007a"};
                     break;
-                case passwordCharacters.bigCapsAlphabet:
-                    charactersForPassword = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                    break;
-                case passwordCharacters.figures:
-                    charactersForPassword = "0123456789";
-                    break;
+                //case passwordCharacters.bigCapsAlphabet:
+                //    charactersForPassword = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                //    break;
+                //case passwordCharacters.figures:
+                //    charactersForPassword = "0123456789";
+                //    break;
                 //case passwordCharacters.ambiguousCharacters:
                 //    charactersForPassword = "{}[]()/\'"'~'','';''.'<>";
                 //    break;
             }
             return charactersForPassword;
-
         }
         
         [TestMethod]
-        public void SmallCapsPassword()
+        public void NumbersOfCharactersInPassword()
         {
-            Assert.AreEqual(true, GeneratePassword(CharactersToBeUsedForPassword(passwordCharacters.smallCapsAlphabet), 8));
+            Assert.AreEqual(10, GeneratePassword(CharactersToBeUsedForPassword(passwordCharacters.smallCapsAlphabet)));
             
                        
         }
-
-        public password GeneratePassword(passwordCharacters charactersFiguresOrSimbols, int passwordLength)
+        
+        public int GeneratePassword(string[] passwordCharacters)
         {
-            string passwordChars = "";
-            string charsToBeUsedInPassword = "";
+            int numbersOfCharactersInPassword = 10;
+            string[] passwordChars = new string[numbersOfCharactersInPassword];
+            int index;
             var randomPasswordCharacter = new Random();
-            for (int i = 1; i <=passwordLength; i++ )
+            for (int i = 0; i < passwordChars.Length; i++)
             {
-                charsToBeUsedInPassword = CharactersToBeUsedForPassword(charactersFiguresOrSimbols);
-                passwordChars = passwordChars + charsToBeUsedInPassword[randomPassword.Next(charsToBeUsedInPassword.Length)];
+                index = randomPasswordCharacter.Next(0, passwordCharacters.Length);
+                passwordChars[i] = passwordCharacters[index];
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            //char[] smallCharacters = new char[] {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-            //char[] password = new char[passwordLength];
-            //bool passwordCheck = false;
-            //int counter = 0;
-            //int i = 0;
-
-
-            ////for (int i = 0; i < passwordChars.Length; i++)
-            //while ( i < passwordChars.Length)
-            //{
-            //    passwordChars[i] = charactersFiguresOrSimbols[randomPassword.Next(charactersFiguresOrSimbols.Length)];
-            //    if (i > 0)
-            //        counter = 1;
-            //    for ( int j = 0; j < smallCharacters.Length; j++)
-            //    {
-                    
-            //        if (passwordChars[i] == smallCharacters[j])
-            //            password[i] = passwordChars[i];
-            //        else
-            //            i = i - counter;
-                    
-            //    }
-                
-            //}
-                      
-
-            //for (int k = 0; i < password.Length; i++)
-            //    for (int j = 0; j < smallCharacters.Length; j++)
-            //        if (password[k] == smallCharacters[j])
-            //            passwordCheck = true;
-            //        else
-            //            passwordCheck = false;
-            //return passwordCheck;
+        return passwordChars.Length;
+                  
         }
     }
 }
