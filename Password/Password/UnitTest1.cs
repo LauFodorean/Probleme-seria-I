@@ -81,9 +81,12 @@ namespace Password
         public int GeneratePassword(int numberOfSmallCharacters, int numbersOfBigCharacters, int numberOfFigures, int numberOfSimbols)
         {
             int totalNumberOfCharsInPassword = numberOfSmallCharacters + numbersOfBigCharacters + numberOfFigures + numberOfSimbols;
+            string[] similarCharacters = new string[] { "" };
             string[] passwordChars = new string[totalNumberOfCharsInPassword];
             int index;
             int counter = 0;
+            bool smallCharacter_L = false;
+            bool smallCharacter_O = false;
             string[] smallCharactersForPassword = new string[26] { "U+0061", "U+0062", "U+0063", "U+0064"
                     , "U+0065", "U+0066", "U+0067", "U+0068", "U+0069", "U+006A", "U+006B", "U+006C"
                     , "U+006D", "U+006E", "U+006F", "U+0070", "U+0071", "U+0072", "U+0073", "U+0074"
@@ -101,8 +104,38 @@ namespace Password
             for (int i = 0; i < numberOfSmallCharacters; i++)
             {
                 index = randomPasswordCharacter.Next(0, smallCharactersForPassword.Length);
-                passwordChars[i] = smallCharactersForPassword[index];
-                counter++;
+                if (smallCharactersForPassword[index] == "U+006C" || smallCharactersForPassword[index] == "U+006F")
+                {
+                    switch (smallCharactersForPassword[index])
+                    {
+                        case ("U+006C"):
+                            if (smallCharacter_L == false)
+                            {
+                                passwordChars[i] = smallCharactersForPassword[index];
+                                smallCharacter_L = true;
+                                counter++;
+                            }
+                            else
+                                i = i - 1;
+                            break;
+                        case ("U+006F"):
+                            if (smallCharacter_O == false)
+                            {
+                                passwordChars[i] = smallCharactersForPassword[index];
+                                smallCharacter_O = true;
+                                counter++;
+                            }
+                            else
+                                i = i - 1;
+                            break;
+                    }
+                }
+                else
+                {
+                    passwordChars[i] = smallCharactersForPassword[index];
+                    counter++;
+                }
+                
             }
             for (int i = numberOfSmallCharacters; i < numberOfSmallCharacters + numbersOfBigCharacters ; i++)
             {
