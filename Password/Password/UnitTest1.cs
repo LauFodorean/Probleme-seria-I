@@ -37,13 +37,19 @@ namespace Password
         [TestMethod]
         public void CheckIfPasswordHasOnlySmallLetters()
         {
-            Assert.AreEqual(12, GeneratePassword(10));
+            Assert.AreEqual(true, CheckPasswordToSeeIfITHasOnlySmallLetters(GeneratePassword(10)));
         }
 
         [TestMethod]
         public void CheckForSmallLetters()
         {
             Assert.AreEqual(true, CheckPasswordToSeeIfITHasOnlySmallLetters("abc"));
+        }
+
+        [TestMethod]
+        public void CheckPaswordForSmallLetersWhenItHasAlsoBigLetters()
+        {
+            Assert.AreEqual(false, CheckPasswordToSeeIfITHasOnlySmallLetters("abDcF"));
         }
 
         public bool CheckPasswordToSeeIfITHasOnlySmallLetters(string password)
