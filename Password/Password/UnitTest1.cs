@@ -52,6 +52,33 @@ namespace Password
             Assert.AreEqual(false, CheckPasswordToSeeIfITHasOnlySmallLetters("abDcF"));
         }
 
+        //[TestMethod]
+        //public void CheckPaswordForNumberBigLetters()
+        //{
+        //    Assert.AreEqual(false, CheckPasswordBigLetters("abDcF"));
+        //}
+
+        [TestMethod]
+        public void CheckPaswordForNumberBigLetters()
+        {
+            Assert.AreEqual(2, GetNumberOfBigLettersFromPassword("abDcF"));
+        }
+
+        [TestMethod]
+        public void CheckIfTwoGeneratedPasswordsAreRandom()
+        {
+            Assert.AreEqual(true, GenerateTwoRandomPasswords(10));
+        }
+
+        public int GetNumberOfBigLettersFromPassword(string password)
+        {
+            int number = 0;
+            for (int i = 0; i < password.Length; i++)
+                if (char.IsUpper(password[i]))
+                    number++;
+            return number;
+        }
+
         public bool CheckPasswordToSeeIfITHasOnlySmallLetters(string password)
         {
             bool smallLetter = true;
@@ -60,6 +87,49 @@ namespace Password
                     smallLetter = false;
             return smallLetter;
         }
+
+        public string GenerateBigLetters(int numberOfLetters)
+        {
+            string bigLetters = "";
+            var character = new Random();
+            char passwordCharacter;
+            for (int i = 0; i < numberOfLetters; i++)
+            {
+                passwordCharacter = (char)character.Next('A', 'Z');
+                bigLetters = bigLetters + passwordCharacter;
+
+            }
+            return bigLetters;
+        }
+
+        public bool GenerateTwoRandomPasswords(int numberOfCharacters)
+        {
+            string firstPassword = "";
+            string secondPassword = "";
+            bool passwordsAreRandom = false;
+            int count = 0;
+            var firstPasswordcharacter = new Random();
+            var secondPasswordcharacter = new Random(3000);
+            char characterForFirstPassword, characterForSecondPassword;
+            
+            for (int i = 0; i < numberOfCharacters; i++)
+            {
+                characterForFirstPassword = (char)firstPasswordcharacter.Next('a', 'z');
+                characterForSecondPassword = (char)secondPasswordcharacter.Next('a', 'z');
+                firstPassword = firstPassword + characterForFirstPassword;
+                secondPassword = secondPassword + characterForSecondPassword;
+            }
+            for ( int i = 0; i < numberOfCharacters; i++ )
+            {
+                if (firstPassword[i] == secondPassword[i])
+                    count += 1;
+            }
+            if (count < numberOfCharacters)
+                passwordsAreRandom = true;
+            return passwordsAreRandom;
+            
+        }
+
 
         public string GeneratePassword(int numberOfCharacters)
         {
