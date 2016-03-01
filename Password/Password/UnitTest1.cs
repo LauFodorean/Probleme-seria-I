@@ -109,20 +109,29 @@ namespace Password
             bool passwordsAreRandom = false;
             int count = 0;
             
-            AddCharactersToTheFirstAndToTheSecondPassword(numberOfCharacters, ref firstPassword, ref secondPassword);
-            for ( int i = 0; i < numberOfCharacters; i++ )
-            {
-                if (firstPassword[i] == secondPassword[i])
-                    count += 1;
-            }
+            AddCharactersToTheFirstAndToTheSecondPassword(numberOfCharacters);
+            count = CountSimilarCharactersInTwoPasswords(firstPassword,secondPassword);
             if (count < numberOfCharacters)
                 passwordsAreRandom = true;
             return passwordsAreRandom;
             
         }
 
-        private static void AddCharactersToTheFirstAndToTheSecondPassword(int numberOfCharacters, ref string firstPassword, ref string secondPassword)
+        private static int CountSimilarCharactersInTwoPasswords( string firstPassword, string secondPassword)
         {
+            int count = 0;
+            for (int i = 0; i < firstPassword.Length ; i++)
+            {
+                if (firstPassword[i] == secondPassword[i])
+                    count += 1;
+            }
+            return count;
+        }
+
+        private static void AddCharactersToTheFirstAndToTheSecondPassword(int numberOfCharacters)
+        {
+            string firstPassword = "";
+            string secondPassword = "";
             var firstPasswordcharacter = new Random();
             var secondPasswordcharacter = new Random(3000);
             char characterForFirstPassword, characterForSecondPassword;
