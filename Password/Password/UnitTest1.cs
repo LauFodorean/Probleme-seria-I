@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading;
 
 namespace Password
 {
@@ -52,6 +53,7 @@ namespace Password
             Assert.AreEqual(false, CheckPasswordToSeeIfITHasOnlySmallLetters("abDcF"));
         }
 
+
         //[TestMethod]
         //public void CheckPaswordForNumberBigLetters()
         //{
@@ -67,7 +69,13 @@ namespace Password
         [TestMethod]
         public void CheckIfTwoGeneratedPasswordsAreRandom()
         {
-            Assert.AreEqual(true, GenerateTwoRandomPasswords(10));
+            string firstPassword ="";
+            string secondPassword ="";
+            firstPassword = GeneratePassword(10);
+            int milliseconds = 3000;
+            Thread.Sleep(milliseconds);
+            secondPassword = GeneratePassword(10);
+            Assert.AreNotEqual(firstPassword, secondPassword);
         }
 
         public int GetNumberOfBigLettersFromPassword(string password)
@@ -101,51 +109,7 @@ namespace Password
             }
             return bigLetters;
         }
-
-        public bool GenerateTwoRandomPasswords(int numberOfCharacters)
-        {
-            string firstPassword = "";
-            string secondPassword = "";
-            bool passwordsAreRandom = false;
-            int count = 0;
-            
-            AddCharactersToTheFirstAndToTheSecondPassword(numberOfCharacters);
-            count = CountSimilarCharactersInTwoPasswords(firstPassword,secondPassword);
-            if (count < numberOfCharacters)
-                passwordsAreRandom = true;
-            return passwordsAreRandom;
-            
-        }
-
-        private static int CountSimilarCharactersInTwoPasswords( string firstPassword, string secondPassword)
-        {
-            int count = 0;
-            for (int i = 0; i < firstPassword.Length ; i++)
-            {
-                if (firstPassword[i] == secondPassword[i])
-                    count += 1;
-            }
-            return count;
-        }
-
-        private static void AddCharactersToTheFirstAndToTheSecondPassword(int numberOfCharacters)
-        {
-            string firstPassword = "";
-            string secondPassword = "";
-            var firstPasswordcharacter = new Random();
-            var secondPasswordcharacter = new Random(3000);
-            char characterForFirstPassword, characterForSecondPassword;
-            
-            for (int i = 0; i < numberOfCharacters; i++)
-            {
-                characterForFirstPassword = (char)firstPasswordcharacter.Next('a', 'z');
-                characterForSecondPassword = (char)secondPasswordcharacter.Next('a', 'z');
-                firstPassword = firstPassword + characterForFirstPassword;
-                secondPassword = secondPassword + characterForSecondPassword;
-            }
-        }
-
-
+                
         public string GeneratePassword(int numberOfCharacters)
         {
             string password = "";
