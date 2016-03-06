@@ -7,16 +7,20 @@ namespace Password
     [TestClass]
     public class UnitTest1
     {
-        //public struct password
-        //{
-        //    string passwordCharacters;
-        //    int numberOfCharacters;
-        //    public password(string pc, int numbers)
-        //    {
-        //        this.passwordCharacters = pc;
-        //        this.numberOfCharacters = numbers;
-        //    }
-        //}
+        public struct passwordsettings
+        {
+            public int numberOfSmallLetters;
+            public int numberOfBigLetters;
+            public int numberOfFigures;
+            public int numberOfSymbols;
+            public passwordsettings( int numberOfSmallLetters,int numberOfBigLetters,int numberOfFigures,int numberOfSymbols)
+            {
+                this.numberOfSmallLetters = numberOfSmallLetters;
+                this.numberOfBigLetters = numberOfBigLetters;
+                this.numberOfFigures = numberOfFigures; ;
+                this.numberOfSymbols = numberOfSymbols;
+            }
+        }
         
         //public enum passwordCharacters
         //{
@@ -27,18 +31,39 @@ namespace Password
         //    ambiguousCharacters
         //}
 
-        
 
+
+        [TestMethod]
+        public void CheckNumberOfCharactersInPasswordWhenBigAndSmallLettters()
+        {
+            passwordsettings settings;
+            settings.numberOfSmallLetters = 10;
+            settings.numberOfBigLetters = 3;
+            settings.numberOfFigures = 0;
+            settings.numberOfSymbols = 0;
+            Assert.AreEqual(13, GeneratePassword(settings).Length);
+        }
+        
         [TestMethod]
         public void CheckIfPasswordHasTheReqiuredLength()
         {
-            Assert.AreEqual(12, GeneratePassword(12).Length);
+            passwordsettings settings;
+            settings.numberOfSmallLetters = 12;
+            settings.numberOfBigLetters = 0;
+            settings.numberOfFigures = 0;
+            settings.numberOfSymbols = 0;
+            Assert.AreEqual(12, GeneratePassword(settings).Length);
         }
 
         [TestMethod]
         public void CheckIfPasswordHasOnlySmallLetters()
         {
-            Assert.AreEqual(true, CheckPasswordToSeeIfITHasOnlySmallLetters(GeneratePassword(10)));
+            passwordsettings settings;
+            settings.numberOfSmallLetters = 10;
+            settings.numberOfBigLetters = 0;
+            settings.numberOfFigures = 0;
+            settings.numberOfSymbols = 0;
+            Assert.AreEqual(true, CheckPasswordToSeeIfITHasOnlySmallLetters(GeneratePassword(settings)));
         }
 
         [TestMethod]
@@ -71,10 +96,15 @@ namespace Password
         {
             string firstPassword ="";
             string secondPassword ="";
-            firstPassword = GeneratePassword(10);
+            passwordsettings settings;
+            settings.numberOfSmallLetters = 10;
+            settings.numberOfBigLetters = 0;
+            settings.numberOfFigures = 0;
+            settings.numberOfSymbols = 0;
+            firstPassword = GeneratePassword(settings);
             int milliseconds = 3000;
             Thread.Sleep(milliseconds);
-            secondPassword = GeneratePassword(10);
+            secondPassword = GeneratePassword(settings);
             Assert.AreNotEqual(firstPassword, secondPassword);
         }
 
@@ -109,18 +139,25 @@ namespace Password
             }
             return bigLetters;
         }
-                
-        public string GeneratePassword(int numberOfCharacters)
+
+        public string GenerateSmallLetters(int numberOfCharacters)
         {
-            string password = "";
+            string smallLettersPassword = "";
             var character = new Random();
             char passwordCharacter;
             for (int i = 0; i < numberOfCharacters; i++)
             {
                 passwordCharacter = (char)character.Next('a', 'z');
-                password = password + passwordCharacter;
-                
+                smallLettersPassword = smallLettersPassword + passwordCharacter;
+
             }
+            return smallLettersPassword;
+        }
+
+        public string GeneratePassword(passwordsettings numberOfCharacters)
+        {
+            string password = "";
+            password = GenerateSmallLetters(numberOfCharacters.numberOfSmallLetters) + GenerateBigLetters(numberOfCharacters.numberOfBigLetters);
             return password;
         }
         
