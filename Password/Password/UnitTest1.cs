@@ -105,7 +105,7 @@ namespace Password
 
         [TestMethod]
         public void CheckSymbolsGeneration()
-        {
+          {
             Assert.AreEqual(6, GetNumberOfSymbols(GenerateSymbols(6)));
         }
 
@@ -209,18 +209,13 @@ namespace Password
         public string GenerateSymbols(int numberOfCharacters)
         {
             string passwordSymbols = "";
-            //string symbols = "!@#$%^&*-+_?=:";
+            int[] symbols = new int[] { '!','@','#','$','%','^','&','*','-','+','_','?','=',':','"' };
             var character = new Random();
             char passwordCharacter;
             for (int i = 0; i < numberOfCharacters; i++)
             {
-                passwordCharacter = (char)character.Next('!','&');
-                //for (int j = 0; j < symbols.Length; j++)
-                //    if (passwordCharacter == symbols[j])
-                        passwordSymbols = passwordSymbols + passwordCharacter;
-                    //else
-                    //    i--;
-
+                passwordCharacter = (char)character.Next(symbols[0],symbols[symbols.Length-1]);
+                passwordSymbols = passwordSymbols + passwordCharacter;
             }
             return passwordSymbols;
         }
