@@ -126,6 +126,29 @@ namespace Password
             Assert.AreNotEqual(firstPassword, secondPassword);
         }
 
+        [TestMethod]
+        public void CheckIfGeneratedSymbolsAreRandom()
+        {
+            string firstString = "";
+            string secondString = "";
+            passwordsettings settings;
+            settings.numberOfSmallLetters = 0;
+            settings.numberOfBigLetters = 0;
+            settings.numberOfFigures = 0;
+            settings.numberOfSymbols = 10;
+            firstString = GenerateSymbols(settings.numberOfSymbols);
+            int milliseconds = 3000;
+            Thread.Sleep(milliseconds);
+            secondString = GenerateSymbols(settings.numberOfSymbols);
+            Assert.AreNotEqual(firstString, secondString);
+        }
+
+        //[TestMethod]
+        //public void CheckIfGeneratedSymbolsAreRandom()
+        //{
+        //    Assert.AreNotEqual(GenerateSymbols(10), GenerateSymbols(10));
+        //}
+
         public int GetNumberOfBigLettersFromPassword(string password)
         {
             int number = 0;
@@ -147,7 +170,7 @@ namespace Password
         public int GetNumberOfSymbols(string password)
         {
             int number = 0;
-            string symbols = "!@#$%^&*_+-?=:";
+            string symbols = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
             for (int i = 0; i < password.Length; i++)
                 for (int j = 0; j < symbols.Length; j++ )
                     if (password[i]==symbols[j])
@@ -209,13 +232,15 @@ namespace Password
         public string GenerateSymbols(int numberOfCharacters)
         {
             string passwordSymbols = "";
-            int[] symbols = new int[] { '!','@','#','$','%','^','&','*','-','+','_','?','=',':','"' };
             var character = new Random();
             char passwordCharacter;
             for (int i = 0; i < numberOfCharacters; i++)
             {
-                passwordCharacter = (char)character.Next(symbols[0],symbols[symbols.Length-1]);
-                passwordSymbols = passwordSymbols + passwordCharacter;
+                passwordCharacter = (char)character.Next('!','~');
+                if (char.IsLetterOrDigit(passwordCharacter))
+                    i--;
+                else
+                    passwordSymbols = passwordSymbols + passwordCharacter;
             }
             return passwordSymbols;
         }
