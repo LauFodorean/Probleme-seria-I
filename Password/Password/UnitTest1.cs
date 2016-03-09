@@ -105,9 +105,15 @@ namespace Password
 
         [TestMethod]
         public void CheckSymbolsGeneration()
-          {
+        {
             Assert.AreEqual(6, GetNumberOfSymbols(GenerateSymbols(6)));
         }
+
+        //[TestMethod]
+        //public void RemoveAmbiguousCharactersTest()
+        //{
+        //    Assert.AreEqual(' ', AmbiguousCharacterRemoval('}'));
+        //}
 
         [TestMethod]
         public void CheckIfTwoGeneratedPasswordsAreRandom()
@@ -232,23 +238,48 @@ namespace Password
         public string GenerateSymbols(int numberOfCharacters)
         {
             string passwordSymbols = "";
+            string ambiguousChars = "{}[]()/\'\"~,;.<>";
             var character = new Random();
             char passwordCharacter;
+            bool ambiguousCharacter = false;
             for (int i = 0; i < numberOfCharacters; i++)
             {
                 passwordCharacter = (char)character.Next('!','~');
                 if (char.IsLetterOrDigit(passwordCharacter))
                     i--;
                 else
-                    passwordSymbols = passwordSymbols + passwordCharacter;
+                {
+                    for ( int j = 0; j < ambiguousChars.Length; j++)
+                        if (ambiguousChars[j] == passwordCharacter)
+                            ambiguousCharacter = true;
+                    if (ambiguousCharacter == true)
+                        i--;
+                    else
+                        passwordSymbols = passwordSymbols + passwordCharacter;
+                }
+                ambiguousCharacter = false;
             }
             return passwordSymbols;
         }
 
+        //public char AmbiguousCharacterRemoval(char character)
+        //{
+        //    string ambiguousChars = "{}[]()/\'\"~,;.<>";
+        //    int i = 0, j = 0;
+        //    char characterToBeReturned = ' ';
+        //    while (j < ambiguousChars.Length)
+        //          if (character == ambiguousChars[j])
+        //              i--;
+        //          else
+        //              if (j == ambiguousChars.Length - 1)
+        //                  characterToBeReturned = character;
+        //    return characterToBeReturned;
+        //}
+
         public string GeneratePassword(passwordsettings numberOfCharacters)
         {
             string password = "";
-            password = GenerateSmallLetters(numberOfCharacters.numberOfSmallLetters) + GenerateBigLetters(numberOfCharacters.numberOfBigLetters) + GenerateFigures(numberOfCharacters.numberOfFigures);
+            password = GenerateSmallLetters(numberOfCharacters.numberOfSmallLetters) + GenerateBigLetters(numberOfCharacters.numberOfBigLetters) + GenerateFigures(numberOfCharacters.numberOfFigures)+GenerateSymbols(numberOfCharacters.numberOfSymbols);
             return password;
         }
         
