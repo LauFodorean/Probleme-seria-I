@@ -133,6 +133,18 @@ namespace Password
             Assert.AreEqual(false, FunctionThatChecksIfStringContainsOneandZero(GenerateFigures(8)));
         }
 
+         [TestMethod]
+        public void CheckStringOfFiguresThatContainsSmallLetterL()
+        {
+            Assert.AreEqual(true, FunctionThatChecksIfStringContainsNotAllowedSmalllLetters("236l9631875"));
+        }
+
+         [TestMethod]
+         public void CheckGeneratedStringOfSmallLettersSoThatItDoesntCointainlettersLandO()
+         {
+             Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedSmalllLetters(GenerateFigures(8)));
+         }
+
         [TestMethod]
         public void CheckIfTwoGeneratedPasswordsAreRandom()
         {
@@ -227,8 +239,10 @@ namespace Password
             for (int i = 0; i < numberOfCharacters; i++)
             {
                 passwordCharacter = (char)character.Next('a', 'z');
-                smallLetters = smallLetters + passwordCharacter;
-
+                if (passwordCharacter != 'l' && passwordCharacter != 'o')
+                    smallLetters = smallLetters + passwordCharacter;
+                else
+                    i--;
             }
             return smallLetters;
         }
@@ -282,6 +296,15 @@ namespace Password
             bool confirmationOfPresence = false;
             for (int i = 0; i < generatedString.Length; i++)
                 if (generatedString[i] == '1' || generatedString[i] == '0')
+                    confirmationOfPresence = true;
+            return confirmationOfPresence;
+        }
+
+        public bool FunctionThatChecksIfStringContainsNotAllowedSmalllLetters(string generatedString)
+        {
+            bool confirmationOfPresence = false;
+            for (int i = 0; i < generatedString.Length; i++)
+                if (generatedString[i] == 'l' || generatedString[i] == 'o')
                     confirmationOfPresence = true;
             return confirmationOfPresence;
         }
