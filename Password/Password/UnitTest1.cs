@@ -109,11 +109,29 @@ namespace Password
             Assert.AreEqual(6, GetNumberOfSymbols(GenerateSymbols(6)));
         }
 
-        //[TestMethod]
-        //public void RemoveAmbiguousCharactersTest()
-        //{
-        //    Assert.AreEqual(' ', AmbiguousCharacterRemoval('}'));
-        //}
+        [TestMethod]
+        public void CheckStringOfFiguresThatContainsFigureOne()
+        {
+            Assert.AreEqual(true, FunctionThatChecksIfStringContainsOneandZero("2369631875"));
+        }
+
+        [TestMethod]
+        public void CheckStringOfFiguresThatContainsFigureZero()
+        {
+            Assert.AreEqual(true, FunctionThatChecksIfStringContainsOneandZero("2369630875"));
+        }
+
+        [TestMethod]
+        public void CheckStringOfFiguresThatDoesNotContainFiguresZeroOrOne()
+        {
+            Assert.AreEqual(false, FunctionThatChecksIfStringContainsOneandZero("236963875"));
+        }
+
+        [TestMethod]
+        public void CheckGeneratedStringOfFiguresSoThatItDoesntCointainFiguresOneAndZero()
+        {
+            Assert.AreEqual(false, FunctionThatChecksIfStringContainsOneandZero(GenerateFigures(8)));
+        }
 
         [TestMethod]
         public void CheckIfTwoGeneratedPasswordsAreRandom()
@@ -148,12 +166,6 @@ namespace Password
             secondString = GenerateSymbols(settings.numberOfSymbols);
             Assert.AreNotEqual(firstString, secondString);
         }
-
-        //[TestMethod]
-        //public void CheckIfGeneratedSymbolsAreRandom()
-        //{
-        //    Assert.AreNotEqual(GenerateSymbols(10), GenerateSymbols(10));
-        //}
 
         public int GetNumberOfBigLettersFromPassword(string password)
         {
@@ -229,7 +241,10 @@ namespace Password
             for (int i = 0; i < numberOfCharacters; i++)
             {
                 passwordCharacter = (char)character.Next('0', '9');
-                figures = figures + passwordCharacter;
+                if (passwordCharacter != '0' && passwordCharacter != '1')
+                    figures = figures + passwordCharacter;
+                else
+                    i--;
 
             }
             return figures;
@@ -262,19 +277,15 @@ namespace Password
             return passwordSymbols;
         }
 
-        //public char AmbiguousCharacterRemoval(char character)
-        //{
-        //    string ambiguousChars = "{}[]()/\'\"~,;.<>";
-        //    int i = 0, j = 0;
-        //    char characterToBeReturned = ' ';
-        //    while (j < ambiguousChars.Length)
-        //          if (character == ambiguousChars[j])
-        //              i--;
-        //          else
-        //              if (j == ambiguousChars.Length - 1)
-        //                  characterToBeReturned = character;
-        //    return characterToBeReturned;
-        //}
+        public bool FunctionThatChecksIfStringContainsOneandZero(string generatedString)
+        {
+            bool confirmationOfPresence = false;
+            for (int i = 0; i < generatedString.Length; i++)
+                if (generatedString[i] == '1' || generatedString[i] == '0')
+                    confirmationOfPresence = true;
+            return confirmationOfPresence;
+        }
+                
 
         public string GeneratePassword(passwordsettings numberOfCharacters)
         {
