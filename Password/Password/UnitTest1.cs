@@ -134,15 +134,27 @@ namespace Password
         }
 
          [TestMethod]
-        public void CheckStringOfFiguresThatContainsSmallLetterL()
+        public void CheckStringOfSmallLettersThatContainsSmallLetterL()
         {
-            Assert.AreEqual(true, FunctionThatChecksIfStringContainsNotAllowedSmalllLetters("236l9631875"));
+            Assert.AreEqual(true, FunctionThatChecksIfStringContainsNotAllowedSmalllLetters("abcdefglmng"));
         }
 
          [TestMethod]
          public void CheckGeneratedStringOfSmallLettersSoThatItDoesntCointainlettersLandO()
          {
              Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedSmalllLetters(GenerateFigures(8)));
+         }
+
+         [TestMethod]
+         public void CheckStringOfBigLettersThatContainsBigLetterL()
+         {
+             Assert.AreEqual(true, FunctionThatChecksIfStringContainsNotAllowedBiglLetters("ABCDEFGLHUT"));
+         }
+
+         [TestMethod]
+         public void CheckGeneratedStringOfBigLettersSoThatItDoesntCointainlettersLandO()
+         {
+             Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedBiglLetters(GenerateFigures(8)));
          }
 
         [TestMethod]
@@ -305,6 +317,15 @@ namespace Password
             bool confirmationOfPresence = false;
             for (int i = 0; i < generatedString.Length; i++)
                 if (generatedString[i] == 'l' || generatedString[i] == 'o')
+                    confirmationOfPresence = true;
+            return confirmationOfPresence;
+        }
+
+        public bool FunctionThatChecksIfStringContainsNotAllowedBiglLetters(string generatedString)
+        {
+            bool confirmationOfPresence = false;
+            for (int i = 0; i < generatedString.Length; i++)
+                if (generatedString[i] == 'L' || generatedString[i] == 'O')
                     confirmationOfPresence = true;
             return confirmationOfPresence;
         }
