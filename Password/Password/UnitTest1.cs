@@ -13,23 +13,23 @@ namespace Password
             public int numberOfBigLetters;
             public int numberOfFigures;
             public int numberOfSymbols;
-            public passwordsettings( int numberOfSmallLetters,int numberOfBigLetters,int numberOfFigures,int numberOfSymbols)
+            //public passwordCharacters typeOfCharacter;
+            public passwordsettings(int numberOfSmallLetters, int numberOfBigLetters, int numberOfFigures, int numberOfSymbols)
             {
                 this.numberOfSmallLetters = numberOfSmallLetters;
                 this.numberOfBigLetters = numberOfBigLetters;
                 this.numberOfFigures = numberOfFigures; ;
                 this.numberOfSymbols = numberOfSymbols;
+                //this.typeOfCharacter = typeOfCharacter;
             }
         }
-        
-        //public enum passwordCharacters
-        //{
-        //    smallCapsAlphabet,
-        //    bigCapsAlphabet,
-        //    figures,
-        //    symbols,
-        //    ambiguousCharacters
-        //}
+
+        public enum passwordCharacters
+        {
+            smallCaps,
+            upperCaps,
+            figures
+        }
 
 
 
@@ -130,7 +130,7 @@ namespace Password
         [TestMethod]
         public void CheckGeneratedStringOfFiguresSoThatItDoesntCointainFiguresOneAndZero()
         {
-            Assert.AreEqual(false, FunctionThatChecksIfStringContainsOneandZero(GenerateFigures(8)));
+            Assert.AreEqual(false, FunctionThatChecksIfStringContainsOneandZero(GenerateCharacters(8,passwordCharacters.figures)));
         }
 
          [TestMethod]
@@ -142,7 +142,7 @@ namespace Password
          [TestMethod]
          public void CheckGeneratedStringOfSmallLettersSoThatItDoesntCointainlettersLandO()
          {
-             Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedSmalllLetters(GenerateFigures(8)));
+             Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedSmalllLetters(GenerateCharacters(8,passwordCharacters.figures)));
          }
 
          [TestMethod]
@@ -154,7 +154,13 @@ namespace Password
          [TestMethod]
          public void CheckGeneratedStringOfBigLettersSoThatItDoesntCointainlettersLandO()
          {
-             Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedBiglLetters(GenerateFigures(8)));
+             Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedBiglLetters(GenerateCharacters(8,passwordCharacters.figures)));
+         }
+
+         [TestMethod]
+         public void CheckTheReturnedRangeOfCharacters()
+         {
+             CollectionAssert.AreEqual(new int[] { 'a','z' }, GiveCharacterRangeForRandomGenerator(passwordCharacters.smallCaps));
          }
 
         [TestMethod]
@@ -229,51 +235,41 @@ namespace Password
             return smallLetter;
         }
 
-        public string GenerateBigLetters(int numberOfLetters)
+        public int[] GiveCharacterRangeForRandomGenerator( passwordCharacters typeOfCharacters)
         {
-            string bigLetters = "";
-            var character = new Random();
-            char passwordCharacter;
-            for (int i = 0; i < numberOfLetters; i++)
+            int[] rangeOfCharacters = new int[] { };
+            switch (typeOfCharacters)
             {
-                passwordCharacter = (char)character.Next('A', 'Z');
-                bigLetters = bigLetters + passwordCharacter;
-
+                case passwordCharacters.smallCaps:
+                    rangeOfCharacters = new int[] { 'a', 'z' };
+                    break;
+                case passwordCharacters.upperCaps:
+                    rangeOfCharacters = new int[] { 'A', 'Z' };
+                    break;
+                case passwordCharacters.figures:
+                    rangeOfCharacters = new int[] { '0', '9' };
+                    break;
             }
-            return bigLetters;
+            return rangeOfCharacters;
         }
 
-        public string GenerateSmallLetters(int numberOfCharacters)
+        public string GenerateCharacters(int numberOfCharacters, passwordCharacters typeOfCharacters)
         {
-            string smallLetters = "";
+            string characters = "";
             var character = new Random();
+            int[] range = new int[] { };
+            range = GiveCharacterRangeForRandomGenerator(typeOfCharacters);
             char passwordCharacter;
             for (int i = 0; i < numberOfCharacters; i++)
             {
-                passwordCharacter = (char)character.Next('a', 'z');
-                if (passwordCharacter != 'l' && passwordCharacter != 'o')
-                    smallLetters = smallLetters + passwordCharacter;
-                else
-                    i--;
-            }
-            return smallLetters;
-        }
-
-        public string GenerateFigures(int numberOfCharacters)
-        {
-            string figures = "";
-            var character = new Random();
-            char passwordCharacter;
-            for (int i = 0; i < numberOfCharacters; i++)
-            {
-                passwordCharacter = (char)character.Next('0', '9');
-                if (passwordCharacter != '0' && passwordCharacter != '1')
-                    figures = figures + passwordCharacter;
+                passwordCharacter = (char)character.Next(range[0],range[range.Length-1]);
+                if (passwordCharacter != '0' && passwordCharacter != '1' && passwordCharacter != 'l' && passwordCharacter != 'o')
+                    characters = characters + passwordCharacter;
                 else
                     i--;
 
             }
-            return figures;
+            return characters;
         }
 
         public string GenerateSymbols(int numberOfCharacters)
@@ -329,12 +325,12 @@ namespace Password
                     confirmationOfPresence = true;
             return confirmationOfPresence;
         }
-                
+
 
         public string GeneratePassword(passwordsettings numberOfCharacters)
         {
             string password = "";
-            password = GenerateSmallLetters(numberOfCharacters.numberOfSmallLetters) + GenerateBigLetters(numberOfCharacters.numberOfBigLetters) + GenerateFigures(numberOfCharacters.numberOfFigures)+GenerateSymbols(numberOfCharacters.numberOfSymbols);
+            password = GenerateCharacters(numberOfCharacters.numberOfSmallLetters, passwordCharacters.smallCaps) + GenerateCharacters(numberOfCharacters.numberOfBigLetters, passwordCharacters.upperCaps) + GenerateCharacters(numberOfCharacters.numberOfFigures,passwordCharacters.figures)+ GenerateSymbols(numberOfCharacters.numberOfSymbols);
             return password;
         }
         
