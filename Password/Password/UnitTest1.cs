@@ -151,6 +151,12 @@ namespace Password
              CollectionAssert.AreEqual(new int[] { 'a','z' }, GiveCharacterRangeForRandomGenerator(passwordCharacters.smallCaps));
          }
 
+         [TestMethod]
+         public void CheckIFTheReturnedCharacterIsAmbiguous()
+         {
+             Assert.AreEqual(true, CheckIfCharacterIsAmbiguous('{'));
+         }
+
         [TestMethod]
         public void CheckIfTwoGeneratedPasswordsAreRandom()
         {
@@ -255,7 +261,6 @@ namespace Password
         public string GenerateSymbols(int numberOfCharacters)
         {
             string passwordSymbols = "";
-            string ambiguousChars = "{}[]()/\'\"~,;.<>";
             var character = new Random();
             char passwordCharacter;
             bool ambiguousCharacter = false;
@@ -266,9 +271,7 @@ namespace Password
                     i--;
                 else
                 {
-                    for ( int j = 0; j < ambiguousChars.Length; j++)
-                        if (ambiguousChars[j] == passwordCharacter)
-                            ambiguousCharacter = true;
+                    ambiguousCharacter = CheckIfCharacterIsAmbiguous(passwordCharacter);
                     if (ambiguousCharacter == true)
                         i--;
                     else
@@ -279,6 +282,16 @@ namespace Password
             return passwordSymbols;
         }
 
+        public bool CheckIfCharacterIsAmbiguous(char character)
+        {
+            bool ambiguousCharacter = false;
+            string ambiguousChars = "{}[]()/\'\"~,;.<>";
+            for ( int j = 0; j < ambiguousChars.Length; j++)
+                        if (ambiguousChars[j] == character)
+                            ambiguousCharacter = true;
+            return ambiguousCharacter;       
+        }
+
         public bool FunctionThatChecksIfStringContainsNotAllowedCharacters(string generatedString)
         {
             bool confirmationOfPresence = false;
@@ -287,26 +300,7 @@ namespace Password
                     confirmationOfPresence = true;
             return confirmationOfPresence;
         }
-
-        //public bool FunctionThatChecksIfStringContainsNotAllowedCharacters(string generatedString)
-        //{
-        //    bool confirmationOfPresence = false;
-        //    for (int i = 0; i < generatedString.Length; i++)
-        //        if (generatedString[i] == 'l' || generatedString[i] == 'o')
-        //            confirmationOfPresence = true;
-        //    return confirmationOfPresence;
-        //}
-
-        //public bool FunctionThatChecksIfStringContainsNotAllowedCharacters(string generatedString)
-        //{
-        //    bool confirmationOfPresence = false;
-        //    for (int i = 0; i < generatedString.Length; i++)
-        //        if (generatedString[i] == 'L' || generatedString[i] == 'O')
-        //            confirmationOfPresence = true;
-        //    return confirmationOfPresence;
-        //}
-
-
+                
         public string GeneratePassword(passwordsettings numberOfCharacters)
         {
             string password = "";
