@@ -36,33 +36,21 @@ namespace Password
         [TestMethod]
         public void CheckNumberOfCharactersInPasswordWhenBigAndSmallLettters()
         {
-            passwordsettings settings;
-            settings.numberOfSmallLetters = 10;
-            settings.numberOfBigLetters = 3;
-            settings.numberOfFigures = 0;
-            settings.numberOfSymbols = 0;
+            passwordsettings settings = new passwordsettings { numberOfSmallLetters = 10, numberOfBigLetters = 3 };
             Assert.AreEqual(13, GeneratePassword(settings).Length);
         }
         
         [TestMethod]
         public void CheckIfPasswordHasTheReqiuredLength()
         {
-            passwordsettings settings;
-            settings.numberOfSmallLetters = 12;
-            settings.numberOfBigLetters = 0;
-            settings.numberOfFigures = 0;
-            settings.numberOfSymbols = 0;
+            passwordsettings settings = new passwordsettings { numberOfSmallLetters = 12 };
             Assert.AreEqual(12, GeneratePassword(settings).Length);
         }
 
         [TestMethod]
         public void CheckIfPasswordHasOnlySmallLetters()
         {
-            passwordsettings settings;
-            settings.numberOfSmallLetters = 10;
-            settings.numberOfBigLetters = 0;
-            settings.numberOfFigures = 0;
-            settings.numberOfSymbols = 0;
+            passwordsettings settings = new passwordsettings { numberOfSmallLetters = 10 };
             Assert.AreEqual(true, CheckPasswordToSeeIfITHasOnlySmallLetters(GeneratePassword(settings)));
         }
 
@@ -112,49 +100,49 @@ namespace Password
         [TestMethod]
         public void CheckStringOfFiguresThatContainsFigureOne()
         {
-            Assert.AreEqual(true, FunctionThatChecksIfStringContainsOneandZero("2369631875"));
+            Assert.AreEqual(true, FunctionThatChecksIfStringContainsNotAllowedCharacters("2369631875"));
         }
 
         [TestMethod]
         public void CheckStringOfFiguresThatContainsFigureZero()
         {
-            Assert.AreEqual(true, FunctionThatChecksIfStringContainsOneandZero("2369630875"));
+            Assert.AreEqual(true, FunctionThatChecksIfStringContainsNotAllowedCharacters("2369630875"));
         }
 
         [TestMethod]
         public void CheckStringOfFiguresThatDoesNotContainFiguresZeroOrOne()
         {
-            Assert.AreEqual(false, FunctionThatChecksIfStringContainsOneandZero("236963875"));
+            Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedCharacters("236963875"));
         }
 
         [TestMethod]
         public void CheckGeneratedStringOfFiguresSoThatItDoesntCointainFiguresOneAndZero()
         {
-            Assert.AreEqual(false, FunctionThatChecksIfStringContainsOneandZero(GenerateCharacters(8,passwordCharacters.figures)));
+            Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedCharacters(GenerateCharacters(8,passwordCharacters.figures)));
         }
 
          [TestMethod]
         public void CheckStringOfSmallLettersThatContainsSmallLetterL()
         {
-            Assert.AreEqual(true, FunctionThatChecksIfStringContainsNotAllowedSmalllLetters("abcdefglmng"));
+            Assert.AreEqual(true, FunctionThatChecksIfStringContainsNotAllowedCharacters("abcdefglmng"));
         }
 
          [TestMethod]
          public void CheckGeneratedStringOfSmallLettersSoThatItDoesntCointainlettersLandO()
          {
-             Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedSmalllLetters(GenerateCharacters(8,passwordCharacters.figures)));
+             Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedCharacters(GenerateCharacters(8,passwordCharacters.figures)));
          }
 
          [TestMethod]
          public void CheckStringOfBigLettersThatContainsBigLetterL()
          {
-             Assert.AreEqual(true, FunctionThatChecksIfStringContainsNotAllowedBiglLetters("ABCDEFGLHUT"));
+             Assert.AreEqual(true, FunctionThatChecksIfStringContainsNotAllowedCharacters("ABCDEFGLHUT"));
          }
 
          [TestMethod]
          public void CheckGeneratedStringOfBigLettersSoThatItDoesntCointainlettersLandO()
          {
-             Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedBiglLetters(GenerateCharacters(8,passwordCharacters.figures)));
+             Assert.AreEqual(false, FunctionThatChecksIfStringContainsNotAllowedCharacters(GenerateCharacters(8,passwordCharacters.figures)));
          }
 
          [TestMethod]
@@ -168,11 +156,7 @@ namespace Password
         {
             string firstPassword ="";
             string secondPassword ="";
-            passwordsettings settings;
-            settings.numberOfSmallLetters = 10;
-            settings.numberOfBigLetters = 0;
-            settings.numberOfFigures = 0;
-            settings.numberOfSymbols = 0;
+            passwordsettings settings = new passwordsettings { numberOfSmallLetters = 10 };
             firstPassword = GeneratePassword(settings);
             int milliseconds = 3000;
             Thread.Sleep(milliseconds);
@@ -185,11 +169,7 @@ namespace Password
         {
             string firstString = "";
             string secondString = "";
-            passwordsettings settings;
-            settings.numberOfSmallLetters = 0;
-            settings.numberOfBigLetters = 0;
-            settings.numberOfFigures = 0;
-            settings.numberOfSymbols = 10;
+            passwordsettings settings = new passwordsettings { numberOfSymbols = 10 };
             firstString = GenerateSymbols(settings.numberOfSymbols);
             int milliseconds = 3000;
             Thread.Sleep(milliseconds);
@@ -299,32 +279,32 @@ namespace Password
             return passwordSymbols;
         }
 
-        public bool FunctionThatChecksIfStringContainsOneandZero(string generatedString)
+        public bool FunctionThatChecksIfStringContainsNotAllowedCharacters(string generatedString)
         {
             bool confirmationOfPresence = false;
             for (int i = 0; i < generatedString.Length; i++)
-                if (generatedString[i] == '1' || generatedString[i] == '0')
+                if (generatedString[i] == '1' || generatedString[i] == '0' || generatedString[i] == 'l' || generatedString[i] == 'o' || generatedString[i] == 'L' || generatedString[i] == 'O')
                     confirmationOfPresence = true;
             return confirmationOfPresence;
         }
 
-        public bool FunctionThatChecksIfStringContainsNotAllowedSmalllLetters(string generatedString)
-        {
-            bool confirmationOfPresence = false;
-            for (int i = 0; i < generatedString.Length; i++)
-                if (generatedString[i] == 'l' || generatedString[i] == 'o')
-                    confirmationOfPresence = true;
-            return confirmationOfPresence;
-        }
+        //public bool FunctionThatChecksIfStringContainsNotAllowedCharacters(string generatedString)
+        //{
+        //    bool confirmationOfPresence = false;
+        //    for (int i = 0; i < generatedString.Length; i++)
+        //        if (generatedString[i] == 'l' || generatedString[i] == 'o')
+        //            confirmationOfPresence = true;
+        //    return confirmationOfPresence;
+        //}
 
-        public bool FunctionThatChecksIfStringContainsNotAllowedBiglLetters(string generatedString)
-        {
-            bool confirmationOfPresence = false;
-            for (int i = 0; i < generatedString.Length; i++)
-                if (generatedString[i] == 'L' || generatedString[i] == 'O')
-                    confirmationOfPresence = true;
-            return confirmationOfPresence;
-        }
+        //public bool FunctionThatChecksIfStringContainsNotAllowedCharacters(string generatedString)
+        //{
+        //    bool confirmationOfPresence = false;
+        //    for (int i = 0; i < generatedString.Length; i++)
+        //        if (generatedString[i] == 'L' || generatedString[i] == 'O')
+        //            confirmationOfPresence = true;
+        //    return confirmationOfPresence;
+        //}
 
 
         public string GeneratePassword(passwordsettings numberOfCharacters)
