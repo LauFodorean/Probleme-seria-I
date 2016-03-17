@@ -13,14 +13,12 @@ namespace Password
             public int numberOfBigLetters;
             public int numberOfFigures;
             public int numberOfSymbols;
-            //public passwordCharacters typeOfCharacter;
             public passwordsettings(int numberOfSmallLetters, int numberOfBigLetters, int numberOfFigures, int numberOfSymbols)
             {
                 this.numberOfSmallLetters = numberOfSmallLetters;
                 this.numberOfBigLetters = numberOfBigLetters;
                 this.numberOfFigures = numberOfFigures; ;
                 this.numberOfSymbols = numberOfSymbols;
-                //this.typeOfCharacter = typeOfCharacter;
             }
         }
 
@@ -155,6 +153,18 @@ namespace Password
          public void CheckIFTheReturnedCharacterIsAmbiguous()
          {
              Assert.AreEqual(true, CheckIfCharacterIsAmbiguous('{'));
+         }
+
+         [TestMethod]
+         public void CheckPasswordRandomization()
+         {
+             string firstPassword = "";
+             string secondPassword = "";
+             firstPassword = Randomization("kdgft");
+             int milliseconds = 3000;
+             Thread.Sleep(milliseconds);
+             secondPassword = Randomization("kdgft");
+             Assert.AreNotEqual(firstPassword, secondPassword);
          }
 
         [TestMethod]
@@ -305,8 +315,50 @@ namespace Password
         {
             string password = "";
             password = GenerateCharacters(numberOfCharacters.numberOfSmallLetters, passwordCharacters.smallCaps) + GenerateCharacters(numberOfCharacters.numberOfBigLetters, passwordCharacters.upperCaps) + GenerateCharacters(numberOfCharacters.numberOfFigures,passwordCharacters.figures)+ GenerateSymbols(numberOfCharacters.numberOfSymbols);
+            password = Randomization(password);
             return password;
         }
-        
+
+        public string Randomization(string password)
+        {
+            bool existingCharacter = false;
+            var character = new Random();
+            char passwordCharacter;
+            string passwordWithRemovedCharacters = password;
+            string randomizedPassword = "";
+            for (int i = 0; i < password.Length; i++)
+            {
+                passwordCharacter = (char)character.Next('!', '~');
+                int j = 0;
+                while (j < passwordWithRemovedCharacters.Length)
+                { 
+                    if (passwordCharacter == passwordWithRemovedCharacters[j])
+                    {
+                        existingCharacter = true;
+                        break;
+                    }
+                    else
+                        j++;
+                }
+                if (existingCharacter == true)
+                {
+                    //passwordWithRemovedCharacters = "";
+                    string range1 = "";
+                    string range2 = "";
+                    for (int k = 0; k < j; k++)
+                        range1 = range1 + passwordWithRemovedCharacters[k];
+                    for (int z = j + 1; z < passwordWithRemovedCharacters.Length; z++)
+                        range2 = range2 + passwordWithRemovedCharacters[z];
+                    passwordWithRemovedCharacters = range1 + range2;
+                    randomizedPassword = randomizedPassword + passwordCharacter;
+                    
+                }
+                else
+                    i--;
+                existingCharacter = false;
+                
+            }
+            return randomizedPassword;
+        }
     }
 }
