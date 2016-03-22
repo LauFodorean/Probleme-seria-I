@@ -9,7 +9,7 @@ namespace Fibonacci
         [TestMethod]
         public void CheckOfFibonacciGeneration()
         {
-           CollectionAssert.AreEqual(new int[] { 0, 1, 1, 2, 3, 5}, GenerateFibonacciRow(5));
+           Assert.AreEqual(5, GenerateFibonacciRow(6));
         }
 
         [TestMethod]
@@ -22,24 +22,23 @@ namespace Fibonacci
             CollectionAssert.AreEqual( new int[] {2,1}, swapedResult);
         }
 
-        public int[] GenerateFibonacciRow(int n)
+        public int GenerateFibonacciRow(int n)
         {
-            int[] fibonacciRow = new int[] {0, 1, 1};
-            if (n >2 )
-                {
-                int newLength = n+1;
-                Array.Resize(ref fibonacciRow, newLength);
+            
+            if (n > 2)
+            {
                 int current = 1;
                 int previous = 1;
-                for (int i = 3; i < newLength; i++)
+                for (int i = 3; i < n; i++)
                 {
                     Swap(ref current, ref previous);
                     current += previous;
-                    fibonacciRow[i] = current;
                 }
-
+                return current;
             }
-            return fibonacciRow;
+            else
+                return n;
+            
         }
 
         public void Swap(ref int a, ref int b)
