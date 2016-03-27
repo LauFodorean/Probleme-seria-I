@@ -15,19 +15,14 @@ namespace ReversedString
         public string ReverseString(string givenString) 
         {
             int n = givenString.Length;
-            return ReversedString (givenString, ref n);
+            return ReversedString (givenString, n);
         }
 
-        public string ReversedString (string givenString, ref int n)
+        public string ReversedString (string givenString, int n)
         {
-            string reversedString = "";
-            string charFromInitialString = "";
-            if (n > 0)
-            {
-                charFromInitialString = ReversedString(givenString,n-1);
-                
-            }
-            return reversedString + charFromInitialString;
+            if (n == 0)
+                return "";
+            return givenString[n-1] + ReversedString(givenString, n-1);
         }
 
     }
