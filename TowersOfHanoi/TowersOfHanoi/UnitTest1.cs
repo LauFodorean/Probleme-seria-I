@@ -9,27 +9,33 @@ namespace TowersOfHanoi
         [TestMethod]
         public void TestMethod1()
         {
-            int numberOfDisks = 2;
-            Assert.AreEqual(" Move disk 1 from A to C, Move disk 2 from A to B, Move disk 1 from C to B, Move disk 3 from A to C, Move disk 1 from B to A, Move disk 2 from B to C, Move disk 1 from A to C",
-                              SolveTowersOfHanoi(numberOfDisks));
+            int numberOfDisks = 3;
+            Assert.AreEqual(" Muta D1 de la turnul 1 la turnul 2; Muta D2 de la turnul 1 la turnul 3; Muta D1 de la turnul 2 la turnul 3; Muta D3 de la turnul 1 la turnul 2; Muta D1 de la turnul 3 la turnul 1; Muta D2 de la turnul 3 la turnul 2; Muta D1 de la turnul 1 la turnul 2;",
+                              SolveTowersOfHanoi(numberOfDisks,1,2));
         }
 
-        public string SolveTowersOfHanoi(int numberOfDisks)
+        public string SolveTowersOfHanoi(int numberOfDisks, int a, int b)
         {
-            return Towers(numberOfDisks, 'S','D','A');
+            a = 1; b = 2;
+            return HanoiTowers(numberOfDisks, a, b );
         }
 
-        public string Towers(int numberOfDisks, char sourceTower, char destinationTower, char auxiliaryTower)
+        public string HanoiTowers(int numberOfDisks, int a, int b)
         {
-            if (numberOfDisks == 0) Console.WriteLine ("");
+            string text = "";
+            int c = 6 - a - b;
+
+            if (numberOfDisks == 1)
+                return text = MutaDisc(numberOfDisks, a, b);
+            if (numberOfDisks>1)
+                return text = HanoiTowers(numberOfDisks - 1, a, c) + MutaDisc(numberOfDisks, a, b) + HanoiTowers(numberOfDisks - 1, c, b);
                         
-            Towers(numberOfDisks - 1, sourceTower, auxiliaryTower, destinationTower);
-            string text = " Move disk " + numberOfDisks + " from " + sourceTower + " to " + destinationTower; 
-            
-            Towers(numberOfDisks - 1, auxiliaryTower, sourceTower, auxiliaryTower);
+            return text;                       
+        }
 
-            return text;
-            //return " Move disk " + numberOfDisks + " from " + sourceTower + " to " + destinationTower; 
+        public string MutaDisc(int numberOfDisks, int a, int b)
+        {
+            return " Muta D" + numberOfDisks + " de la turnul " + a + " la turnul " + b + ";";
         }
     }
 }
