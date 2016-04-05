@@ -342,7 +342,6 @@ namespace Password
                 }
                 if (existingCharacter == true)
                 {
-                    //passwordWithRemovedCharacters = "";
                     string range1 = "";
                     string range2 = "";
                     for (int k = 0; k < j; k++)
