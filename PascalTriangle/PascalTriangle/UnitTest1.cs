@@ -6,25 +6,33 @@ namespace PascalTriangle
     [TestClass]
     public class UnitTest1
     {
+
+        [TestMethod]
+        public void TestReturnPascalTriangleWhenItHasFourRows()
+        {
+
+            Assert.AreEqual("1 11 121 1331 ", PascalTriangle(4));
+        }
+        
         [TestMethod]
         public void TestReturnPascalTriangleWhenItHasThreeRows()
         {
-            
-            CollectionAssert.AreEqual(new string[] { "1","11","121"} , ReturnPascalTriangle(3));
+
+            Assert.AreEqual("1 11 121 ", PascalTriangle(3));
         }
 
         [TestMethod]
         public void TestReturnPascalTriangleWhenItHasTwoRows()
         {
 
-            CollectionAssert.AreEqual(new string[] { "1", "11" }, ReturnPascalTriangle(2));
+            Assert.AreEqual("1 11 ", PascalTriangle(2));
         }
 
         [TestMethod]
         public void TestReturnPascalTriangleWhenItHasOneRow()
         {
 
-            CollectionAssert.AreEqual(new string[] { "1" }, ReturnPascalTriangle(1));
+            Assert.AreEqual("1 ", PascalTriangle(1));
         }
 
         [TestMethod]
@@ -36,7 +44,7 @@ namespace PascalTriangle
         [TestMethod]
         public void TestConvertIntArrayToString()
         {
-            Assert.AreEqual("1331", ConvertIntArrayToString(new int[] {1,3,3,1}));
+            Assert.AreEqual("1331 ", ConvertIntArrayToString(new int[] {1,3,3,1}));
         }
 
         
@@ -47,29 +55,41 @@ namespace PascalTriangle
             return sum;
         }
 
-        public string[] ReturnPascalTriangle(int numberOfRows)
+        public string PascalTriangle(int numberOfRows)
         {
-            string[] text = new string[numberOfRows];
+            string text = "";
             int[] row1 = new int[1] { 1 };
-            text[0] = ConvertIntArrayToString(row1);
-             
+            if (numberOfRows == 1)
+                text = ConvertIntArrayToString(row1);
+
             int[] row2 = new int[2] { 1, 1 };
-            text[1] = ConvertIntArrayToString(row2);
+            if (numberOfRows == 2)
+                text = ConvertIntArrayToString(row1) + ConvertIntArrayToString(row2);
+
+            int currentRowNumber = 2;
+            if (numberOfRows > 2)
+                text = ConvertIntArrayToString(row1) + ConvertIntArrayToString(row2) + ReturnPascalTriangle(numberOfRows, row2, currentRowNumber);
+            return text ;
+        }
+
+        public string ReturnPascalTriangle(int numberOfRows, int[] row2, int currentRowNumber)
+        {
+            int[] newRow = new int[row2.Length + 1];
+            string text = "";
             
-            int currentRowNumber = 1;
-            int[] newRow = new int[row2.Length+1];
-            newRow[0] = 1;
-            newRow[newRow.Length - 1] = 1;
-                       
-            if ( numberOfRows > 2 )
-                                
-                for (int i = 0; i < row2.Length-1 ; i++)
+            if (currentRowNumber < numberOfRows)
+            {
+                newRow[0] = 1;
+                newRow[newRow.Length - 1] = 1;
+
+                for (int i = 0; i < row2.Length - 1; i++)
                 {
-                    newRow[i + 1] = SumRowElements(row2[i + 1 - 1], row2[i+1]);
+                    newRow[i + 1] = SumRowElements(row2[i + 1 - 1], row2[i + 1]);
                 }
-            currentRowNumber++;
-            row2 = newRow;
-            text[currentRowNumber] = ConvertIntArrayToString(newRow);
+
+                row2 = newRow;
+                text = ConvertIntArrayToString(newRow) +  ReturnPascalTriangle(numberOfRows, row2, currentRowNumber + 1);
+            }
             return text;
         }
 
@@ -78,7 +98,7 @@ namespace PascalTriangle
             string result = "";
             for (int i = 0; i < givenArray.Length ; i++)
                 result = result + givenArray[(i + 1) - 1].ToString();
-            return result;
+            return result + " ";
         }
         
         
