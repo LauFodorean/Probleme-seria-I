@@ -8,31 +8,38 @@ namespace PascalTriangle
     {
 
         [TestMethod]
+        public void TestReturnPascalTriangleWhenItHasEightRows()
+        {
+
+            Assert.AreEqual("1   1 1   1 2 1   1 3 3 1   1 4 6 4 1   1 5 10 10 5 1   1 6 15 20 15 6 1   1 7 21 35 35 21 7 1   ", PascalTriangle(8));
+        }
+        
+        [TestMethod]
         public void TestReturnPascalTriangleWhenItHasFourRows()
         {
 
-            Assert.AreEqual("1 11 121 1331 ", PascalTriangle(4));
+            Assert.AreEqual("1   1 1   1 2 1   1 3 3 1   ", PascalTriangle(4));
         }
         
         [TestMethod]
         public void TestReturnPascalTriangleWhenItHasThreeRows()
         {
 
-            Assert.AreEqual("1 11 121 ", PascalTriangle(3));
+            Assert.AreEqual("1   1 1   1 2 1   ", PascalTriangle(3));
         }
 
         [TestMethod]
         public void TestReturnPascalTriangleWhenItHasTwoRows()
         {
 
-            Assert.AreEqual("1 11 ", PascalTriangle(2));
+            Assert.AreEqual("1   1 1   ", PascalTriangle(2));
         }
 
         [TestMethod]
         public void TestReturnPascalTriangleWhenItHasOneRow()
         {
 
-            Assert.AreEqual("1 ", PascalTriangle(1));
+            Assert.AreEqual("1   ", PascalTriangle(1));
         }
 
         [TestMethod]
@@ -44,7 +51,7 @@ namespace PascalTriangle
         [TestMethod]
         public void TestConvertIntArrayToString()
         {
-            Assert.AreEqual("1331 ", ConvertIntArrayToString(new int[] {1,3,3,1}));
+            Assert.AreEqual("1 3 3 1   ", ConvertIntArrayToString(new int[] {1,3,3,1}));
         }
 
         
@@ -97,8 +104,8 @@ namespace PascalTriangle
         {
             string result = "";
             for (int i = 0; i < givenArray.Length ; i++)
-                result = result + givenArray[(i + 1) - 1].ToString();
-            return result + " ";
+                result = result + givenArray[(i + 1) - 1].ToString() + " ";
+            return result + "  ";
         }
         
         
