@@ -7,91 +7,56 @@ namespace Calculator
     public class UnitTest1
     {
         [TestMethod]
-        public void TestCalculator()
+        public void TestCalculatorWhenWeHaveOnlyOnePositionInString()
         {
-            Assert.AreEqual("3", Calculator(" + 1 + 1 1 "));
+            Assert.AreEqual(1d, Calculator("1"));
         }
 
         [TestMethod]
-        public void TestCalculator2()
+        public void TestCalculatorWhenWeHaveOnlyOneOperationAndTwoNumbers()
         {
-            Assert.AreEqual("8", Calculator(" + + + 3 2 1 + 1 1 "));
+            Assert.AreEqual(2d, Calculator("+ 1 1"));
         }
 
         [TestMethod]
-        public void TestRemoveBlancSpacesFromString()
+        public void TestCalculatorWhenWeHaveFourNumbersAndThreeOperations()
         {
-            Assert.AreEqual("11", RemoveBlancSpacesFromString("1 1"));
+            Assert.AreEqual(4d, Calculator("+ + 1 1 + 1 1"));
         }
 
-        public string Calculator(string givenstring)
+        public double Calculator(string givenstring)
         {
-            string text = "";
-            int firstPossiblePositionForOperator = givenstring.Length-3;
-            return text + ReturnModifiedString(givenstring, firstPossiblePositionForOperator ,text);
+            string[] stringArray = givenstring.Split(' ');
+            int position = 0;
+            double result = 0;
+            result = result + Calculate(stringArray, ref position);
+            return result;
         }
-        
-        public string ReturnModifiedString(string givenString, int firstPossiblePositionForOperator, string text)
+
+        public double Calculate(string[] givenStringArray, ref int position)
         {
-            string modifiedString = "";
-            if (givenString.Length < 3) return text;
-                            
-            modifiedString = RemoveBlancSpacesFromString(givenString);
-            string randomOperatorInString = "";
             double result;
-            string plus = "+";
-            string minus = "-";
-            string multiply = "*";
-            string divide = "/";
-                
-            int i = 3;
 
-            string stringResult = "";
-            randomOperatorInString = modifiedString[modifiedString .Length- i].ToString();
-            string firstCharacterAfterOperator = modifiedString[(modifiedString.Length - i) + 1].ToString();
-            string secondCharacterAfterOperator = modifiedString[(modifiedString.Length - i) + 2].ToString();
-            double doubleFirstOperand = double.Parse(firstCharacterAfterOperator);
-            double doubleSecondOperand = double.Parse(secondCharacterAfterOperator);
-                    
-            if (randomOperatorInString == plus)
+            if (Double.TryParse(givenStringArray[position], out result))
+                return result;
+            else
             {
-                result = doubleFirstOperand + doubleSecondOperand;
-                stringResult = System.Convert.ToString(result);
-                modifiedString = modifiedString.Remove(modifiedString.Length - i, 3);
-                modifiedString = modifiedString + System.Convert.ToString(result);
-                firstPossiblePositionForOperator = modifiedString.Length - 3;
-                //i = modifiedString.Length - 2;
-                //text = text + modifiedString + ReturnModifiedString(modifiedString);
-                //if (modifiedString.Length >= 3) text = "";
-                //text = text + modifiedString + ReturnModifiedString(modifiedString);
-                text = stringResult + ReturnModifiedString(modifiedString, firstPossiblePositionForOperator , text);
+                position++;
+                double firstValue = double.Parse(givenStringArray[position]);
+                result = firstValue + Calculate(givenStringArray, ref position);
+                return result;
             }
-            //i--;
-            else 
-            {
-                text = stringResult + ReturnModifiedString(givenString, firstPossiblePositionForOperator - 1, text);
-            }
+        }
         
-                
-                
-                
-            //if (modifiedString.Length >= 3)
-            //    text = ReturnModifiedString(modifiedString);
-                
-                
-            
-            return text;
+        
 
-
-        }
-
-        public string RemoveBlancSpacesFromString(string givenString)
-        {
-            string newString = "";
-            for (int i = 0; i < givenString.Length; i++)
-                if (givenString[i] != ' ')
-                    newString = newString + givenString[i];
-            return newString;
-        }
+        //public string RemoveBlancSpacesFromString(string givenString)
+        //{
+        //    string newString = "";
+        //    for (int i = 0; i < givenString.Length; i++)
+        //        if (givenString[i] != ' ')
+        //            newString = newString + givenString[i];
+        //    return newString;
+        //}
     }
 }
