@@ -10,19 +10,27 @@ namespace Calculator
         [TestMethod]
         public void TestCalculatorWhenWeHaveOnlyOnePositionInString()
         {
-            Assert.AreEqual(1d, Calculator("1"));
+            Assert.AreEqual(1m, Calculator("1"));
         }
 
         [TestMethod]
         public void TestCalculatorWhenWeHaveOnlyOneOperationAndTwoNumbers()
         {
-            Assert.AreEqual(2d, Calculator("+ 1 1"));
+            Assert.AreEqual(2m, Calculator("+ 1 1"));
         }
 
         [TestMethod]
         public void TestCalculatorWhenWeHaveFourNumbersAndThreeOperations()
         {
-            Assert.AreEqual(4d, Calculator("+ + 1 1 + 1 1"));
+            Assert.AreEqual(4m, Calculator("+ + 1 1 + 1 1"));
+        }
+
+        [TestMethod]
+        public void TestPrefixedCalculatorLastExample()
+        {
+            decimal result = 0m;
+            result = ((56m + 45m) * 46m) / 3m + (1m - 0.25m);
+            Assert.AreEqual(result, Calculator("+ / * + 56 45 46 3 - 1 0.25"));
         }
 
         //[TestMethod]
@@ -52,26 +60,28 @@ namespace Calculator
         [TestMethod]
         public void TestDoOperationPlus()
         {
-            Assert.AreEqual(3m, DoOperation("+", "1", "2"));
+            Assert.AreEqual(3m, DoOperation("+", 1m, 2m));
         }
 
         [TestMethod]
         public void TestDoOperationMinus()
         {
-            Assert.AreEqual(1m, DoOperation("-", "2", "1"));
+            Assert.AreEqual(1m, DoOperation("-", 2m, 1m));
         }
 
         [TestMethod]
         public void TestDoOperationMultiplicate()
         {
-            Assert.AreEqual(4m, DoOperation("*", "2", "2"));
+            Assert.AreEqual(4m, DoOperation("*", 2m, 2m));
         }
 
         [TestMethod]
         public void TestDoOperationDivide()
         {
-            Assert.AreEqual(2m, DoOperation("/", "4", "2"));
+            Assert.AreEqual(2m, DoOperation("/", 4m, 2m));
         }
+
+
 
         //[TestMethod]
         //public void TestPrefixedCalculatorForOneAndTwoMultiplication()
@@ -93,11 +103,11 @@ namespace Calculator
         //    Assert.AreEqual(result, PrefixedCalculator("+ / * + 56 45 46 3 - 1 0.25"));
         //}
 
-        public double Calculator(string givenstring)
+        public decimal Calculator(string givenstring)
         {
             string[] stringArray = givenstring.Split(' ');
             int position = 0;
-            double result = 0;
+            decimal result = 0m;
             result = Calculate(stringArray, ref position);
             return result;
         }
@@ -110,27 +120,25 @@ namespace Calculator
         //    return result = PrefixedCalculator(ref stringArray,ref counter);
         //}
 
-        public double Calculate(string[] givenStringArray, ref int position)
+        public decimal Calculate(string[] givenStringArray, ref int position)
         {
-            double result = 0d;
-            if (Double.TryParse(givenStringArray[position], out result))
+            decimal result = 0m;
+            if (Decimal.TryParse(givenStringArray[position], out result))
             {
+                position++;
                 return result;
             }
-           
-            //else
-            //{
-                position++;
-                double firstValue = double.Parse(givenStringArray[position]);
-                result = firstValue + Calculate(givenStringArray, ref position);
-                return result;
-            //}
+                     
+            string stringOperator = "";
+            stringOperator = givenStringArray[position];
+            position++;
+            decimal firstValue = Calculate(givenStringArray, ref position);
+            decimal secondValue = Calculate(givenStringArray, ref position);
+            result = DoOperation(stringOperator, firstValue, secondValue);
+            return result;
+            
         }
-            //}
-
-            //position++;
-            //return result + Calculate(givenStringArray, ref position, result);          
-        
+                 
 
         //public decimal PrefixedCalculator(ref string[] givenStringArray, ref int counter)
         //{
@@ -167,23 +175,44 @@ namespace Calculator
         //    }
         //}
 
-        public decimal DoOperation(string operatorSign, string firstString, string secondString)
+        //public decimal DoOperation(string operatorSign, string firstString, string secondString)
+        //{
+        //    decimal newNumber = 0m;
+        //    switch (operatorSign)
+        //    {
+        //        case "+" :
+        //            newNumber = decimal.Parse(firstString) + decimal.Parse(secondString);
+        //            break;
+        //        case "-" :
+        //            newNumber = decimal.Parse(firstString) - decimal.Parse(secondString);
+        //            break;
+        //        case "*" :
+        //            newNumber = decimal.Parse(firstString) * decimal.Parse(secondString);
+        //            break;
+        //        case "/" :
+        //        newNumber = decimal.Parse(firstString) / decimal.Parse(secondString);
+        //        break;
+        //    }
+        //    return newNumber;
+        //}
+
+        public decimal DoOperation(string operatorSign, decimal firstString, decimal secondString)
         {
             decimal newNumber = 0m;
             switch (operatorSign)
             {
-                case "+" :
-                    newNumber = decimal.Parse(firstString) + decimal.Parse(secondString);
+                case "+":
+                    newNumber = firstString+ secondString;
                     break;
-                case "-" :
-                    newNumber = decimal.Parse(firstString) - decimal.Parse(secondString);
+                case "-":
+                    newNumber = firstString - secondString;
                     break;
-                case "*" :
-                    newNumber = decimal.Parse(firstString) * decimal.Parse(secondString);
+                case "*":
+                    newNumber = firstString * secondString;
                     break;
-                case "/" :
-                newNumber = decimal.Parse(firstString) / decimal.Parse(secondString);
-                break;
+                case "/":
+                    newNumber = firstString / secondString;
+                    break;
             }
             return newNumber;
         }
