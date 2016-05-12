@@ -11,42 +11,58 @@ namespace IListImplementation
         public void AddPosition()
         {
             SimpleListClass list = new SimpleListClass();
-            Assert.AreEqual(list.contents[0] = 1, list.Add(1));
+            Assert.AreEqual(0, list.Add(1));
         }
 
         [TestMethod]
-        public void ClearPositions()
+        public void listContainsASpecificValue()
         {
-            SimpleListClass list = new SimpleListClass();
-            list.contents[8] = {"1"};
-            list.position = 2;
-            CollectionAssert.AreEqual(new list.contents[8], list.Clear());
-
+            var list = new SimpleListClass();
+            list.contents[0] = 1;
+            list.contents[1] = 2;
+            list.contents[2] = 7;
+            Assert.AreEqual(true, list.Contains(7));
         }
+        
+        //[TestMethod]
+        //public void ClearPositions()
+        //{
+        //    SimpleListClass list = new SimpleListClass();
+        //    list.contents[8] = {"1"};
+        //    list.position = 2;
+        //    CollectionAssert.AreEqual(new list.contents[8], list.Clear());
+
+        //}
     }
 
     public class SimpleListClass: IList
     {
         public object[] contents = new object[8];
-        public int position = 0;
+        private int position = 0;
         
         public int Add(object value)
         {
-            position++;
-            int returnValue = (int)(contents[position - 1] = value);
-            return returnValue;
+            if (position < contents.Length)
+            {
+                contents[position] = value;
+                position += 1;
+                return position - 1;
+            }
+            else return -1;
         }
 
         public void Clear()
         {
-            for (int i = 0; i < contents.Length; i++)
-                contents[i] = null;
             position = 0;
         }
 
         public bool Contains(object value)
         {
-            throw new NotImplementedException();
+            bool containsValue = false;
+            for (int i = 0; i < contents.Length; i++ )
+                if (contents[i] == value) containsValue = true;
+                                  
+            return containsValue;
         }
 
         public int IndexOf(object value)
