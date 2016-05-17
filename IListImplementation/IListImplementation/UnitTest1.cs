@@ -10,35 +10,47 @@ namespace IListImplementation
         [TestMethod]
         public void AddPosition()
         {
-            SimpleListClass list = new SimpleListClass();
-            Assert.AreEqual(0, list.Add(1));
+            SimpleListClass list = new SimpleListClass(new object[8], 1);
+            Assert.AreEqual(1, list.Add(1));
         }
 
         [TestMethod]
         public void listContainsASpecificValue()
         {
-            var list = new SimpleListClass();
-            list.contents[0] = 1;
-            list.contents[1] = 2;
-            list.contents[2] = 7;
+            SimpleListClass list = new SimpleListClass(new object[] { 1, 7, 8 }, 2);
             Assert.AreEqual(true, list.Contains(7));
         }
         
         //[TestMethod]
-        //public void ClearPositions()
+        //public void ClearList()
         //{
-        //    SimpleListClass list = new SimpleListClass();
-        //    list.contents[8] = {"1"};
-        //    list.position = 2;
-        //    CollectionAssert.AreEqual(new list.contents[8], list.Clear());
+        //    SimpleListClass list = new SimpleListClass(new object[] { 1, 2, 3 }, 2);
+        //    Assert.AreEqual(new SimpleListClass(new object[] {},0), list.Clear());
 
         //}
+
+        //[TestMethod]
+        //public void RemoveObjectFromList()
+        //{
+        //    SimpleListClass list = new SimpleListClass(new object[] { 1, 2, 3, 4, 5, 6, 7, 8 }, 7);
+        //    SimpleListClass newList = new SimpleListClass(new object[] { 1, 2, 4, 5, 6, 7, 8 }, 6);
+        //    object valueToBeRemoved = 3;
+        //    Assert.AreEqual(newList, list.Remove(valueToBeRemoved));
+            
+        //}
+
     }
 
     public class SimpleListClass: IList
     {
-        public object[] contents = new object[8];
-        private int position = 0;
+        private object[] contents = new object[8];
+        private int position;
+        
+        public SimpleListClass(object[] contents, int position)
+        {
+            this.contents = contents;
+            this.position = position;
+        }
         
         public int Add(object value)
         {
@@ -58,11 +70,12 @@ namespace IListImplementation
 
         public bool Contains(object value)
         {
-            bool containsValue = false;
-            for (int i = 0; i < contents.Length; i++ )
-                if (contents[i] == value) containsValue = true;
-                                  
-            return containsValue;
+            bool result = false;
+            for (int i = 0; i <= position; i++)
+            {
+                if (contents[i].Equals(value)) result = true;
+            }                       
+            return result;
         }
 
         public int IndexOf(object value)
@@ -87,7 +100,18 @@ namespace IListImplementation
 
         public void Remove(object value)
         {
-            throw new NotImplementedException();
+            int i = 0;
+            while ( i <= position )
+            {
+                if (contents[i] == value)
+                {
+                    for (int j = i; j <= position; j++)
+                        contents[j] = contents[j + 1];
+                    break;
+                }
+                i++;
+            }
+
         }
 
         public void RemoveAt(int index)
