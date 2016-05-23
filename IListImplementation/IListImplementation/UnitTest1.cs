@@ -37,7 +37,7 @@ namespace IListImplementation
             SimpleListClass list = new SimpleListClass(new object[] { 1, 2, 3, 4, 5, 6, 7, 8 }, 7);
             SimpleListClass newList = new SimpleListClass(new object[] { 1, 2, 4, 5, 6, 7, 8 }, 6);
             list.Remove(3);
-            Assert.AreEqual(newList, list);
+            CollectionAssert.AreEqual(newList, list);
 
         }
 
@@ -118,21 +118,17 @@ namespace IListImplementation
 
         public void Remove(object value)
         {
-            for ( int i = 0; i <= position; i++ )
-            {
-                if (contents[i].Equals(value))
-                {
-                    for (int j = i; j < position; j++)
-                        contents[j] = contents[j + 1];
-                    contents[position] = null;
-                }
-            }
-
+            RemoveAt(IndexOf(value));
         }
 
         public void RemoveAt(int index)
         {
-            throw new NotImplementedException();
+            if ( ( index >= 0 ) && (index < position ) )
+            {
+                for (int j = index; j < position - 1; j++)
+                { contents[j] = contents[j + 1]; }
+                position--;
+            }
         }
 
         public object this[int index]
@@ -154,7 +150,7 @@ namespace IListImplementation
 
         public int Count
         {
-            get { throw new NotImplementedException(); }
+            get { return position; }
         }
 
         public bool IsSynchronized
@@ -169,7 +165,8 @@ namespace IListImplementation
 
         public IEnumerator GetEnumerator()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < position; i++)
+                yield return contents[i];
         }
     }
 }
