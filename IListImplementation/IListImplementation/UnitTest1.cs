@@ -15,6 +15,13 @@ namespace IListImplementation
         }
 
         [TestMethod]
+        public void AddPositionWhenArrayLengthDoubles()
+        {
+            SimpleListClass list = new SimpleListClass(new object[8] { 1, 2, 3, 4, 5, 6, 7, 8 }, 8);
+            Assert.AreEqual(8, list.Add(9));
+        }
+
+        [TestMethod]
         public void listContainsASpecificValue()
         {
             SimpleListClass list = new SimpleListClass(new object[] { 1, 7, 8 }, 2);
@@ -42,10 +49,34 @@ namespace IListImplementation
         }
 
         [TestMethod]
+        public void RemoveObjectFromSpecifiedPosition()
+        {
+            SimpleListClass list = new SimpleListClass(new object[] { 1, 2, 3, 4, 5, 6, 7, 8 }, 7);
+            SimpleListClass newList = new SimpleListClass(new object[] { 1, 2, 4, 5, 6, 7, 8 }, 6);
+            list.RemoveAt(2);
+            CollectionAssert.AreEqual(newList, list);
+
+        }
+
+        [TestMethod]
         public void ObtainTheIndex()
         {
             SimpleListClass list = new SimpleListClass(new object[] { 1, 2, 3, 4, 5, 6, 7, 8 }, 7);
             Assert.AreEqual(3, list.IndexOf(4));
+        }
+
+        [TestMethod]
+        public void CountElementsInArray()
+        {
+            SimpleListClass list = new SimpleListClass(new object[] { 1, 2, 3, 4, 5, 6, 7, 8 }, 7);
+            int numberOfElements = list.Count;
+            Assert.AreEqual(7, numberOfElements);
+        }
+
+        [TestMethod]
+        public void CopyElementsToAnArrayStartingFromAPosition()
+        {
+            SimpleListClass list = new SimpleListClass(new object[] { 1, 2, 3, 4, 5, 6, 7, 8 }, 7);
         }
 
     }
@@ -63,13 +94,15 @@ namespace IListImplementation
         
         public int Add(object value)
         {
+            if (position >= contents.Length - 1) Array.Resize(ref contents, contents.Length * 2);
             if (position < contents.Length)
             {
                 contents[position] = value;
                 position += 1;
                 return position - 1;
             }
-            else return -1;
+                      
+            return -1;
         }
 
         public void Clear()
