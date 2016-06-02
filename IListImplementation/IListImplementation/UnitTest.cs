@@ -31,60 +31,63 @@ namespace IListImplementation
         [TestMethod]
         public void ClearList()
         {
-            var list = new SimpleList<int>() { 1, 2, 3};
+            var list = new SimpleList<int>() { 1, 2, 3 };
             list.Clear();
-            Assert.AreEqual(new SimpleList<int>() { }, list);
+            int[] clearedList = { 0, 0, 0, 0, 0, 0, 0, 0};
+            CollectionAssert.Equals(clearedList, list);
         }
 
-        //[TestMethod]
-        //public void RemoveObjectFromList()
-        //{
-        //    var list = new SimpleList() { 1, 2, 3, 4, 5, 6, 7, 8 };
-        //    var newList = new SimpleList(){ 1, 2, 4, 5, 6, 7, 8 };
-        //    list.Remove(3);
-        //    CollectionAssert.AreEqual(newList, list);
-        //}
 
-        //[TestMethod]
-        //public void RemoveObjectFromSpecifiedPosition()
-        //{
-        //    var list = new SimpleList(){ 1, 2, 3, 4, 5, 6, 7, 8 };
-        //    var newList = new SimpleList(){ 1, 2, 4, 5, 6, 7, 8 };
-        //    list.RemoveAt(2);
-        //    CollectionAssert.AreEqual(newList, list);
-        //}
+        [TestMethod]
+        public void RemoveObjectFromList()
+        {
+            var list = new SimpleList<int>() { 1, 2, 3, 4, 5, 6, 7, 8 };
+            var newList = new SimpleList<int>() { 1, 2, 4, 5, 6, 7, 8 };
+            list.Remove(3);
+            CollectionAssert.Equals(newList, list);
+        }
 
-        //[TestMethod]
-        //public void ObtainTheIndex()
-        //{
-        //    var list = new SimpleList(){ 1, 2, 3, 4, 5, 6, 7, 8 };
-        //    Assert.AreEqual(3, list.IndexOf(4));
-        //}
+        [TestMethod]
+        public void RemoveObjectFromSpecifiedPosition()
+        {
+            var list = new SimpleList<int>() { 1, 2, 3, 4, 5, 6, 7, 8 };
+            var newList = new SimpleList<int>() { 1, 2, 4, 5, 6, 7, 8 };
+            list.RemoveAt(2);
+            CollectionAssert.Equals(newList, list);
+        }
 
-        //[TestMethod]
-        //public void CountElementsInArray()
-        //{
-        //    var list = new SimpleList(){ 1, 2, 3, 4, 5, 6, 7, 8 };
-        //    int numberOfElements = list.Count;
-        //    Assert.AreEqual(8, numberOfElements);
-        //}
+        [TestMethod]
+        public void ObtainTheIndex()
+        {
+            var list = new SimpleList<int>() { 1, 2, 3, 4, 5, 6, 7, 8 };
+            Assert.AreEqual(3, list.IndexOf(4));
+        }
+
+        [TestMethod]
+        public void CountElementsInArray()
+        {
+            var list = new SimpleList<int>() { 1, 2, 3, 4, 5, 6, 7, 8 };
+            int numberOfElements = list.Count;
+            Assert.AreEqual(8, numberOfElements);
+        }
 
         //[TestMethod]
         //public void CopyElementsToAnArrayStartingFromAPosition()
         //{
-        //    var list = new SimpleList(){ 1, 2, 3, 4, 5, 6, 7, 8 };
+        //    var list = new SimpleList<int>(){ 1, 2, 3, 4, 5, 6, 7, 8 };
         //    Array[] arrayToBeCopiedTo = new Array[] { };
         //    list.CopyTo(arrayToBeCopiedTo, 2);
         //    CollectionAssert.AreEqual(new object[] { 3, 4, 5, 6, 7, 8 }, list);
         //}
 
-        //[TestMethod]
-        //public void InserItemAtPosition()
-        //{
-        //    var list = new SimpleList() { 1, 2, 3, 4 };
-        //    list.Insert(4, 5);
-        //    CollectionAssert.AreEqual(new SimpleList() {1, 2, 3, 4, 5}, list);
-        //}
+        [TestMethod]
+        public void InserItemAtPosition()
+        {
+            var list = new SimpleList<int>() { 1, 2, 3, 4 };
+            list.Insert(4, 5);
+            var list2 = new SimpleList<int>() { 1, 2, 3, 4, 5 };
+            CollectionAssert.Equals(list2, list);
+        }
     }
       
 }

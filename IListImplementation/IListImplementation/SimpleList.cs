@@ -18,9 +18,9 @@ namespace IListImplementation
 
         public int Add(T value)
         {
-            if (position <= contents.Length-1 )
+            if (position == contents.Length - 1) Array.Resize(ref contents, contents.Length * 2);
+            if (position < contents.Length )
             {
-                Array.Resize(ref contents, contents.Length * 2);
                 contents[position] = value;
                 position += 1;
                 return position - 1;
@@ -33,6 +33,7 @@ namespace IListImplementation
         {
             for (int i = 0; i <= position; i++)
                 contents[i] = default(T);
+               //CopyTo(contents, i);
             position = 0;
         }
 
@@ -64,7 +65,7 @@ namespace IListImplementation
             {
             position++;
 
-            for (int i = Count - 1; i > index; i--)
+            for (int i = contents.Length - 1; i > index; i--)
             {
                 contents[i] = contents[i - 1];
             }
