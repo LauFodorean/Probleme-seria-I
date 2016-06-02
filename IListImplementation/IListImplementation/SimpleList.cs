@@ -1,27 +1,26 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace IListImplementation
 {
-    public class SimpleList : IList
+    public class SimpleList<T> : IList<T>
     {
-        private object[] contents = new object[8];
-        private int position;
+        private T[] contents = new T[8];
+        private int position = 0;
 
-        public SimpleList(object[] contents, int position)
+        public SimpleList()
         {
-            this.contents = contents;
-            this.position = position;
+           
         }
 
-        public int Add(object value)
+        public int Add(T value)
         {
-            if (position >= contents.Length - 1) Array.Resize(ref contents, contents.Length * 2);
-            if (position < contents.Length)
+            if (position <= contents.Length-1 )
             {
+                Array.Resize(ref contents, contents.Length * 2);
                 contents[position] = value;
                 position += 1;
                 return position - 1;
@@ -33,21 +32,21 @@ namespace IListImplementation
         public void Clear()
         {
             for (int i = 0; i <= position; i++)
-                contents[i] = null;
+                contents[i] = default(T);
             position = 0;
         }
 
-        public bool Contains(object value)
+        public bool Contains(T value)
         {
             bool result = false;
-            for (int i = 0; i <= position; i++)
+            for (int i = 0; i <= contents.Length -1 ; i++)
             {
-                if (contents[i].Equals(value)) result = true;
+                if (contents[i].Equals(value)) return result = true;
             }
             return result;
         }
 
-        public int IndexOf(object value)
+        public int IndexOf(T value)
         {
             int theIndex = -1;
             for (int i = 0; i <= position; i++)
@@ -59,9 +58,18 @@ namespace IListImplementation
             return theIndex;
         }
 
-        public void Insert(int index, object value)
+        public void Insert(int index, T value)
         {
-            throw new NotImplementedException();
+            if ((position + 1 <= contents.Length) && (index < contents.Length-1) && (index >= 0))
+            {
+            position++;
+
+            for (int i = Count - 1; i > index; i--)
+            {
+                contents[i] = contents[i - 1];
+            }
+            contents[index] = value;
+            }
         }
 
         public bool IsFixedSize
@@ -74,7 +82,7 @@ namespace IListImplementation
             get { throw new NotImplementedException(); }
         }
 
-        public void Remove(object value)
+        public void Remove(T value)
         {
             RemoveAt(IndexOf(value));
         }
@@ -89,21 +97,26 @@ namespace IListImplementation
             }
         }
 
-        public object this[int index]
+        public T this[int index]
         {
             get
             {
-                throw new NotImplementedException();
+                return contents[index];
             }
             set
             {
-                throw new NotImplementedException();
+                contents[index] = value; ;
             }
         }
 
-        public void CopyTo(Array array, int index)
+        public void CopyTo(T[] array, int index)
         {
-            throw new NotImplementedException();
+            int j = 0;
+            for (int i = index; i < position; i++)
+            {
+                array.SetValue(contents[i],j);
+                j++;
+            };
         }
 
         public int Count
@@ -121,10 +134,38 @@ namespace IListImplementation
             get { throw new NotImplementedException(); }
         }
 
-        public IEnumerator GetEnumerator()
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             for (int i = 0; i < position; i++)
-                yield return contents[i];
+                yield return (T)contents[i];
+        }
+
+
+        T IList<T>.this[int index]
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        void ICollection<T>.Add(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool ICollection<T>.Remove(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }
