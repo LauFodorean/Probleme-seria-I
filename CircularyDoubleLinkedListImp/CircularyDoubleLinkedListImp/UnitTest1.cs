@@ -9,9 +9,17 @@ namespace CircularyDoubleLinkedListImp
         [TestMethod]
         public void AddElementToEmptyList()
         {
-            CircularyDoubleLinkedList list = new CircularyDoubleLinkedList();
+            var list = new CircularyDoubleLinkedList<int>();
             list.addNode(1);
-            Assert.AreEqual(1, 1);
+            var enlagredList = new CircularyDoubleLinkedList<int>();
+            enlagredList.count = 1;
+            Assert.AreEqual(new CircularyDoubleLinkedList<int>(), list);
         }
+
+        //[TestMethod]
+        //public void AddElementToAListWithElements()
+        //{
+        //    CircularyDoubleLinkedList list = new CircularyDoubleLinkedList()
+        //}
     }
 }
